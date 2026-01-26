@@ -1,34 +1,37 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { TemperatureControl } from './components/inputs'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [targetTemp, setTargetTemp] = useState(27)
+  const currentTemp = 24 // Simulated sensor data
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <h1>IoT Components Test</h1>
+      
+      <div className="component-showcase">
+        <h2>Temperature Control</h2>
+        <div style={{ position: 'relative' }}>
+          <TemperatureControl 
+            targetTemp={targetTemp}
+            currentTemp={currentTemp} 
+            onChange={setTargetTemp}
+            min={18}
+            max={30}
+          />
+          <div style={{ 
+            marginTop: '30px', 
+            textAlign: 'center', 
+            color: '#666',
+            fontSize: '14px' 
+          }}>
+            <p>🔥 현재 온도 (Simulated): <strong>{currentTemp}°</strong></p>
+            <p>🎯 설정 온도 (Target): <strong>{targetTemp}°</strong></p>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
