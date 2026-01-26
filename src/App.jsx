@@ -3,7 +3,8 @@ import './App.css'
 import { TemperatureControl } from './components/inputs'
 
 function App() {
-  const [temperature, setTemperature] = useState(24)
+  const [targetTemp, setTargetTemp] = useState(27)
+  const currentTemp = 24 // Simulated sensor data
 
   return (
     <div className="app-container">
@@ -11,13 +12,24 @@ function App() {
       
       <div className="component-showcase">
         <h2>Temperature Control</h2>
-        <TemperatureControl 
-          value={temperature} 
-          onChange={setTemperature}
-          min={18}
-          max={30}
-        />
-        <p style={{ marginTop: '20px', color: '#666' }}>Current: {temperature}°C</p>
+        <div style={{ position: 'relative' }}>
+          <TemperatureControl 
+            targetTemp={targetTemp}
+            currentTemp={currentTemp} 
+            onChange={setTargetTemp}
+            min={18}
+            max={30}
+          />
+          <div style={{ 
+            marginTop: '30px', 
+            textAlign: 'center', 
+            color: '#666',
+            fontSize: '14px' 
+          }}>
+            <p>🔥 현재 온도 (Simulated): <strong>{currentTemp}°</strong></p>
+            <p>🎯 설정 온도 (Target): <strong>{targetTemp}°</strong></p>
+          </div>
+        </div>
       </div>
     </div>
   )
