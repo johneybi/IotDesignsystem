@@ -21,10 +21,21 @@
 
 /* Eliminate any browser default focus/hover outlines */
 .button:focus,
-.button:hover,
-.button:active {
+.button:hover {
   outline: none;
   border-color: #c7c7c7; /* Ensure border color doesn't change implicitly */
+}
+
+/* Active State (Pressed) */
+/* Active State (Pressed) */
+.button:active:not(:disabled) {
+  background: linear-gradient(-30deg, rgb(232, 232, 232) 11.254%, rgb(248, 248, 248) 84.422%);
+  box-shadow: 
+    inset -2px -2px 4px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.15);
+  color: var(--button-active-color, #555);
+  border-color: #c7c7c7;
+  outline: none;
 }
 
 /* --- Variants --- */
@@ -49,7 +60,7 @@
   box-shadow: 
     inset -2px -2px 4px rgba(255, 255, 255, 0.9),
     inset 2px 2px 5px rgba(0, 0, 0, 0.15);
-  color: #ff9f0a;
+  color: var(--button-active-color, #555);
   border-color: #c7c7c7; /* Maintain consistent border */
 }
 
