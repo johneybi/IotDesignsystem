@@ -24,6 +24,7 @@
 }
 
 .button:focus,
+.button:focus-visible,
 .button:hover {
   outline: none;
   /* Ensure border doesn't change implicitly unless specified */
