@@ -141,7 +141,10 @@ const TemperatureControl = ({
         />
 
         <div className={styles.display}>
-          <span className={styles.temperature}>{targetTemp}°</span>
+          <span className={styles.temperature}>
+            {targetTemp}
+            <span className={styles.unit}>°</span>
+          </span>
           <span className={styles.label}>설정 온도</span>
         </div>
 
