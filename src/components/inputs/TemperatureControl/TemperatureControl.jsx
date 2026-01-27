@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './TemperatureControl.module.css';
+import Button from '../Button/Button';
+import { Minus, Plus } from 'lucide-react';
 
 const TemperatureControl = ({ 
   targetTemp = 24, 
@@ -131,32 +133,27 @@ const TemperatureControl = ({
 
       {/* Controls */}
       <div className={styles.controls}>
-        <button 
-          className={styles.button} 
+        <Button
           onClick={handleDecrease}
           disabled={targetTemp <= min}
           aria-label="Decrease temperature"
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M19 13H5v-2h14v2z" />
-          </svg>
-        </button>
+          icon={<Minus size={24} />}
+        />
 
         <div className={styles.display}>
-          <span className={styles.temperature}>{targetTemp}°</span>
+          <span className={styles.temperature}>
+            {targetTemp}
+            <span className={styles.unit}>°</span>
+          </span>
           <span className={styles.label}>설정 온도</span>
         </div>
 
-        <button 
-          className={styles.button} 
+        <Button
           onClick={handleIncrease}
           disabled={targetTemp >= max}
           aria-label="Increase temperature"
-        >
-          <svg viewBox="0 0 24 24">
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-          </svg>
-        </button>
+          icon={<Plus size={24} />}
+        />
       </div>
     </div>
   );

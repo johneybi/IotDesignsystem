@@ -24,8 +24,7 @@
 }
 
 .button:focus,
-.button:hover,
-.button:active {
+.button:hover {
   outline: none;
   /* Ensure border doesn't change implicitly unless specified */
 }

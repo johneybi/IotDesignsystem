@@ -81,7 +81,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px; 
+  gap: 16px; 
 }
 
 .display {
@@ -93,6 +93,9 @@
 }
 
 .temperature {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
   font-family: 'Urbanist', sans-serif;
   font-size: 42px;
   font-weight: 300; 
@@ -101,40 +104,16 @@
   margin: 0;
 }
 
+.unit {
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+
 .label {
   font-size: 15px;
   color: #757575;
   margin-top: 0px;
 }
 
-/* Neumorphic Buttons */
-.button {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: none;
-  background: #f0f0f3;
-  box-shadow: -5px -5px 12px #ffffff, 5px 5px 12px #d1d9e6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #333;
-}
 
-.button:active:not(:disabled) {
-  box-shadow: inset -4px -4px 10px #ffffff, inset 4px 4px 10px #d1d9e6;
-}
-
-.button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.button svg {
-  width: 28px;
-  height: 28px;
-  fill: currentColor;
-}
