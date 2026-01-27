@@ -1,11 +1,15 @@
+:root {
+  --color-button-disabled-border: #9f9f9f;
+}
+
 .button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 53px; /* Figma: 53px */
+  width: 53px;
   height: 53px;
   border-radius: 26.5px;
-  border: 1px solid #c7c7c7; /* Fixed border from Figma */
+  border: 1px solid #c7c7c7;
   cursor: pointer;
   outline: none;
   font-family: inherit;
@@ -16,59 +20,62 @@
   color: #555;
   font-size: 14px;
   -webkit-tap-highlight-color: transparent;
-  background-clip: padding-box; /* Ensures background doesn't bleed under border */
+  background-clip: padding-box;
 }
 
-/* Eliminate any browser default focus/hover outlines */
 .button:focus,
 .button:hover,
 .button:active {
   outline: none;
-  border-color: #c7c7c7; /* Ensure border color doesn't change implicitly */
+  /* Ensure border doesn't change implicitly unless specified */
 }
 
-/* --- Variants --- */
+/* --- Variants from Figma (Binary Property) --- */
 
-/* Default State */
-/* Figma: shadow-[2px_2px_4px_0px_white,-2px_-2px_4px_0px_rgba(0,0,0,0.08)] */
-/* Note: Using exact Figma values implies Bottom-Right Light source (BR=White, TL=Dark) */
-.default {
-  background: linear-gradient(-30deg, rgb(232, 232, 232) 11.254%, rgb(248, 248, 248) 84.422%);
+/* Binary = off (Default/Normal) */
+.off {
+  /* linear-gradient(-30deg, rgb(232, 232, 232) 11.254%, rgb(248, 248, 248) 84.422%) */
+  background: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
+  
+  /* shadow-[2px_2px_4px_0px_white, -2px_-2px_4px_0px_rgba(0,0,0,0.08)] */
   box-shadow: 
     2px 2px 4px 0px #ffffff,
     -2px -2px 4px 0px rgba(0, 0, 0, 0.08);
 }
 
-/* Active State (Toggled On) */
-/* Assuming consistent light source (Bottom-Right), Inset should invert: 
-   - Inner Top-Left: Light (facing source)
-   - Inner Bottom-Right: Dark (shadow)
-*/
-.active {
-  background: linear-gradient(-30deg, rgb(232, 232, 232) 11.254%, rgb(248, 248, 248) 84.422%);
+/* Binary = on (Pressed/Active) */
+.on {
+  /* linear-gradient(240deg, rgb(232, 232, 232) 14%, rgb(248, 248, 248) 87.168%) */
+  background: linear-gradient(240deg, #e8e8e8 14%, #f8f8f8 87.17%);
+  
+  /* Inner shadows from Figma 'on' state */
+  /* inset_1.007px_1.007px_2.014px_0px_rgba(255,255,255,0.25) */
+  /* inset_-2.014px_-2.014px_4.027px_0px_rgba(255,255,255,0.8) */
+  /* inset_2.014px_2.014px_4.027px_0px_rgba(0,0,0,0.29) */
   box-shadow: 
-    inset -2px -2px 4px rgba(255, 255, 255, 0.9),
-    inset 2px 2px 5px rgba(0, 0, 0, 0.15);
-  color: #ff9f0a;
-  border-color: #c7c7c7; /* Maintain consistent border */
+    inset 1px 1px 2px 0px rgba(255, 255, 255, 0.25),
+    inset -2px -2px 4px 0px rgba(255, 255, 255, 0.8),
+    inset 2px 2px 4px 0px rgba(0, 0, 0, 0.29);
+    
+  color: #ff9f0a; /* Active text/icon color */
 }
 
-/* Inactive State */
-/* Figma: shadow-[-2px_-2px_4px_0px_rgba(255,255,255,0.3),2px_2px_4px_0px_rgba(0,0,0,0.08)] */
-/* This matches standard Top-Left light? (TL=Light, BR=Dark) - Following logic from snippet */
-.inactive {
-  background: #f0f0f3; /* Or use the gradient if required, snippet implies gradient actually? */
-  /* Snippet for Inactive had backgroundImage linear-gradient too... checking history... yes it did. */
-  background: linear-gradient(-30deg, rgb(232, 232, 232) 11.254%, rgb(248, 248, 248) 84.422%); 
-  /* But disabled usually looks flatter or washed out. I'll stick to snippet shadow. */
-  border-color: #9f9f9f; /* Figma snippet had #9f9f9f for Inactive border */
-  color: #a0a0a0;
-  cursor: not-allowed;
-  opacity: 0.7;
+/* Binary = disabled */
+.disabled {
+  /* Same gradient as off state in Figma data */
+  background: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
   
+  /* Border color variable */
+  border-color: var(--color-button-disabled-border);
+  
+  /* shadow-[-2px_-2px_4px_0px_rgba(255,255,255,0.3), 2px_2px_4px_0px_rgba(0,0,0,0.08)] */
   box-shadow: 
     -2px -2px 4px 0px rgba(255, 255, 255, 0.3),
     2px 2px 4px 0px rgba(0, 0, 0, 0.08);
+    
+  color: #a0a0a0;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .icon {

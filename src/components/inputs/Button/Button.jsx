@@ -3,19 +3,22 @@ import styles from './Button.module.css';
 
 const Button = ({ 
   active = false,
+  pressed = false, // Alias for active/on state
   disabled = false,
   onClick, 
   icon, 
   className = '',
   ...props 
 }) => {
-  // Determine the styling class based on state
-  let variantClass = styles.default; // Default (Off)
+  // Determine final state
+  const isOn = active || pressed;
+
+  let variantClass = styles.off; // Default
   
   if (disabled) {
-    variantClass = styles.inactive;
-  } else if (active) {
-    variantClass = styles.active; // Active (On)
+    variantClass = styles.disabled;
+  } else if (isOn) {
+    variantClass = styles.on;
   }
 
   return (
@@ -23,7 +26,7 @@ const Button = ({
       className={`${styles.button} ${variantClass} ${className}`}
       onClick={!disabled ? onClick : undefined}
       disabled={disabled}
-      aria-pressed={active}
+      aria-pressed={isOn}
       aria-disabled={disabled}
       {...props}
     >
