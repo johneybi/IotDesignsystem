@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './TemperatureControl.module.css';
-import Button from '../Button/Button';
+import { Action } from '../../molecules/Binary';
 import { Minus, Plus } from 'lucide-react';
 
 const TemperatureControl = ({ 
@@ -133,7 +133,7 @@ const TemperatureControl = ({
 
       {/* Controls */}
       <div className={styles.controls}>
-        <Button
+        <Action
           onClick={handleDecrease}
           disabled={targetTemp <= min}
           aria-label="Decrease temperature"
@@ -148,7 +148,7 @@ const TemperatureControl = ({
           <span className={styles.label}>설정 온도</span>
         </div>
 
-        <Button
+        <Action
           onClick={handleIncrease}
           disabled={targetTemp >= max}
           aria-label="Increase temperature"

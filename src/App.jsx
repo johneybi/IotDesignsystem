@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { TemperatureControl, Button } from './components/inputs'
+import { Action } from './components/molecules/Binary'
+import { TemperatureControl } from './components/inputs'
+import Button from './components/atoms/Button/Button'
 import './App.css'
 
 function App() {
@@ -60,17 +62,30 @@ function App() {
 
             <div className="component-showcase">
                <div className="showcase-header">
-                <h2>Button</h2>
-                <p>Versatile button component supporting icons, toggle states, and neumorphic depth.</p>
+                <h2>Atom: Button</h2>
+                <p>A versatile foundation component supporting icons and neumorphic depth. Defines the core interactive pattern with "Binary" toggle states.</p>
               </div>
               <div className="showcase-demo row">
                  <div className="demo-item">
+                    {/* Interactive Pattern */}
                     <Button 
                       active={isPowerOn} 
                       icon={PowerIcon} 
                       onClick={togglePower} 
                     />
-                    <label>{isPowerOn ? 'Active' : 'Default'}</label>
+                    <label>Interactive</label>
+                 </div>
+                 
+                 <div className="demo-separator" style={{ width: '1px', height: '60px', background: '#eee', margin: '0 20px' }}></div>
+
+                 {/* Explicit States */}
+                 <div className="demo-item">
+                    <Button active={false} icon={BulbIcon} />
+                    <label>State: Off</label>
+                 </div>
+                 <div className="demo-item">
+                    <Button active={true} icon={BulbIcon} />
+                    <label>State: On</label>
                  </div>
                  <div className="demo-item">
                     <Button 
@@ -78,16 +93,23 @@ function App() {
                       icon={PowerIcon} 
                       onClick={() => {}} 
                     />
-                    <label>Disabled</label>
+                    <label>State: Disabled</label>
                  </div>
-                 <div className="demo-item">
-                    <Button active={false} icon={BulbIcon} />
-                    <label>Static Off</label>
-                 </div>
-                 <div className="demo-item">
-                    <Button active={true} icon={BulbIcon} />
-                    <label>Static On</label>
-                 </div>
+              </div>
+            </div>
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Molecule: Binary/Action</h2>
+                <p>Momentary trigger component. Visual feedback on press, action on release.</p>
+              </div>
+              <div className="showcase-demo row">
+                <div className="demo-item">
+                  <Action 
+                    onClick={() => console.log('Action Triggered')}
+                    icon={<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>}
+                  />
+                  <label>Trigger Button<br/>(Momentary)</label>
+                </div>
               </div>
             </div>
           </div>

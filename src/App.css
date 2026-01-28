@@ -12,6 +12,32 @@
   --color-bg-app: #f4f6f8;
   
   --font-family: var(--font-main);
+
+  /* Component: Button */
+  --comp-button-size: 53px;
+  --comp-button-radius: 26.5px;
+  
+  /* Button - Enabled (Off) */
+  --comp-button-bg-enabled: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
+  --comp-button-shadow-enabled: 
+    2px 2px 4px 0px #ffffff,
+    -2px -2px 4px 0px rgba(0, 0, 0, 0.08);
+
+  /* Button - Active (On / Pressed) */
+  --comp-button-bg-active: linear-gradient(240deg, #e8e8e8 14%, #f8f8f8 87.17%);
+  --comp-button-shadow-active: 
+    inset 1px 1px 2px 0px rgba(255, 255, 255, 0.25),
+    inset -2px -2px 4px 0px rgba(255, 255, 255, 0.8),
+    inset 2px 2px 4px 0px rgba(0, 0, 0, 0.29);
+  --comp-button-icon-color-active: #555; /* Default: No color change. Override this variable in parent to apply color. */
+
+  /* Button - Disabled */
+  --comp-button-border-disabled: #9f9f9f;
+  --comp-button-text-disabled: #a0a0a0;
+  --comp-button-opacity-disabled: 0.7;
+  --comp-button-shadow-disabled:
+    -2px -2px 4px 0px rgba(255, 255, 255, 0.3),
+    2px 2px 4px 0px rgba(0, 0, 0, 0.08);
 }
 
 body {
