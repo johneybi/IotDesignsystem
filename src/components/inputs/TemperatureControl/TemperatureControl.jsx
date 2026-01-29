@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './TemperatureControl.module.css';
+import IndicatorDot from '../../atoms/IndicatorDot/IndicatorDot';
+import CircularGauge from '../../molecules/Circular/Gauge/CircularGauge';
+import Readout from '../../molecules/Display/Readout/Readout';
 import { Action } from '../../molecules/Binary';
 import { Minus, Plus } from 'lucide-react';
 
@@ -50,7 +53,6 @@ const TemperatureControl = ({
   const segmentLength = (rangeAngleSpan / 360) * circumference;
 
   // 4. Calculate Offset for Position
-  // How far is the start of the segment from the global start (135deg)?
   const angleFromStart = rangeStartAngle - startAngle;
   const offsetLength = (angleFromStart / 360) * circumference;
   
@@ -69,69 +71,35 @@ const TemperatureControl = ({
 
   return (
     <div className={styles.container}>
-      <svg className={styles.gaugeSvg} viewBox={`0 0 ${size} ${size}`}>
-        <defs>
-          <linearGradient 
-            id="tempGradient" 
-            gradientUnits="userSpaceOnUse"
-            x1="0" y1="300" x2="300" y2="300"
-          >
-            <stop offset="0%" stopColor="#FB8C6F" />   
-            <stop offset="50%" stopColor="#E6D378" />  
-            <stop offset="100%" stopColor="#6EE7B7" /> 
-          </linearGradient>
-        </defs>
-        
-        {/* Track (Gray Rail) - Fixed rotation at startAngle */}
-        <circle
-          className={styles.track}
-          cx={center}
-          cy={center}
-          r={radius}
-          transform={`rotate(${startAngle} ${center} ${center})`}
-          strokeDasharray={`${(totalAngle / 360) * circumference} ${circumference}`}
-          strokeDashoffset={0}
-        />
+      {/* Molecule: Circular Gauge */}
+      <CircularGauge
+        size={size}
+        radius={radius}
+        center={center}
+        strokeWidth={strokeWidth}
+        startAngle={startAngle}
+        totalAngle={totalAngle}
+        circumference={circumference}
+        segmentLength={segmentLength}
+        offsetLength={offsetLength}
+      />
 
-        {/* Range (Colored Arc) - Fixed Rotation, Variable Offset */}
-        {segmentLength > 0 && (
-          <circle
-            className={styles.progress}
-            cx={center}
-            cy={center}
-            r={radius}
-            // Fix the circle rotation to the global start angle (135)
-            transform={`rotate(${startAngle} ${center} ${center})`}
-            // Dasharray: [Length of segment, Rest of circle]
-            strokeDasharray={`${segmentLength} ${circumference}`}
-            // Dashoffset: Negative value shifts the start point 'forward' (clockwise)
-            strokeDashoffset={-offsetLength}
-          />
-        )}
-      </svg>
-
-      {/* Indicators */}
+      {/* Atom: Indicators (Positioned Absolutely) */}
       <div 
         className={styles.indicatorWrapper} 
-        style={{ 
-          left: currentPos.x, 
-          top: currentPos.y 
-        }}
+        style={{ left: currentPos.x, top: currentPos.y }}
       >
-        <div className={styles.currentDot} />
+        <IndicatorDot variant="current" />
       </div>
 
       <div 
         className={styles.indicatorWrapper} 
-        style={{ 
-          left: targetPos.x, 
-          top: targetPos.y 
-        }}
+        style={{ left: targetPos.x, top: targetPos.y }}
       >
-        <div className={styles.targetDot} />
+        <IndicatorDot variant="target" />
       </div>
 
-      {/* Controls */}
+      {/* Controls & Readout */}
       <div className={styles.controls}>
         <Action
           onClick={handleDecrease}
@@ -140,13 +108,12 @@ const TemperatureControl = ({
           icon={<Minus size={24} />}
         />
 
-        <div className={styles.display}>
-          <span className={styles.temperature}>
-            {targetTemp}
-            <span className={styles.unit}>°</span>
-          </span>
-          <span className={styles.label}>설정 온도</span>
-        </div>
+        {/* Molecule: Readout */}
+        <Readout 
+          value={targetTemp} 
+          unit="°" 
+          label="설정 온도" 
+        />
 
         <Action
           onClick={handleIncrease}

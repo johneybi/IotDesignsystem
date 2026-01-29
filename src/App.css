@@ -12,6 +12,15 @@
   --color-bg-app: #f4f6f8;
   
   --font-family: var(--font-main);
+  
+  /* Status Colors */
+  --color-status-active: #ff9f0a; /* Warm Yellow/Orange for active states */
+  --color-status-active-bg: linear-gradient(135deg, #ff9f0a 0%, #ffc107 100%);
+  
+  /* Temperature Gradient Colors */
+  --color-temp-warm: #FB8C6F;   /* Salmon */
+  --color-temp-neutral: #E6D378; /* Muted Yellow */
+  --color-temp-cool: #6EE7B7;    /* Teal */
 
   /* Component: Button */
   --comp-button-size: 53px;
@@ -29,7 +38,8 @@
     inset 1px 1px 2px 0px rgba(255, 255, 255, 0.25),
     inset -2px -2px 4px 0px rgba(255, 255, 255, 0.8),
     inset 2px 2px 4px 0px rgba(0, 0, 0, 0.29);
-  --comp-button-icon-color-active: #555; /* Default: No color change. Override this variable in parent to apply color. */
+    inset 2px 2px 4px 0px rgba(0, 0, 0, 0.29);
+  --comp-button-icon-color-active: var(--color-status-active); /* Default to Warm Yellow */
 
   /* Button - Disabled */
   --comp-button-border-disabled: #9f9f9f;
@@ -41,13 +51,24 @@
 
   /* Component: Slider */
   --comp-slider-track-height: 12px;
-  --comp-slider-track-radius: 6px;
-  --comp-slider-track-bg: inset 2px 2px 5px rgba(0,0,0,0.1), inset -2px -2px 5px rgba(255,255,255,0.8);
-  --comp-slider-fill-bg: linear-gradient(90deg, #ff9f0a 0%, #ffc107 100%);
+  --comp-slider-track-radius: 35px; /* Match rounded-[35px] */
+  --comp-slider-track-bg: #e5e5e5;
+  --comp-slider-track-border: 1px solid #a3a3a3;
+  --comp-slider-track-shadow: none; /* Removing inner shadow as per design */
   
-  --comp-slider-thumb-size: 24px;
-  --comp-slider-thumb-bg: #f0f0f3;
-  --comp-slider-thumb-shadow: 3px 3px 6px rgba(0,0,0,0.2), -3px -3px 6px rgba(255,255,255,0.8);
+  --comp-slider-fill-bg: #737373; /* Neutral 500 */
+  
+  --comp-slider-thumb-size: 20px;
+  --comp-slider-thumb-bg: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
+  --comp-slider-thumb-border: 1px solid #c7c7c7;
+  --comp-slider-thumb-shadow: 0px 8px 8px 0px rgba(0,0,0,0.25);
+  --comp-slider-thumb-shadow-active: 0px 4px 4px 0px rgba(0,0,0,0.25); /* Flatten slightly on press */
+
+  /* Slider Ticks & Labels */
+  --comp-slider-tick-bg: rgba(0, 0, 0, 0.2);
+  --comp-slider-tick-active-bg: rgba(255, 255, 255, 0.9);
+  --comp-slider-label-color: var(--color-text-3);
+  --comp-slider-label-active-color: var(--color-text-1); /* Use primary text color for active label */
 }
 
 body {
