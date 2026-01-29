@@ -38,6 +38,16 @@
   --comp-button-shadow-disabled:
     -2px -2px 4px 0px rgba(255, 255, 255, 0.3),
     2px 2px 4px 0px rgba(0, 0, 0, 0.08);
+
+  /* Component: Slider */
+  --comp-slider-track-height: 12px;
+  --comp-slider-track-radius: 6px;
+  --comp-slider-track-bg: inset 2px 2px 5px rgba(0,0,0,0.1), inset -2px -2px 5px rgba(255,255,255,0.8);
+  --comp-slider-fill-bg: linear-gradient(90deg, #ff9f0a 0%, #ffc107 100%);
+  
+  --comp-slider-thumb-size: 24px;
+  --comp-slider-thumb-bg: #f0f0f3;
+  --comp-slider-thumb-shadow: 3px 3px 6px rgba(0,0,0,0.2), -3px -3px 6px rgba(255,255,255,0.8);
 }
 
 body {

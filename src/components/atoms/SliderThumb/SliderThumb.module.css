@@ -1,0 +1,18 @@
+.thumb {
+  position: absolute;
+  width: var(--comp-slider-thumb-size, 24px);
+  height: var(--comp-slider-thumb-size, 24px);
+  border-radius: 50%;
+  background: var(--comp-slider-thumb-bg, #f0f0f3);
+  box-shadow: var(--comp-slider-thumb-shadow);
+  cursor: grab;
+  transform: translateX(-50%); /* Center the thumb on the value position */
+  transition: box-shadow 0.2s, transform 0.1s;
+  z-index: 2;
+}
+
+.thumb:active,
+.active {
+  cursor: grabbing;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1), inset -2px -2px 5px rgba(255,255,255,0.8);
+}
