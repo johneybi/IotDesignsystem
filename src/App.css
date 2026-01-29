@@ -1,4 +1,8 @@
 /* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   --color-primary: #165dff; /* Arco Blue */
   --color-primary-light: #e8f3ff;
@@ -199,7 +203,7 @@ body {
 .content-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 40px 60px;
+  padding: 40px 60px 100px; /* Added extra bottom padding */
 }
 
 .doc-section {
