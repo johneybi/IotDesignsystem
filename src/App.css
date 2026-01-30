@@ -73,6 +73,17 @@
   --comp-slider-tick-active-bg: rgba(255, 255, 255, 0.9);
   --comp-slider-label-color: var(--color-text-3);
   --comp-slider-label-active-color: var(--color-text-1); /* Use primary text color for active label */
+  /* Component: Card */
+  --comp-card-bg: #fafafa;
+  --comp-card-bg-off: #a3a3a3; /* Neutral 400 from Figma */
+  --comp-card-radius: 20px;
+  --comp-card-padding: 24px; /* standardized from ~22px */
+  
+  /* Component: Device Info */
+  --comp-device-name-size: 20px;
+  --comp-device-name-color: #000000;
+  --comp-device-status-size: 13px;
+  --comp-device-status-color: #868686;
 }
 
 body {

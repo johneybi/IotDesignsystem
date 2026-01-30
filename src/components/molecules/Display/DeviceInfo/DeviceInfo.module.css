@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  margin: 0;
+  font-size: var(--comp-device-name-size);
+  color: var(--comp-device-name-color);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.status {
+  font-size: var(--comp-device-status-size);
+  color: var(--comp-device-status-color);
+  line-height: 1;
+}
+
+.on {
+  color: var(--color-status-active); /* Optional: Highlight status when on */
+}

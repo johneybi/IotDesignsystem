@@ -8,6 +8,7 @@ import SliderThumb from './components/atoms/SliderThumb/SliderThumb'
 import IndicatorDot from './components/atoms/IndicatorDot/IndicatorDot'
 import CircularGauge from './components/molecules/Circular/Gauge/CircularGauge'
 import Readout from './components/molecules/Display/Readout/Readout'
+import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/BinaryDeviceCard'
 import './App.css'
 
 function App() {
@@ -227,8 +228,28 @@ function App() {
                 </div>
               </div>
             </div>
+
+            <h3 style={{ margin: '40px 0 20px', color: '#86909c' }}>Organisms</h3>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Organism: Binary Device Card</h2>
+                <p>Standard dashboard card for toggling binary devices (Lights, Plugs).</p>
+              </div>
+              <div className="showcase-demo" style={{ background: '#f4f6f8' }}> {/* App BG color to see card contrast */}
+                <BinaryDeviceCard 
+                   name="Light 01"
+                   status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
+                   isOn={isPowerOn}
+                   onToggle={togglePower}
+                   icon={BulbIcon}
+                />
+              </div>
+            </div>
           </div>
         );
+
+
       case 'inputs':
         return (
           <div className="doc-section">
