@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(150deg, #e8e8e8 11%, #f8f8f8 84%);
+  border-radius: 50%;
+  box-shadow: -10px -10px 20px #ffffff, 10px 10px 20px #d1d9e6;
+  font-family: 'SUIT Variable', sans-serif;
+  user-select: none;
+}
+
+/* Common style for indicators */
+.indicatorWrapper {
+  position: absolute;
+  width: 0; 
+  height: 0;
+  pointer-events: none;
+  transition: top 0.3s ease, left 0.3s ease;
+  z-index: 20;
+}
+
+/* Center Content */
+.controls {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px; 
+}
+
+
