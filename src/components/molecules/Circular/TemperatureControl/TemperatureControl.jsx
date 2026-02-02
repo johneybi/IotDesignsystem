@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './TemperatureControl.module.css';
-import IndicatorDot from '../../atoms/IndicatorDot/IndicatorDot';
-import CircularGauge from '../../molecules/Circular/Gauge/CircularGauge';
-import Readout from '../../molecules/Display/Readout/Readout';
-import { Action } from '../../molecules/Binary';
+import IndicatorDot from '../../../atoms/IndicatorDot/IndicatorDot';
+import CircularGauge from '../Gauge/CircularGauge';
+import Readout from '../../Display/Readout/Readout';
+import { Action } from '../../Binary';
 import { Minus, Plus } from 'lucide-react';
 
 const TemperatureControl = ({ 

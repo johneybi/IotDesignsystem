@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
-import moonIcon from '../../assets/icon-moon.svg';
-import sunIcon from '../../assets/icon-sun.svg';
+import moonIcon from '../../../../assets/icon-moon.svg';
+import sunIcon from '../../../../assets/icon-sun.svg';
 import './AdaptiveLightSlider.css';
 
 export default function AdaptiveLightSlider() {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Action } from './components/molecules/Binary'
 import { Slider } from './components/molecules/Linear'
-import { TemperatureControl } from './components/inputs'
+
 import Button from './components/atoms/Button/Button'
 import SliderTrack from './components/atoms/SliderTrack/SliderTrack'
 import SliderThumb from './components/atoms/SliderThumb/SliderThumb'
@@ -10,10 +10,11 @@ import CircularGauge from './components/molecules/Circular/Gauge/CircularGauge'
 import Readout from './components/molecules/Display/Readout/Readout'
 import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/BinaryDeviceCard'
 import './App.css'
-import LightControlSlider from './components/inputs/LightControlSlider'
-import AdaptiveLightSlider from './components/inputs/AdaptiveLightSlider'
-import DualControlSlider from './components/inputs/DualControlSlider'
-import SingleHorizontalSlider from './components/inputs/SingleHorizontalSlider'
+import LightControlSlider from './components/molecules/Linear/LightControlSlider/LightControlSlider'
+import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSlider'
+import DualControlSlider from './components/molecules/Linear/DualControlSlider/DualControlSlider'
+import SingleHorizontalSlider from './components/molecules/Linear/SingleHorizontalSlider/SingleHorizontalSlider'
+import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
 
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -230,6 +231,45 @@ function App() {
                   />
                   <label>Step Slider (Level: {stepLevel})</label>
                 </div>
+              </div>
+            </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Molecule: Light Control Sliders</h2>
+                <p>Specialized linear sliders for light intensity and warmth control.</p>
+              </div>
+              <div className="showcase-demo row" style={{ flexDirection: 'column', gap: '40px', alignItems: 'flex-start' }}>
+                 <div className="demo-item">
+                    <LightControlSlider />
+                    <label>Light Control (Simple)</label>
+                 </div>
+                 <div className="demo-item">
+                    <AdaptiveLightSlider />
+                    <label>Adaptive Light (Gradient)</label>
+                 </div>
+                 <div className="demo-item" style={{ width: '100%' }}>
+                    <DualControlSlider />
+                    <label>Dual Control (Two Thumb)</label>
+                 </div>
+                 <div className="demo-item" style={{ width: '100%' }}>
+                    <SingleHorizontalSlider />
+                    <label>Single Horizontal</label>
+                 </div>
+              </div>
+            </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Molecule: Circular/Temperature Control</h2>
+                <p>A circular dial for adjusting temperature with haptic-like visual feedback.</p>
+              </div>
+              <div className="showcase-demo">
+                <TemperatureControl 
+                  targetTemp={targetTemp} 
+                  currentTemp={currentTemp} 
+                  onChange={setTargetTemp} 
+                />
               </div>
             </div>
 
