@@ -1,0 +1,127 @@
+/* src/components/inputs/LightControlSlider.css */
+.light-control-slider {
+    position: relative;
+    width: 116px;
+    height: 272px;
+    border-radius: 36px;
+    overflow: hidden;
+    /* Container background: If frames are transparent/opaque, this matters.
+       User said Top: #515151, Bottom: #FFFFFF (52%).
+       If Bottom is 50% opacity, we see this background.
+       I'll set it to transparent or a neutral base to ensure colors are true.
+       Actually, if Bottom is "Use pure #FFFFFF... Opacity 52%", allowing it to be "dim" white?
+       Let's stick to the Frames defining the look.
+    */
+    background: #000000;
+    /* Fallback dark usually helps opacity pop */
+    box-shadow: none;
+    touch-action: none;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* 
+   User Request:
+   Top (Gray Part): #515151
+   Bottom (Yellow/Light Part): Pure #FFFFFF with 52% opacity gradient?
+   
+   "Gradient effect: #FFFFFF vertical gradient... Opacity 52%"
+   Maybe they mean linear-gradient(to bottom, rgba(255,255,255,0.52), rgba(255,255,255,0.52))?
+   Or a gradient of opacity?
+   
+   "Use pure #FFFFFF as base... Opacity 52% fixed." -> Sounds like solid color with opacity.
+*/
+
+.slider-frame-top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    /* Gradient #515151 to #FFFFFF with 50% opacity per user request */
+    background: linear-gradient(180deg, #515151 0%, #FFFFFF 100%);
+    opacity: 0.5;
+}
+
+.slider-frame-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* White Part with 100% Opacity per user request */
+    background: #FFFFFF;
+}
+
+/* Handle (frame198) */
+.slider-handle-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58px;
+    height: 5px;
+    z-index: 10;
+    cursor: grab;
+    pointer-events: none;
+}
+
+.slider-handle {
+    width: 100%;
+    height: 100%;
+    background-color: #D9D9D9;
+    border-radius: 14px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Icons - Gray Tone */
+.slider-icon {
+    position: absolute;
+    z-index: 20;
+    pointer-events: none;
+    transition: all 0.4s ease-out;
+}
+
+/* "Icons should be gray tone distinguishable" 
+   Top Icon sits on #515151 (Dark Gray). Needs Light Gray.
+   Bottom Icon sits on #FFFFFF 52% (Mid Light). Needs darker Gray?
+   Let's use a solid specific gray for both or mix-blend-mode?
+   Let's try a light gray that is visible on 515151.
+   #CCCCCC?
+*/
+.slider-icon svg path,
+.slider-icon svg circle {
+    stroke: #D1D5DB;
+    /* Light Gray (Tailwind gray-300) to be visible on dark */
+}
+
+/* To ensure visibility on the White Bottom part (which might be over black?),
+   #D1D5DB on (White 52% over Black) -> Light Gray on Gray?
+   The contrast might be low.
+   But user said "Gray tone".
+   Let's stick to one color for consistency or change based on container.
+*/
+.slider-icon.bottom svg path,
+.slider-icon.bottom svg circle {
+    stroke: #4B5563;
+    /* Darker Gray (gray-600) for the Light Frame area */
+}
+
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.slider-value {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: #2C2C2C;
+}
+
+@media (prefers-color-scheme: dark) {
+    .slider-value {
+        color: #E5E5E5;
+    }
+}
