@@ -10,6 +10,10 @@ import CircularGauge from './components/molecules/Circular/Gauge/CircularGauge'
 import Readout from './components/molecules/Display/Readout/Readout'
 import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/BinaryDeviceCard'
 import './App.css'
+import LightControlSlider from './components/inputs/LightControlSlider'
+import AdaptiveLightSlider from './components/inputs/AdaptiveLightSlider'
+import DualControlSlider from './components/inputs/DualControlSlider'
+import SingleHorizontalSlider from './components/inputs/SingleHorizontalSlider'
 
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
