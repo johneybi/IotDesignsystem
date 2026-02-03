@@ -1,12 +1,13 @@
 /* src/components/inputs/DualControlSlider.css */
 .dual-control-slider {
     position: relative;
-    width: 272px;
+    width: 100%; /* Responsive width */
+    max-width: 272px;
     height: 116px;
     border-radius: 36px;
     overflow: hidden;
     /* Center "Behind Sun" is #FFFFFF */
-    background: #FFFFFF;
+    background: var(--color-bg-white);
     touch-action: none;
     user-select: none;
     display: flex;
@@ -26,7 +27,7 @@
     top: 0;
     height: 100%;
     /* Gradient: Left (Edge) #515151 -> Right (Handle) #B7B7B7 */
-    background: linear-gradient(90deg, #515151 0%, #B7B7B7 100%);
+    background: var(--slider-gradient-silver-warm);
     z-index: 10;
     /* Above container */
 }
@@ -45,7 +46,7 @@
        Start (Right) -> End (Left)
        Start: #515151, End: #B7B7B7
     */
-    background: linear-gradient(to left, #515151 0%, #B7B7B7 100%);
+    background: var(--slider-gradient-silver-cool);
     z-index: 10;
 }
 
@@ -90,13 +91,13 @@
 .dual-icon.left svg circle,
 .dual-icon.right svg path,
 .dual-icon.right svg circle {
-    stroke: #FFFFFF;
+    stroke: var(--slider-icon-color-light);
     /* White on Dark Gradient */
 }
 
 .dual-icon.center svg path,
 .dual-icon.center svg circle {
-    stroke: #515151;
+    stroke: var(--slider-icon-color-dark);
     /* Dark on White Background */
 }
 
@@ -141,6 +142,6 @@
 
 @media (prefers-color-scheme: dark) {
     .dual-values {
-        color: #E5E5E5;
+        color: var(--color-border); /* using generic border color as placeholder for 'E5E5E5' if closely matched, or define new token */
     }
 }

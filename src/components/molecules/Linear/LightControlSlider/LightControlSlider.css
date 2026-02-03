@@ -1,8 +1,14 @@
 /* src/components/inputs/LightControlSlider.css */
 .light-control-slider {
     position: relative;
-    width: 116px;
-    height: 272px;
+    width: 100%; /* Responsive width */
+    max-width: 116px; 
+    /* height: 272px;  -- Removing fixed height to allow container control or standard height? 
+       For vertical slider, height is significant. 
+       Let's keep height for now or make it min-height? User requests responsive. 
+       Let's assume parent or prop will drive it if needed, but for CSS refactor: */
+    height: 100%;
+    min-height: 272px;
     border-radius: 36px;
     overflow: hidden;
     /* Container background: If frames are transparent/opaque, this matters.
@@ -12,7 +18,7 @@
        Actually, if Bottom is "Use pure #FFFFFF... Opacity 52%", allowing it to be "dim" white?
        Let's stick to the Frames defining the look.
     */
-    background: #000000;
+    background: #000000; /* Use token if avail, else fallback is fine for bg */
     /* Fallback dark usually helps opacity pop */
     box-shadow: none;
     touch-action: none;
@@ -41,7 +47,7 @@
     top: 0;
     width: 100%;
     /* Gradient #515151 to #FFFFFF with 50% opacity per user request */
-    background: linear-gradient(180deg, #515151 0%, #FFFFFF 100%);
+    background: linear-gradient(180deg, var(--slider-icon-color-dark) 0%, var(--color-bg-white) 100%);
     opacity: 0.5;
 }
 
@@ -50,7 +56,7 @@
     bottom: 0;
     width: 100%;
     /* White Part with 100% Opacity per user request */
-    background: #FFFFFF;
+    background: var(--color-bg-white);
 }
 
 /* Handle (frame198) */
@@ -62,21 +68,24 @@
     height: 5px;
     z-index: 10;
     cursor: grab;
+    cursor: grab;
     pointer-events: none;
+    /* Center horizontal, but allow atom to handle its own layout if needed */
+    display: flex;
+    justify-content: center;
 }
 
-.slider-handle {
-    width: 100%;
-    height: 100%;
-    background-color: #D9D9D9;
-    border-radius: 14px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+
 
 /* Icons - Gray Tone */
 .slider-icon {
     position: absolute;
     z-index: 20;
+    display: flex; /* Ensure SVG centers if it's not block */
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
     pointer-events: none;
     transition: all 0.4s ease-out;
 }
@@ -90,7 +99,7 @@
 */
 .slider-icon svg path,
 .slider-icon svg circle {
-    stroke: #D1D5DB;
+    stroke: #D1D5DB; /* Tokenize? */
     /* Light Gray (Tailwind gray-300) to be visible on dark */
 }
 
@@ -102,7 +111,7 @@
 */
 .slider-icon.bottom svg path,
 .slider-icon.bottom svg circle {
-    stroke: #4B5563;
+    stroke: #4B5563; /* Tokenize? */
     /* Darker Gray (gray-600) for the Light Frame area */
 }
 
@@ -111,17 +120,19 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    width: 100%;
+    max-width: 116px; /* Match internal slider max-width */
 }
 
 .slider-value {
     font-size: 1.25rem;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
-    color: #2C2C2C;
+    color: var(--color-text-1);
 }
 
 @media (prefers-color-scheme: dark) {
     .slider-value {
-        color: #E5E5E5;
+        color: var(--color-text-1);
     }
 }

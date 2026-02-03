@@ -92,6 +92,15 @@
   --comp-device-name-color: #000000;
   --comp-device-status-size: 13px;
   --comp-device-status-color: #868686;
+
+  /* Specific Slider Gradients & Tokens */
+  --slider-gradient-silver-warm: linear-gradient(90deg, #515151 0%, #B7B7B7 100%);
+  --slider-gradient-silver-cool: linear-gradient(to left, #515151 0%, #B7B7B7 100%); /* Right to Left */
+  --slider-thumb-gradient-matte: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
+  --slider-thumb-border-color: #c7c7c7;
+  --slider-knob-shadow-large: 0px 32.4px 32.4px 0px rgba(0, 0, 0, 0.25);
+  --slider-icon-color-dark: #515151;
+  --slider-icon-color-light: #FFFFFF;
 }
 
 body {

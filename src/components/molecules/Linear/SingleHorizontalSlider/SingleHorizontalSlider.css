@@ -1,12 +1,13 @@
 /* src/components/inputs/SingleHorizontalSlider.css */
 .single-horizontal-slider {
     position: relative;
-    width: 272px;
+    width: 100%; /* Responsive width */
+    max-width: 272px;
     height: 116px;
     border-radius: 36px;
     overflow: hidden;
     /* Base: White */
-    background: #FFFFFF;
+    background: var(--color-bg-white);
     touch-action: none;
     user-select: none;
     display: flex;
@@ -24,7 +25,7 @@
     top: 0;
     height: 100%;
     /* Gradient Left #B7B7B7 -> Right #515151 */
-    background: linear-gradient(90deg, #B7B7B7 0%, #515151 100%);
+    background: var(--slider-gradient-silver-warm);
     opacity: 0.52;
     z-index: 10;
     pointer-events: none;
@@ -68,7 +69,7 @@
     height: 100%;
     background-color: #D9D9D9;
     border-radius: 14px;
-    box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25); /* Tokenize if standard shadow, or specific */
 }
 
 /* Wrapper */

@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
 import moonIcon from '../../../../assets/icon-moon.svg';
 import sunIcon from '../../../../assets/icon-sun.svg';
-import './AdaptiveLightSlider.css';
+import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
+import './AdaptiveLightSliderNew.css';
 
 export default function AdaptiveLightSlider() {
+    console.log("DEBUG: AdaptiveLightSlider Rendered (V3 - Highlight Removed)");
     const constraintsRef = useRef(null);
 
     // Container dimensions
@@ -85,29 +87,47 @@ export default function AdaptiveLightSlider() {
                 dragElastic={0}
                 dragMomentum={false}
                 style={{ y, x: "-50%" }}
-                className="adaptive-slider-knob"
+                className="adaptive-slider-knob-wrapper-v2" 
             >
-                {/* Visual Circle (Gradient, Border, Shadow) */}
-                <div className="adaptive-slider-knob-visual" />
+                {/* 
+                    Using SliderThumb as the visual knob. 
+                    We pass the custom class 'adaptive-slider-thumb' to override default atom styles (size, gradient).
+                */}
+                <SliderThumb className="adaptive-slider-thumb-v2">
 
-                {/* Inner Highlight */}
-                <div className="adaptive-slider-knob-inner-highlight" />
 
-                {/* Icons */}
-                <div className="adaptive-slider-icon-wrapper">
-                    <motion.img
-                        src={sunIcon}
-                        className="adaptive-slider-icon"
-                        style={{ opacity: sunOpacity }}
-                        alt="Sun"
-                    />
-                    <motion.img
-                        src={moonIcon}
-                        className="adaptive-slider-icon"
-                        style={{ opacity: moonOpacity }}
-                        alt="Moon"
-                    />
-                </div>
+                    {/* Icons */}
+                    <div className="adaptive-slider-icon-wrapper">
+                        <motion.img
+                            src={sunIcon}
+                            className="adaptive-slider-icon"
+                            name="sun"
+                            draggable="false"
+                            onDragStart={(e) => e.preventDefault()}
+                            style={{ 
+                                opacity: sunOpacity, 
+                                pointerEvents: 'none', 
+                                userSelect: 'none', 
+                                WebkitUserDrag: 'none' 
+                            }}
+                            alt="Sun"
+                        />
+                        <motion.img
+                            src={moonIcon}
+                            className="adaptive-slider-icon"
+                            name="moon"
+                            draggable="false"
+                            onDragStart={(e) => e.preventDefault()}
+                            style={{ 
+                                opacity: moonOpacity, 
+                                pointerEvents: 'none', 
+                                userSelect: 'none', 
+                                WebkitUserDrag: 'none' 
+                            }}
+                            alt="Moon"
+                        />
+                    </div>
+                </SliderThumb>
             </motion.div>
         </motion.div>
     );

@@ -11,7 +11,8 @@ import Readout from './components/molecules/Display/Readout/Readout'
 import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/BinaryDeviceCard'
 import './App.css'
 import LightControlSlider from './components/molecules/Linear/LightControlSlider/LightControlSlider'
-import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSlider'
+import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
+import VerticalLightSlider from './components/molecules/Linear/VerticalLightSlider/VerticalLightSlider'
 import DualControlSlider from './components/molecules/Linear/DualControlSlider/DualControlSlider'
 import SingleHorizontalSlider from './components/molecules/Linear/SingleHorizontalSlider/SingleHorizontalSlider'
 import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
@@ -47,7 +48,7 @@ function App() {
       case 'overview':
         return (
           <div className="doc-section">
-            <h1 className="doc-title">AI Adaptive Design System</h1>
+            <h1 className="doc-title" style={{color: 'red'}}>AI Adaptive Design System - DEBUG MODE</h1>
             <p className="doc-intro">
               Welcome to the Design System for the Open Smart Home Project. 
               This system utilizes AI-driven adaptive interfaces to provide a seamless user experience.
@@ -247,6 +248,14 @@ function App() {
                  <div className="demo-item">
                     <AdaptiveLightSlider />
                     <label>Adaptive Light (Gradient)</label>
+                 </div>
+                <div className="demo-item">
+                    <VerticalLightSlider handlePosition="in-bottom" />
+                     <label>Vertical (in-bottom)</label>
+                 </div>
+                 <div className="demo-item">
+                    <VerticalLightSlider handlePosition="in-top" />
+                     <label>Vertical (in-top)</label>
                  </div>
                  <div className="demo-item" style={{ width: '100%' }}>
                     <DualControlSlider />

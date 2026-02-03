@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import SliderHandle from '../../../atoms/SliderHandle/SliderHandle';
 import './LightControlSlider.css';
 
 const MoonIcon = () => (
@@ -55,74 +56,44 @@ const LightControlSlider = () => {
         if (relativeY < 0) relativeY = 0;
         if (relativeY > height) relativeY = height;
 
-        // Position 0% (Top) to 100% (Bottom)
-        const percentage = Math.round((relativeY / height) * 100);
+        // Position 100% (Top) to 0% (Bottom)
+        // Drag UP -> Value Increases -> Brightness Increases
+        const percentage = Math.round(((height - relativeY) / height) * 100);
         setSliderPos(percentage);
     };
 
-    // Logic per User Request:
-    // 0% (Top) = Dark. 
-    // 100% (Bottom) = Bright.
     const displayValue = sliderPos;
 
-    // Icon Animations
-    // Center Top Offset = 124px
-    // Default Padding = 24px
-
-    // Moon (Top Icon) Logic:
-    // At 0% (Dark/Top): Opacity 0 (Disappears).
-    // At 100% (Bright/Bottom): Centered (Suggests darkening).
+    // Icons: Attached to Handle (Move with slider).
+    // Logic matches Reference 'knob':
+    // Moon (Dark/Low): Visible 0 -> 50%
+    // Sun (Bright/High): Visible 50 -> 100%
 
     const getMoonStyle = () => {
-        let top = '24px';
         let opacity = 1;
-
-        if (sliderPos <= 50) {
-            // 0 to 50: Moon fades IN. Position Fixed at 24px.
-            // At 0: Opacity 0.
-            // At 50: Opacity 1.
-            opacity = sliderPos / 50;
-            top = '24px';
+        // Visible 0 - 50.
+        if (sliderPos > 50) {
+             opacity = 0;
         } else {
-            // 50 to 100: Moon moves DOWN to Center. Opacity 1.
-            // At 50: Top 24px.
-            // At 100: Top 124px.
-            const ratio = (sliderPos - 50) / 50;
-            const px = 24 + (100 * ratio); // 24 + 100 = 124
-            top = `${px}px`;
-            opacity = 1;
+             // 0 -> 50 Fade out? Or just stay visible?
+             // Ref: 98 -> 173 (Low half) -> 0 to 1.
+             // So at 50 (Mid) it is 0. At 0 (Low) it is 1.
+             opacity = 1 - (sliderPos / 50);
         }
-        return { top, opacity };
+        return { opacity, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
     };
 
-    // Sun (Bottom Icon) Logic:
-    // At 0% (Dark/Top): Centered (Suggests brightening). 
-    // At 100% (Bright/Bottom): Opacity 0 (Disappears).
-
     const getSunStyle = () => {
-        let bottom = '24px';
         let opacity = 1;
-
-        if (sliderPos <= 50) {
-            // 0 to 50: Sun moves DOWN from Center to Bottom. Opacity 1.
-            // At 0: Bottom 124px.
-            // At 50: Bottom 24px.
-            // ratio: increases as sliderPos increases
-            const ratio = sliderPos / 50; // 0 -> 1
-            // We want 124 -> 24.
-            // 124 - (100 * ratio)
-            const px = 124 - (100 * ratio);
-            bottom = `${px}px`;
-            opacity = 1;
+        // Visible 50 - 100.
+        if (sliderPos < 50) {
+            opacity = 0;
         } else {
-            // 50 to 100: Sun is at Bottom. Fades OUT.
-            // At 50: Opacity 1.
-            // At 100: Opacity 0.
-            const ratio = (sliderPos - 50) / 50; // 0 -> 1
-            opacity = 1 - ratio;
-            bottom = '24px';
+            // 50 -> 100 Fade in.
+            // At 50 (Mid) it is 0. At 100 (High) it is 1.
+            opacity = (sliderPos - 50) / 50;
         }
-        return { bottom, opacity };
+        return { opacity, position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
     };
 
     return (
@@ -135,34 +106,46 @@ const LightControlSlider = () => {
                 onPointerUp={handlePointerUp}
             >
                 {/* Frames */}
+                {/* Up = Bright (100). Down = Dark (0). */}
+                
+                {/* Dark Frame (Empty) - Attached Top */}
                 <div
-                    className="slider-frame-top"
-                    style={{ height: `${sliderPos}%` }}
+                    className="slider-frame-top" 
+                    style={{ 
+                        top: 0,
+                        bottom: 'auto',
+                        height: `${100 - sliderPos}%` 
+                    }}
                 />
 
+                {/* White Frame (Fill) - Attached Bottom */}
                 <div
                     className="slider-frame-bottom"
-                    style={{ height: `${100 - sliderPos}%` }}
+                    style={{ 
+                        top: 'auto',
+                        bottom: 0,
+                        height: `${sliderPos}%` 
+                    }}
                 />
 
-                {/* Icons */}
-                <div className="slider-icon top" style={getMoonStyle()}>
-                    <MoonIcon />
-                </div>
-                <div className="slider-icon bottom" style={getSunStyle()}>
-                    <SunIcon />
-                </div>
-
-                {/* Handle */}
+                {/* Handle contains Icons now */}
                 <div
                     className="slider-handle-container"
                     style={{
-                        top: `calc(${sliderPos}% - 2.5px)`
+                        // Handle moves 0% (Bottom) to 100% (Top).
+                        top: `calc(${100 - sliderPos}% - 2.5px)` 
                     }}
                 >
-                    <div className="slider-handle"></div>
+                    <SliderHandle />
+                    
+                    {/* Icons move with Handle */}
+                    <div className="slider-icon top" style={getSunStyle()}>
+                        <SunIcon />
+                    </div>
+                    <div className="slider-icon bottom" style={getMoonStyle()}>
+                        <MoonIcon />
+                    </div>
                 </div>
-
             </div>
 
             <div className="slider-value">

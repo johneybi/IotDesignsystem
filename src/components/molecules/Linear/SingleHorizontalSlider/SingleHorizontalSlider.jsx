@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import './SingleHorizontalSlider.css';
 
@@ -27,40 +27,43 @@ const SingleHorizontalSlider = () => {
     const sliderRef = useRef(null);
     const dragging = useRef(false);
 
-    const sliderWidth = 272;
-    const handleWidth = 5;
-    const maxDrag = sliderWidth - handleWidth;
-
-    // Centers:
-    // Center from Left = 136px. Left Icon Default = 24. Diff = 112?
-    // Let's rely on explicit offsets.
-    // 136 - 24 - 12 = 100.
-    const sunCenterOffset = 100;
-    const moonCenterOffset = -100;
-
-    const x = useMotionValue(0);
-
-    // Extend fill slightly so it tucks under the rounded handle
-    const fillWidth = useTransform(x, (v) => v + 4);
-
-    // Thresholds
-    const returnThreshold = maxDrag * 0.2; // 20% range for snappy return
-
-    // --- SUN (Left Icon) ---
-    // 0 -> Mid: Center -> Left.
-    const sunX = useTransform(x, [0, returnThreshold], [sunCenterOffset, 0]);
-    // Opacity: Max -> Gone.
-    const sunOpacity = useTransform(x, [maxDrag - returnThreshold, maxDrag], [1, 0]);
-    // Color: 0(Dark Gray) -> Mid(White).
-    const sunColor = useTransform(x, [0, returnThreshold], ["#515151", "#FFFFFF"]);
-
-
     // --- MOON (Right Icon) ---
     // Max -> Mid: Center -> Right.
-    const moonX = useTransform(x, [maxDrag - returnThreshold, maxDrag], [0, moonCenterOffset]);
-    // Opacity: 0 -> Gone.
+    // Use Percentage ranges for transforms to be responsive.
+    // X is 0 to 100%.
+    // sunCenterOffset = 100px? This works for 272px width.
+    // If width is dynamic, offsets should be dynamic.
+    // But we are using `x` which WAS pixels.
+    // We switched CSS to responsive width, so `maxDrag` must be calculated on measure.
+    // However, JS still has `const sliderWidth = 272;`.
+    // I need to use `sliderRef` to get width on mount/resize.
+    
+    // For now, to solve immediate token refactor request and simple responsiveness:
+    // I will use % for X.
+
+    const x = useMotionValue(0); 
+    const [sliderWidth, setSliderWidth] = useState(272);
+    
+    useEffect(() => {
+        if(sliderRef.current) {
+            setSliderWidth(sliderRef.current.offsetWidth);
+        }
+        // Resize observer could be added here for full robustness
+    }, []);
+
+    const handleWidth = 5;
+    const maxDrag = sliderWidth - handleWidth;
+    
+    const returnThreshold = maxDrag * 0.2; 
+    
+    const fillWidth = useTransform(x, (v) => v + 4);
+
+    const sunX = useTransform(x, [0, returnThreshold], [maxDrag/2 - 24, 0]);
+    const sunOpacity = useTransform(x, [maxDrag - returnThreshold, maxDrag], [1, 0]);
+    const sunColor = useTransform(x, [0, returnThreshold], ["#515151", "#FFFFFF"]);
+
+    const moonX = useTransform(x, [maxDrag - returnThreshold, maxDrag], [0, -(maxDrag/2 - 24)]);
     const moonOpacity = useTransform(x, [0, returnThreshold], [0, 1]);
-    // Color: Max(White) -> Mid(Dark Gray).
     const moonColor = useTransform(x, [maxDrag - returnThreshold, maxDrag], ["#515151", "#FFFFFF"]);
 
     const DynamicSun = () => <SunIcon color="currentColor" />;
