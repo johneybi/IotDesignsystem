@@ -3,13 +3,15 @@ import { Sun, Moon } from 'lucide-react';
 import SliderHandle from '../../../atoms/SliderHandle/SliderHandle';
 import './VerticalSlider.css';
 
-const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosition = "in-bottom" }) => {
+const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosition = "in-bottom", variant = "standard", showIcons = true }) => {
     // sliderPos: 0 (Top/Dark) to 100 (Bottom/Bright)
     const [sliderPos, setSliderPos] = useState(50);
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startY = useRef(0);
     const startSliderPos = useRef(0);
+
+    const isBlind = variant === 'blind';
 
     const handlePointerDown = (e) => {
         isDragging.current = true;
@@ -142,7 +144,7 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
     return (
         <div className="vertical-slider-wrapper">
             <div
-                className="vertical-slider-container"
+                className={`vertical-slider-container ${variant}`}
                 ref={sliderRef}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
@@ -152,8 +154,17 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
                 {/* Frames */}
                 <div
                     className="vertical-slider-frame-top"
-                    style={{ height: `${sliderPos}%` }}
-                />
+                    style={{ 
+                        height: `${sliderPos}%`,
+                        display: isBlind ? 'flex' : undefined,
+                        flexDirection: isBlind ? 'column' : undefined,
+                        overflow: 'hidden'
+                    }}
+                >
+                    {isBlind && Array.from({ length: 18 }).map((_, i) => (
+                        <div key={i} className="blind-slat" />
+                    ))}
+                </div>
 
                 <div
                     className="vertical-slider-frame-bottom"
@@ -161,12 +172,16 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
                 />
 
                 {/* Icons */}
-                <div className="vertical-slider-icon" style={getMoonStyle()}>
-                    <Moon size={24} strokeWidth={1.5} color={moonColor} />
-                </div>
-                <div className="vertical-slider-icon" style={{ ...getSunStyle(), top: 'auto', bottom: getSunStyle().bottom }}>
-                    <Sun size={24} strokeWidth={1.5} color={sunColor} />
-                </div>
+                {showIcons && (
+                    <>
+                        <div className="vertical-slider-icon" style={getMoonStyle()}>
+                            <Moon size={24} strokeWidth={1.5} color={moonColor} />
+                        </div>
+                        <div className="vertical-slider-icon" style={{ ...getSunStyle(), top: 'auto', bottom: getSunStyle().bottom }}>
+                            <Sun size={24} strokeWidth={1.5} color={sunColor} />
+                        </div>
+                    </>
+                )}
 
                 {/* Handle */}
                 <div

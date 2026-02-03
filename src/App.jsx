@@ -11,6 +11,7 @@ import Readout from './components/molecules/Display/Readout/Readout'
 import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/BinaryDeviceCard'
 import './App.css'
 
+import BlindCurtain from './components/organisms/BlindCurtain/BlindCurtain';
 import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
 import VerticalSlider from './components/molecules/Linear/VerticalSlider/VerticalSlider'
 
@@ -290,6 +291,12 @@ function App() {
                      <label>Vertical (in-top)</label>
                  </div>
 
+
+
+
+
+
+
               </div>
             </div>
 
@@ -314,7 +321,7 @@ function App() {
                 <h2>Organism: Binary Device Card</h2>
                 <p>Standard dashboard card for toggling binary devices (Lights, Plugs).</p>
               </div>
-              <div className="showcase-demo" style={{ background: '#f4f6f8' }}> {/* App BG color to see card contrast */}
+              <div className="showcase-demo"> {/* App BG color to see card contrast */}
                 <BinaryDeviceCard 
                    name="Light 01"
                    status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
@@ -322,6 +329,16 @@ function App() {
                    onToggle={togglePower}
                    icon={BulbIcon}
                 />
+              </div>
+            </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Organism: Blind Curtain</h2>
+                <p>Vertical control for window treatments using the Vertical Slider (No Card).</p>
+              </div>
+              <div className="showcase-demo">
+                 <BlindCurtain title="Living Room" />
               </div>
             </div>
           </div>

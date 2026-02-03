@@ -321,7 +321,7 @@ body {
 
 .showcase-demo {
   padding: 48px;
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-app);
   display: flex;
   justify-content: center;
   align-items: center;
