@@ -1,16 +1,16 @@
-/* src/components/molecules/Linear/VerticalLightSlider/VerticalLightSlider.css */
-.vertical-light-slider-wrapper {
+/* src/components/molecules/Linear/VerticalSlider/VerticalSlider.css */
+.vertical-slider-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
 }
 
-.vertical-light-slider-container {
+.vertical-slider-container {
     position: relative;
-    width: 116px; /* Vertical Dimension */
+    width: 116px; /* Original Width */
     height: 272px; /* Vertical Dimension */
-    border-radius: 67px;
+    border-radius: 36px;
     overflow: hidden;
     /* Base: White */
     background: var(--color-bg-white);
@@ -26,7 +26,7 @@
     transform: translateZ(0);
 }
 
-.vertical-light-slider-frame-top {
+.vertical-slider-frame-top {
     position: absolute;
     top: 0;
     left: 0;
@@ -40,7 +40,7 @@
     /* border-radius removed to rely on container clipping */
 }
 
-.vertical-light-slider-frame-bottom {
+.vertical-slider-frame-bottom {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -53,7 +53,7 @@
 }
 
 /* Icons */
-.vertical-light-slider-icon {
+.vertical-slider-icon {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -69,7 +69,7 @@
 
 /* Handle Container */
 /* Explicit left: 50% to center horizontally */
-.vertical-light-slider-handle-container {
+.vertical-slider-handle-container {
     position: absolute;
     left: 50%;
     /* transform is handled by inline style in JSX for top/bottom variants */
@@ -86,11 +86,11 @@
     align-items: center;
 }
 
-.vertical-light-slider-handle-container:active {
+.vertical-slider-handle-container:active {
     cursor: grabbing;
 }
 
-.vertical-light-slider-value {
+.vertical-slider-value {
     font-family: var(--font-family);
     font-size: 16px;
     color: var(--color-text-1);

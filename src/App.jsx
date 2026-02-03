@@ -12,7 +12,7 @@ import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/Bina
 import './App.css'
 
 import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
-import VerticalLightSlider from './components/molecules/Linear/VerticalLightSlider/VerticalLightSlider'
+import VerticalSlider from './components/molecules/Linear/VerticalSlider/VerticalSlider'
 
 
 import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
@@ -282,11 +282,11 @@ function App() {
                     <label>Adaptive Light (Gradient)</label>
                  </div>
                 <div className="demo-item">
-                    <VerticalLightSlider handlePosition="in-bottom" />
+                    <VerticalSlider handlePosition="in-bottom" />
                      <label>Vertical (in-bottom)</label>
                  </div>
                  <div className="demo-item">
-                    <VerticalLightSlider handlePosition="in-top" />
+                    <VerticalSlider handlePosition="in-top" />
                      <label>Vertical (in-top)</label>
                  </div>
 

@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import SliderHandle from '../../../atoms/SliderHandle/SliderHandle';
-import './VerticalLightSlider.css';
+import './VerticalSlider.css';
 
-const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handlePosition = "in-bottom" }) => {
+const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosition = "in-bottom" }) => {
     // sliderPos: 0 (Top/Dark) to 100 (Bottom/Bright)
     const [sliderPos, setSliderPos] = useState(50);
     const sliderRef = useRef(null);
@@ -74,7 +74,7 @@ const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handle
             // Let's assume Top of handle is at split - 6px - handleHeight(4px).
             return {
                 ...baseStyle,
-                 transform: 'translate(-50%, calc(-100% - 6px))'
+                transform: 'translate(-50%, calc(-100% - 6px))'
             };
         }
     };
@@ -140,9 +140,9 @@ const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handle
     };
 
     return (
-        <div className="vertical-light-slider-wrapper">
+        <div className="vertical-slider-wrapper">
             <div
-                className="vertical-light-slider-container"
+                className="vertical-slider-container"
                 ref={sliderRef}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
@@ -151,26 +151,26 @@ const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handle
             >
                 {/* Frames */}
                 <div
-                    className="vertical-light-slider-frame-top"
+                    className="vertical-slider-frame-top"
                     style={{ height: `${sliderPos}%` }}
                 />
 
                 <div
-                    className="vertical-light-slider-frame-bottom"
+                    className="vertical-slider-frame-bottom"
                     style={{ height: `${100 - sliderPos}%` }}
                 />
 
                 {/* Icons */}
-                <div className="vertical-light-slider-icon" style={getMoonStyle()}>
+                <div className="vertical-slider-icon" style={getMoonStyle()}>
                     <Moon size={24} strokeWidth={1.5} color={moonColor} />
                 </div>
-                <div className="vertical-light-slider-icon" style={{ ...getSunStyle(), top: 'auto', bottom: getSunStyle().bottom }}>
+                <div className="vertical-slider-icon" style={{ ...getSunStyle(), top: 'auto', bottom: getSunStyle().bottom }}>
                     <Sun size={24} strokeWidth={1.5} color={sunColor} />
                 </div>
 
                 {/* Handle */}
                 <div
-                    className="vertical-light-slider-handle-container"
+                    className="vertical-slider-handle-container"
                     style={getHandleStyle()}
                 >
                     <SliderHandle />
@@ -178,11 +178,11 @@ const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handle
 
             </div>
 
-            <div className="vertical-light-slider-value">
+            <div className="vertical-slider-value">
                 {displayValue}%
             </div>
         </div>
     );
 };
 
-export default VerticalLightSlider;
+export default VerticalSlider;
