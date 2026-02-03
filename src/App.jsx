@@ -16,6 +16,7 @@ import VerticalLightSlider from './components/molecules/Linear/VerticalLightSlid
 
 
 import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
+import ToggleBtn from './components/molecules/ToggleBtn/ToggleBtn';
 
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -28,6 +29,9 @@ function App() {
   // Slider states
   const [brightness, setBrightness] = useState(50);
   const [stepLevel, setStepLevel] = useState(0);
+
+  // ToggleBtn verify state
+  const [isToggled, setIsToggled] = useState(false);
 
   // Constants
   const tempGradientColors = [
@@ -157,6 +161,37 @@ function App() {
             </div>
 
             <h3 style={{ margin: '40px 0 20px', color: '#86909c' }}>Molecules</h3>
+            
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Molecule: Toggle Button</h2>
+                <p>Binary switch with specific styling using SliderThumb.</p>
+              </div>
+              <div className="showcase-demo row">
+                <div className="demo-item">
+                  <ToggleBtn 
+                    isOn={isToggled} 
+                    onToggle={() => setIsToggled(!isToggled)} 
+                  />
+                  <label>State: {isToggled ? 'On' : 'Off'}</label>
+                </div>
+                 <div className="demo-item">
+                  <ToggleBtn 
+                    isOn={true} 
+                    onToggle={() => {}} 
+                  />
+                  <label>Fixed On</label>
+                </div>
+                 <div className="demo-item">
+                  <ToggleBtn 
+                    isOn={false} 
+                    onToggle={() => {}} 
+                  />
+                  <label>Fixed Off</label>
+                </div>
+              </div>
+            </div>
+
 
             <div className="component-showcase">
                <div className="showcase-header">
