@@ -68,24 +68,64 @@ export default function AdaptiveLightSlider() {
     // shadow-[0px_32.4px_32.4px_0px_rgba(0,0,0,0.25)]
 
 
+    // Drag Logic using Pointer Events (Relative Drag)
+    // Replaces Framer Motion's drag="y" to allow dragging from anywhere in the container.
+    
+    const sliderRef = useRef(null);
+    const isDragging = useRef(false);
+    const startY = useRef(0);
+    const startYValue = useRef(0);
+
+    const handlePointerDown = (e) => {
+        isDragging.current = true;
+        startY.current = e.clientY;
+        startYValue.current = y.get();
+        
+        // Capture pointer to ensure we receive move events even if cursor leaves container
+        e.currentTarget.setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e) => {
+        if (!isDragging.current) return;
+
+        const deltaY = e.clientY - startY.current;
+        const newY = startYValue.current + deltaY;
+
+        // Clamp values to constraints [23, 173]
+        let clampedY = newY;
+        if (clampedY < 23) clampedY = 23;
+        if (clampedY > 173) clampedY = 173;
+
+        y.set(clampedY);
+    };
+
+    const handlePointerUp = (e) => {
+        isDragging.current = false;
+        e.currentTarget.releasePointerCapture(e.pointerId);
+    };
+
     return (
         <motion.div
             className="adaptive-slider-container"
+            ref={sliderRef}
             style={{
                 background: background,
+                cursor: 'grab',
+                touchAction: 'none' // Important for preventing scroll while dragging
             }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
         >
-            {/* Constraints Container */}
+            {/* Constraints Container - Visual Helper or Layout guide, can remain */}
             <div
                 ref={constraintsRef}
                 className="adaptive-slider-constraints"
             />
 
             <motion.div
-                drag="y"
-                dragConstraints={{ top: 23, bottom: 173 }}
-                dragElastic={0}
-                dragMomentum={false}
+                // Removed drag="y" and dragConstraints related props
+                // Position is now controlled solely by 'y' motion value updated via pointer events
                 style={{ y, x: "-50%" }}
                 className="adaptive-slider-knob-wrapper-v2" 
             >

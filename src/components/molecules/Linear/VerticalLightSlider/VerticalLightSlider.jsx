@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Sun, Moon } from 'lucide-react';
+import SliderHandle from '../../../atoms/SliderHandle/SliderHandle';
 import './VerticalLightSlider.css';
 
 const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handlePosition = "in-bottom" }) => {
@@ -172,7 +173,7 @@ const VerticalLightSlider = ({ moonColor = "white", sunColor = "#515151", handle
                     className="vertical-light-slider-handle-container"
                     style={getHandleStyle()}
                 >
-                    <div className="vertical-light-slider-handle"></div>
+                    <SliderHandle />
                 </div>
 
             </div>

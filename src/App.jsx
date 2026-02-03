@@ -10,11 +10,11 @@ import CircularGauge from './components/molecules/Circular/Gauge/CircularGauge'
 import Readout from './components/molecules/Display/Readout/Readout'
 import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/BinaryDeviceCard'
 import './App.css'
-import LightControlSlider from './components/molecules/Linear/LightControlSlider/LightControlSlider'
+
 import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
 import VerticalLightSlider from './components/molecules/Linear/VerticalLightSlider/VerticalLightSlider'
-import DualControlSlider from './components/molecules/Linear/DualControlSlider/DualControlSlider'
-import SingleHorizontalSlider from './components/molecules/Linear/SingleHorizontalSlider/SingleHorizontalSlider'
+
+
 import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
 
 function App() {
@@ -241,10 +241,7 @@ function App() {
                 <p>Specialized linear sliders for light intensity and warmth control.</p>
               </div>
               <div className="showcase-demo row" style={{ flexDirection: 'column', gap: '40px', alignItems: 'flex-start' }}>
-                 <div className="demo-item">
-                    <LightControlSlider />
-                    <label>Light Control (Simple)</label>
-                 </div>
+
                  <div className="demo-item">
                     <AdaptiveLightSlider />
                     <label>Adaptive Light (Gradient)</label>
@@ -257,14 +254,7 @@ function App() {
                     <VerticalLightSlider handlePosition="in-top" />
                      <label>Vertical (in-top)</label>
                  </div>
-                 <div className="demo-item" style={{ width: '100%' }}>
-                    <DualControlSlider />
-                    <label>Dual Control (Two Thumb)</label>
-                 </div>
-                 <div className="demo-item" style={{ width: '100%' }}>
-                    <SingleHorizontalSlider />
-                    <label>Single Horizontal</label>
-                 </div>
+
               </div>
             </div>
 

@@ -22,6 +22,8 @@
     justify-content: center;
     box-sizing: border-box;
     cursor: pointer;
+    /* Fix for border-radius overflow clipping artifacts */
+    transform: translateZ(0);
 }
 
 .vertical-light-slider-frame-top {
@@ -35,7 +37,7 @@
     opacity: 0.8; /* Adjusted for visibility */
     z-index: 10;
     pointer-events: none;
-    border-radius: 67px 67px 0 0;
+    /* border-radius removed to rely on container clipping */
 }
 
 .vertical-light-slider-frame-bottom {
@@ -47,7 +49,7 @@
     background: transparent; 
     z-index: 10;
     pointer-events: none;
-    border-radius: 0 0 67px 67px;
+    /* border-radius removed to rely on container clipping */
 }
 
 /* Icons */
@@ -65,35 +67,27 @@
     color: var(--slider-icon-color-light); /* Assuming white icons on dark bg */
 }
 
-/* Handle */
+/* Handle Container */
 /* Explicit left: 50% to center horizontally */
 .vertical-light-slider-handle-container {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    width: 58px; /* Assuming handle width is wider in vertical layout or same? Logic used 5px in horiz. Let's assume proportional. */
-    height: 5px; /* Handle height */
-    /* Wait, the JSX Logic uses "top" style for container. */
-    /* Horizontal Code used: width 5px, height 58px. */
-    /* Vertical should likely be: width 58px, height 5px? Or if it is the "Split Line", maybe width 116px? */
-    /* Let's stick to the visual of a "Split Line" or "Handle". */
-    /* Previous Vertical design had a KNOB. This new logic suggests a split line/bar style. */
-    width: 80px; 
-    height: 4px;
+    /* transform is handled by inline style in JSX for top/bottom variants */
     z-index: 30;
     cursor: grab;
+    
+    /* Allow container to fit the atom handle */
+    width: auto;
+    height: auto;
+    
+    /* Flex to center the atom */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .vertical-light-slider-handle-container:active {
     cursor: grabbing;
-}
-
-.vertical-light-slider-handle {
-    width: 100%;
-    height: 100%;
-    background-color: #D9D9D9;
-    border-radius: 2px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .vertical-light-slider-value {
