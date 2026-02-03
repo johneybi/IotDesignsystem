@@ -24,7 +24,6 @@ const BinaryDeviceCard = ({
           active={isOn} 
           icon={icon} 
           onClick={onToggle}
-          className={!isOn ? styles.customButton : ''}
         />
       </div>
     </div>

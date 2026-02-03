@@ -4,12 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 53px; /* Default from Figma, can be overridden via tokens if component level tokenization was stricter, but usually variable */
   width: var(--comp-button-size);
   height: var(--comp-button-size);
   border-radius: var(--comp-button-radius);
-  /* Border is part of the visual spec, sometimes handled in gradient or separate */
-  border: 1px solid #c7c7c7; /* Keeping original border for structure, or could be tokenized */
+  border: 1px solid #c7c7c7; 
   cursor: pointer;
   outline: none;
   font-family: inherit;
@@ -21,7 +19,27 @@
   font-size: 14px;
   -webkit-tap-highlight-color: transparent;
   background-clip: padding-box;
+  
+  position: relative;
+  isolation: isolate; /* For blend modes */
 }
+
+/* Common Pseudo-elements for Shadows */
+.root::before,
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  transition: box-shadow 0.2s ease;
+  opacity: 0.8; /* Increased opacity for better visibility */
+}
+
+/* Zero states (reset) */
+.root::before { mix-blend-mode: multiply; }
+.root::after { mix-blend-mode: screen; }
 
 .root:focus,
 .root:focus-visible,
@@ -29,27 +47,54 @@
   outline: none;
 }
 
-/* Binary = off (Default/Normal) */
+/* Binary = off (Default/Normal) - Outer Shadows */
 .off {
   background: var(--comp-button-bg-enabled);
-  box-shadow: var(--comp-button-shadow-enabled);
+  /* box-shadow removed, handled by pseudos */
 }
 
-/* Binary = on (Pressed/Active) */
+/* Dark Shadow (Bottom-Right) */
+.off::before {
+  box-shadow: 2px 2px 4px var(--color-shadow-dark);
+}
+
+/* Light Shadow (Top-Left) */
+.off::after {
+  box-shadow: -2px -2px 4px var(--color-shadow-light);
+}
+
+/* Binary = on (Pressed/Active) - Inset Shadows */
 .on {
   background: var(--comp-button-bg-active);
-  box-shadow: var(--comp-button-shadow-active);
+  /* box-shadow removed */
   color: var(--comp-button-icon-color-active);
+}
+
+/* Dark Inner Shadow (Top-Left) */
+.on::before {
+  box-shadow: inset 2px 2px 4px var(--color-shadow-dark);
+}
+
+/* Light Inner Shadow (Bottom-Right) */
+.on::after {
+  box-shadow: inset -2px -2px 4px var(--color-shadow-light);
 }
 
 /* Binary = disabled */
 .disabled {
   background: var(--comp-button-bg-enabled);
   border-color: var(--comp-button-border-disabled);
-  box-shadow: var(--comp-button-shadow-disabled);
+  box-shadow: var(--comp-button-shadow-disabled); /* Keeping specific disabled shadow for now, or could refactor */
   color: var(--comp-button-text-disabled);
   cursor: not-allowed;
   opacity: var(--comp-button-opacity-disabled);
+}
+
+/* Disable blended shadows for disabled state to avoid weirdness */
+.disabled::before,
+.disabled::after {
+  box-shadow: none;
+  opacity: 0;
 }
 
 .icon {
@@ -58,6 +103,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Ensure icon stays on top of any potential overlay */
+  z-index: 1; 
 }
 
 .icon svg {
