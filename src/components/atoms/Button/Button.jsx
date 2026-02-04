@@ -29,6 +29,8 @@ const Button = ({
     variantClass = styles.filled;
   } else if (variant === 'ghost') {
     variantClass = styles.ghost;
+  } else if (variant === 'neumorph-dark') {
+    variantClass = styles.neumorphDark;
   } else {
     // Neumorph logic
     if (disabled) {

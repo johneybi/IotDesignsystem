@@ -1,0 +1,67 @@
+/* Button.module.css */
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 53px; /* Default from Figma, can be overridden via tokens if component level tokenization was stricter, but usually variable */
+  width: var(--comp-button-size);
+  height: var(--comp-button-size);
+  border-radius: var(--comp-button-radius);
+  /* Border is part of the visual spec, sometimes handled in gradient or separate */
+  border: 1px solid #c7c7c7; /* Keeping original border for structure, or could be tokenized */
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
+  background-clip: padding-box;
+}
+
+.root:focus,
+.root:focus-visible,
+.root:hover {
+  outline: none;
+}
+
+/* Binary = off (Default/Normal) */
+.off {
+  background: var(--comp-button-bg-enabled);
+  box-shadow: var(--comp-button-shadow-enabled);
+}
+
+/* Binary = on (Pressed/Active) */
+.on {
+  background: var(--comp-button-bg-active);
+  box-shadow: var(--comp-button-shadow-active);
+  color: var(--comp-button-icon-color-active);
+}
+
+/* Binary = disabled */
+.disabled {
+  background: var(--comp-button-bg-enabled);
+  border-color: var(--comp-button-border-disabled);
+  box-shadow: var(--comp-button-shadow-disabled);
+  color: var(--comp-button-text-disabled);
+  cursor: not-allowed;
+  opacity: var(--comp-button-opacity-disabled);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}

@@ -37,37 +37,4 @@
   flex-shrink: 0;
 }
 
-/* Custom Button Override for Off-State Fidelity */
-.customButton {
-  /* Override base button colors for specific Context */
-  border: 1px solid #9f9f9f !important;
-  background-image: linear-gradient(150deg, #c3c3c3 15%, #9b9b9b 88%) !important;
-  background-color: transparent !important;
-  box-shadow: none !important; /* Remove base component shadow */
-  position: relative;
-  z-index: 1; /* Establish stacking context for blend modes */
-}
 
-/* Dark Shadow (Multiply) */
-.customButton::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: -1;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-/* Light Highlight (Screen) */
-.customButton::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: -1;
-  box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.4);
-  mix-blend-mode: screen;
-  pointer-events: none;
-}

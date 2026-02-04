@@ -21,6 +21,8 @@ const ActionDeviceCard = ({
   let buttonVariant = 'neumorph';
   if (!isConnected) {
     buttonVariant = 'ghost';
+  } else if (!isPlaying) {
+    buttonVariant = 'neumorph-dark';
   }
 
   // Determine Card Opacity for Offline state

@@ -530,7 +530,7 @@ function App() {
                  
                  <div className="demo-item" style={{ width: '100%', alignItems: 'center' }}>
                     <label style={{ marginBottom: '24px' }}>Speaker Volume Control</label>
-                    <SpeakerVolumeControl deviceName="Living Room Speaker" initialVolume={45} />
+                    <SpeakerVolumeControl initialVolume={45} />
                  </div>
 
                  <div className="demo-item" style={{ width: '100%', alignItems: 'center' }}>

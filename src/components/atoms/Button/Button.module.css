@@ -7,7 +7,7 @@
   width: var(--comp-button-size);
   height: var(--comp-button-size);
   border-radius: var(--comp-button-radius);
-  border: 1px solid #c7c7c7; 
+  border: 1px solid #c7c7c7;
   cursor: pointer;
   outline: none;
   font-family: inherit;
@@ -19,27 +19,8 @@
   font-size: 14px;
   -webkit-tap-highlight-color: transparent;
   background-clip: padding-box;
-  
   position: relative;
-  isolation: isolate; /* For blend modes */
 }
-
-/* Common Pseudo-elements for Shadows */
-.root::before,
-.root::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: -1;
-  transition: box-shadow 0.2s ease;
-  opacity: 0.8; /* Increased opacity for better visibility */
-}
-
-/* Zero states (reset) */
-.root::before { mix-blend-mode: multiply; }
-.root::after { mix-blend-mode: screen; }
 
 .root:focus,
 .root:focus-visible,
@@ -47,51 +28,39 @@
   outline: none;
 }
 
-/* Binary = off (Default/Normal) - Outer Shadows */
+/* Binary = off (Default/Normal) */
 .off {
   background: var(--comp-button-bg-enabled);
-  /* box-shadow removed, handled by pseudos */
+  box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.9), 
+              2px 2px 4px 0px rgba(0, 0, 0, 0.1); /* Adapted for light bg */
+  border-color: #c7c7c7;
 }
 
-/* Dark Shadow (Bottom-Right) */
-.off::before {
-  box-shadow: 2px 2px 4px var(--color-shadow-dark);
-}
-
-/* Light Shadow (Top-Left) */
 .off::after {
-  box-shadow: -2px -2px 4px var(--color-shadow-light);
+  content: "";
+  position: absolute;
+  /* Figma uses a container with inset-[-1px] to apply this inner shadow on top of the border */
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: inset -1px -1px 2px 0px rgba(61, 61, 61, 0.25);
+  pointer-events: none;
+  z-index: 2;
 }
 
-/* Binary = on (Pressed/Active) - Inset Shadows */
+/* Binary = on (Pressed/Active) */
 .on {
   background: var(--comp-button-bg-active);
-  /* box-shadow removed */
+  box-shadow: var(--comp-button-shadow-active);
   color: var(--comp-button-icon-color-active);
-}
-
-/* Dark Inner Shadow (Top-Left) */
-.on::before {
-  box-shadow: inset 2px 2px 4px var(--color-shadow-dark);
-}
-
-/* Light Inner Shadow (Bottom-Right) */
-.on::after {
-  box-shadow: inset -2px -2px 4px var(--color-shadow-light);
 }
 
 /* Variant = Filled (Non-Interactive / Static) */
 .filled {
-  background: #f0f0f0; /* Flat grey */
+  background: #f0f0f0;
   border-color: transparent;
   cursor: default;
   color: var(--comp-button-filled-color, #555);
-}
-
-.filled::before,
-.filled::after {
   box-shadow: none;
-  opacity: 0;
 }
 
 /* Variant = Ghost (Offline / Disconnected) */
@@ -101,30 +70,17 @@
   cursor: default;
   opacity: 0.4;
   color: #555;
-}
-
-.ghost::before,
-.ghost::after {
   box-shadow: none;
-  opacity: 0;
 }
-
 
 /* Binary = disabled */
 .disabled {
   background: var(--comp-button-bg-enabled);
   border-color: var(--comp-button-border-disabled);
-  box-shadow: var(--comp-button-shadow-disabled); /* Keeping specific disabled shadow for now, or could refactor */
+  box-shadow: var(--comp-button-shadow-disabled);
   color: var(--comp-button-text-disabled);
   cursor: not-allowed;
   opacity: var(--comp-button-opacity-disabled);
-}
-
-/* Disable blended shadows for disabled state to avoid weirdness */
-.disabled::before,
-.disabled::after {
-  box-shadow: none;
-  opacity: 0;
 }
 
 .icon {
@@ -133,12 +89,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Ensure icon stays on top of any potential overlay */
   z-index: 1; 
 }
 
-.icon svg {
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
+/* Variant = Neumorph Dark (for Dark Backgrounds) */
+.neumorphDark {
+  background: linear-gradient(150deg, #c3c3c3 15.58%, #9b9b9b 88.75%);
+  box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.15), 
+              2px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  border-color: #9f9f9f;
+  color: #555;
+}
+
+.neumorphDark::after {
+  content: "";
+  position: absolute;
+  /* Figma uses a container with inset-[-1px] to apply this inner shadow on top of the border */
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: inset -1px -1px 2px 0px rgba(61, 61, 61, 0.25);
+  pointer-events: none;
+  z-index: 2;
 }

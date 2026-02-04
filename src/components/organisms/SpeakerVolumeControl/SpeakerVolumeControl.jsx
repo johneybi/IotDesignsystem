@@ -4,7 +4,6 @@ import SliderHandle from '../../atoms/SliderHandle/SliderHandle';
 import styles from './SpeakerVolumeControl.module.css';
 
 const SpeakerVolumeControl = ({ 
-  deviceName = "Speaker", 
   initialVolume = 50 
 }) => {
     // sliderPos: 0 (Top/Max Vol) to 100 (Bottom/Min Vol)
@@ -47,52 +46,31 @@ const SpeakerVolumeControl = ({
     const volume = Math.round(100 - sliderPos);
 
     // Icon Logic
-    
-    // Top Icon (Max Vol): 
-    // Always visible at top.
-    // Color: Black if background is Light (Top Frame). White if background is Black (Bottom Frame).
-    // Top Frame is at Top. Bottom Frame is at Bottom.
-    // Icon is at Top 24px.
-    // If Split < 24px (High Vol), Split is ABOVE icon. Icon is on Bottom Frame (Black). -> Icon White.
-    // If Split > 24px (Lower Vol), Split is BELOW icon. Icon is on Top Frame (Light). -> Icon Black.
-    // Note: 24px in % depends on height (300px). 24px is 8%.
     const splitPercent = sliderPos;
     const topIconIsOnBlack = splitPercent < 8; // Top icon on filled black part
 
     const getTopIconStyle = () => {
         return {
              top: '24px',
-             color: topIconIsOnBlack ? '#FFFFFF' : '#1d2129',
-             transform: 'translateX(-50%)', // Centering is handled by class but let's be safe
+             color: topIconIsOnBlack ? 'var(--slider-icon-color-light)' : 'var(--slider-icon-color-dark)',
+             transform: 'translateX(-50%)',
              opacity: 1
         };
     };
 
-    // Bottom Icon (Mute):
-    // Only emphasized when Volume is 0 (sliderPos ~ 100).
-    // Position: Bottom 24px.
-    // If Split > 92 (Vol approx 0), Split is BELOW icon (Top Frame covers it? No).
-    // Top Frame pushes down. Bottom Frame shrinks.
-    // At Pos 100, Bottom Frame is 0. Icon is on Top Frame (Light).
-    // At Pos 90, Bottom Frame is 10%. 
-    // User wants: "Emphasized only when volume is 0".
-    // "Emphasized" means distinct color/opacity. Otherwise Gray?
-    
+    // Bottom Icon (Mute)
     const isMuted = volume === 0;
 
     const getBottomIconStyle = () => {
         return {
             bottom: '24px',
-            color: isMuted ? '#FF4D4F' : '#86909c', // Red (Active) or specific color when muted, Gray otherwise
+            color: isMuted ? '#FF4D4F' : 'var(--color-text-3)',
             opacity: isMuted ? 1 : 0.5,
             transform: 'translateX(-50%)'
         };
     };
 
     // Handle Style
-    // 6px BELOW the split line.
-    // With handleContainer being flex centered, we just need `top` updated.
-    // `transform` for vertical offset only.
     const getHandleStyle = () => {
         return {
             top: `${sliderPos}%`,
@@ -102,11 +80,6 @@ const SpeakerVolumeControl = ({
 
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
-                <span className={styles.title}>{deviceName}</span>
-                <span className={styles.status}>{volume}%</span>
-            </div>
-            
             <div className={styles.sliderWrapper}>
                 <div 
                     className={styles.sliderContainer}

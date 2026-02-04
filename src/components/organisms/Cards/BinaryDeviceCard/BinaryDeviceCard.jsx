@@ -21,6 +21,8 @@ const BinaryDeviceCard = ({
     buttonVariant = 'ghost';
   } else if (!isActuatable) {
     buttonVariant = 'filled';
+  } else if (!isOn) {
+    buttonVariant = 'neumorph-dark';
   }
 
   // Determine Card Opacity for Offline state
@@ -41,7 +43,7 @@ const BinaryDeviceCard = ({
           icon={icon} 
           onClick={onToggle}
           variant={buttonVariant}
-          disabled={!isConnected} // Disable button interaction if offline
+          disabled={!isConnected}
         />
       </div>
     </div>

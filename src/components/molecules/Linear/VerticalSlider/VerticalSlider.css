@@ -63,7 +63,7 @@
     width: 100%;
     /* Gradient Top (Dark) #515151 -> Bottom (Light) #B7B7B7 */
     /* Adjust gradient to match desired "Dark to Bright" vertical flow */
-    background: linear-gradient(180deg, #515151 0%, #B7B7B7 100%);
+    background: var(--slider-gradient-silver-vertical);
     /* opacity: 0.8; removed for better visibility */
     z-index: 10;
     pointer-events: none;
