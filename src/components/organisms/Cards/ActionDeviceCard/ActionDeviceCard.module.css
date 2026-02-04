@@ -1,0 +1,37 @@
+.card {
+  width: 100%;
+  max-width: 320px;
+  min-width: 280px;
+  background-color: var(--comp-card-bg-off); /* Default Off/Inactive */
+  border-radius: var(--comp-card-radius);
+  padding: var(--comp-card-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  
+  /* Text defaults for inactive state */
+  --comp-device-status-color: #ffffff;
+}
+
+.card.active {
+  background-color: var(--comp-card-bg); /* Active State */
+  
+  /* Reset text colors */
+  --comp-device-name-color: #000000;
+  --comp-device-status-color: #868686;
+}
+
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.actionWrapper {
+  flex-shrink: 0;
+}

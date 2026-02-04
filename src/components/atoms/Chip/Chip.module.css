@@ -1,0 +1,57 @@
+/* Base Chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 99px; /* Pill shape */
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.chip:active {
+  transform: scale(0.98);
+}
+
+/* Variants */
+
+/* Solid Variant (Default) */
+.solid {
+  background-color: #E8EAED; /* Darker than F9FAFB for visibility */
+  color: var(--color-text-2);
+}
+
+.solid:hover {
+  background-color: #D1D5DB; /* Darker on hover */
+  color: var(--color-text-1);
+}
+
+.solid.active {
+  background-color: var(--color-text-1);
+  color: var(--color-bg-white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Ghost Variant */
+.ghost {
+  background-color: transparent;
+  color: var(--color-text-2);
+}
+
+.ghost:hover {
+  background-color: var(--color-fill-1); /* Subtle hover state */
+  color: var(--color-text-1);
+}
+
+.ghost.active {
+  background-color: transparent;
+  color: var(--color-text-1);
+  font-weight: 600;
+  /* Optional: Add a small indicator dot or underline if needed, 
+     but for now keeping it minimal as per "Matte" */
+}

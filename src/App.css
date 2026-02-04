@@ -12,8 +12,6 @@
 }
 
 :root {
-  --color-primary: #165dff; /* Arco Blue */
-  --color-primary-light: #e8f3ff;
   --color-text-1: #1d2129;
   --color-text-2: #4e5969;
   --color-text-3: #86909c;
@@ -28,6 +26,7 @@
   /* Status Colors */
   --color-status-active: #ff9f0a; /* Warm Yellow/Orange for active states */
   --color-status-active-bg: linear-gradient(135deg, #ff9f0a 0%, #ffc107 100%);
+  --color-status-warm: #FF7043; /* Warm Orange for heating etc */
   --color-status-cool: #2196F3; /* Cool Blue for refrigeration etc */
   
   /* Temperature Gradient Colors */
@@ -147,7 +146,7 @@ body {
 .logo-circle {
   width: 24px;
   height: 24px;
-  background: var(--color-primary);
+  background: #165dff; /* Docs UI only */
   border-radius: 50%;
   margin-right: 12px;
 }
@@ -191,8 +190,8 @@ body {
 }
 
 .nav-item.active {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background-color: #e8f3ff; /* Docs UI only */
+  color: #165dff; /* Docs UI only */
   font-weight: 500;
 }
 
@@ -274,7 +273,7 @@ body {
 
 .doc-card:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  border-color: var(--color-primary);
+  border-color: #165dff; /* Docs UI only */
 }
 
 .doc-card h3 {
@@ -322,7 +321,7 @@ body {
 
 .showcase-demo {
   padding: 48px;
-  background-color: var(--color-bg-app);
+  background-color: #F9FAFB; /* Very weak neutral gray */
   display: flex;
   justify-content: center;
   align-items: center;
