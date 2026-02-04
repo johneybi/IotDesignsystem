@@ -1,0 +1,223 @@
+.page {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background-color: var(--color-bg-app, #F4F6F8);
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.backButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px; 
+  border: none;
+  background: #F4F6F8;
+  box-shadow: 
+    -4px -4px 10px #ffffff,
+    4px 4px 10px #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-2, #585d68);
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:active {
+  box-shadow: 
+    inset -4px -4px 10px #ffffff,
+    inset 4px 4px 10px #d1d5db;
+  transform: scale(0.98);
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.roomName {
+  font-size: 14px;
+  color: var(--color-text-3, #9CA3AF);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.deviceName {
+  font-size: 28px;
+  color: var(--color-text-1, #1F2937);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* ... existing mainControl ... */
+
+.mainControl {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Ensure no overflow clipping if scaled */
+  overflow: visible; 
+}
+
+.responsiveScaler {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Scale up to fit frame appropriately */
+  transform: scale(1.4); 
+  transform-origin: center center;
+  /* Add margin to account for scale expansion overlap */
+  margin: 24px 0;
+}
+
+.mainControl::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(244,246,248,0) 70%);
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.secondaryControls {
+  margin-bottom: 48px;
+  padding: 0 12px;
+}
+
+.controlHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+}
+
+.controlLabel {
+  font-size: 16px;
+  color: var(--color-text-2, #4B5563);
+  font-weight: 600;
+}
+
+.valueLabel {
+    font-size: 14px;
+    color: var(--color-text-3, #9CA3AF);
+    font-weight: 500;
+}
+
+/* Gradient Slider Override */
+.tempSlider {
+  /* No special layout here, just passing it down */
+}
+
+/* Deep selector to override the SliderTrack background within standard Slider */
+.tempSlider :global(.SliderTrack_track__1s2a3) {
+   /* Note: CSS Modules might hash names differently. 
+      Better approach: Use a specific selector or rely on the fact that we can pass a style/class to SliderTrack if extended.
+      Since we can only pass className to Slider, and Slider wraps SliderTrack...
+      
+      We need to target the child div inside Slider that is the track.
+      Let's try a generic child selector strategy or use the variable override if supported.
+   */
+   background: linear-gradient(90deg, #F59E0B 0%, #ffffff 50%, #3B82F6 100%) !important;
+   border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Override the fill to be invisible or semi-transparent since track has the gradient */
+.tempSlider :global(.Slider_fill__1s2a3) {
+    display: none !important; /* Hide fill so the gradient track is visible */
+}
+
+/* Since accessing generated classFrame names is flaky without :local, 
+   let's use a simpler approach: define CSS variables that the Slider might use?
+   The Slider uses `var(--comp-slider-track-bg)`. We can override that locally!
+*/
+
+.tempSliderWrapper {
+   /* Override the variables for this scope */
+   --comp-slider-track-bg: linear-gradient(90deg, #F59E0B 0%, #ffffff 50%, #3B82F6 100%);
+   --comp-slider-fill-bg: transparent; /* Make fill transparent */
+}
+
+/* Scene Buttons */
+.scenesSection {
+    margin-bottom: 40px;
+}
+
+.scenesWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.sceneBtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.sceneIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px; /* Consistent Squircle */
+  background: #F4F6F8;
+  box-shadow: 
+     -6px -6px 14px #ffffff,
+     6px 6px 14px #d1d9e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.sceneBtn:hover .sceneIcon {
+    transform: translateY(-2px);
+}
+
+.sceneBtn.active .sceneIcon {
+  box-shadow: 
+    inset -4px -4px 8px rgba(255,255,255,0.8),
+    inset 4px 4px 8px rgba(163, 177, 198, 0.4);
+  color: #F59E0B; /* Warm Amber for active light scene */
+  transform: translateY(0);
+}
+
+.sceneName {
+  font-size: 13px;
+  color: #6B7280;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.sceneBtn.active .sceneName {
+    color: #1F2937;
+}

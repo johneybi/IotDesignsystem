@@ -4,8 +4,8 @@
   --comp-device-status-color: #ffffff; /* Make status clearly visible */
   
   width: 100%;
-  max-width: 320px;
-  min-width: 280px;
+  max-width: 100%;
+  min-width: 140px;
   background-color: var(--comp-card-bg-off); /* Default to OFF state color */
   border-radius: var(--comp-card-radius);
   padding: var(--comp-card-padding);

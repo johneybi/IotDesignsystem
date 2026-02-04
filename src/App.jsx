@@ -16,7 +16,6 @@ import IotLightingBrightnessController from './components/organisms/IotLightingB
 import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
 import VerticalSlider from './components/molecules/Linear/VerticalSlider/VerticalSlider'
 
-
 import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
 import ToggleBtn from './components/molecules/ToggleBtn/ToggleBtn';
 import Foundations from './components/pages/Foundations';
@@ -27,69 +26,101 @@ import Chip from './components/atoms/Chip/Chip';
 import ActionDeviceCard from './components/organisms/Cards/ActionDeviceCard/ActionDeviceCard';
 import SpeakerVolumeControl from './components/organisms/SpeakerVolumeControl/SpeakerVolumeControl';
 
+import Dashboard from './components/pages/Dashboard/Dashboard';
+import LightingControl from './components/pages/LightingControl/LightingControl';
+
+const PowerIcon = <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" fill="currentColor"/></svg>;
+const BulbIcon = <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" fill="currentColor"/></svg>;
+
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
 
-  // Existing states for components
+  // Atomic Page States
+  const [activeChip, setActiveChip] = useState('all');
+  const [selectedRoom, setSelectedRoom] = useState('living_room');
+  const [isToggled, setIsToggled] = useState(false);
+  const [stepLevel, setStepLevel] = useState(3);
+  const [active, setActive] = useState(false);
+
+  const roomOptions = [
+      { value: 'living_room', label: 'Living Room' },
+      { value: 'bedroom', label: 'Bedroom' },
+      { value: 'kitchen', label: 'Kitchen' },
+  ];
+
+  // Restored: Device States (Fixes ReferenceErrors)
   const [targetTemp, setTargetTemp] = useState(24);
   const [currentTemp, setCurrentTemp] = useState(21); 
   const [isPowerOn, setIsPowerOn] = useState(false);
   
-  // Action state
+  // Restored: Action state
   const [isPlaying, setIsPlaying] = useState(false);
   
-  // Slider states
+  // Restored: Slider states
   const [brightness, setBrightness] = useState(50);
-  const [stepLevel, setStepLevel] = useState(0);
 
-  // ToggleBtn verify state
-  const [isToggled, setIsToggled] = useState(false);
-
-  // Dropdown state
-  const [selectedRoom, setSelectedRoom] = useState('living_room');
-
-  // Chip state
-  const [activeChip, setActiveChip] = useState('all');
-
-  // Dropdown Options
-  const roomOptions = [
-    { value: 'living_room', label: 'Living Room' },
-    { value: 'bedroom_master', label: 'Master Bedroom' },
-    { value: 'kitchen', label: 'Kitchen' },
-    { value: 'bathroom', label: 'Bathroom' },
-  ];
-
-  // Constants
-
-  // Icons
-  const PowerIcon = <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>;
-
-  const BulbIcon = <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>;
-
-  const togglePower = () => setIsPowerOn(prev => !prev);
-
+  // Restored Handlers
+  const togglePower = () => setIsPowerOn(!isPowerOn);
   const renderContent = () => {
     switch(activeSection) {
       case 'overview':
         return (
           <div className="doc-section">
-            <h1 className="doc-title" style={{color: 'red'}}>AI Adaptive Design System - DEBUG MODE</h1>
+            <h1 className="doc-title">AI Adaptive Design System</h1>
             <p className="doc-intro">
-              Welcome to the Design System for the Open Smart Home Project. 
-              This system utilizes AI-driven adaptive interfaces to provide a seamless user experience.
+              An AI-driven adaptive design system for the Open Smart Home Project. 
+              We combine Soft UI aesthetics with precise tactile controls to deliver a seamless, natural, and premium user experience.
             </p>
-            <div className="doc-cards">
-              <div className="doc-card">
-                <h3>Design Principles</h3>
-                <p>Minimal, Matte, Interactive, Adaptive.</p>
+
+            <div style={{ marginTop: '40px' }}>
+              <h2 style={{ fontSize: '24px', marginBottom: '24px', color: '#1d1d1f', fontWeight: '600' }}>Core Principles</h2>
+              <div className="doc-cards">
+                <div className="doc-card">
+                  <h3>Tactile & Soft</h3>
+                  <p>
+                    Elements feel physical. We use subtle shadows (Neumorphism) to indicate interactability and state, mimicking real-world buttons and sliders.
+                  </p>
+                </div>
+                <div className="doc-card">
+                  <h3>Natural Motion</h3>
+                  <p>
+                    Transitions are smooth and spring-based. Sliders and gauges react fluidly to touch, providing immediate visual feedback.
+                  </p>
+                </div>
+                <div className="doc-card">
+                  <h3>Functional Clarity</h3>
+                  <p>
+                    Information is prioritized. Active states are clearly distinguished from inactive ones using color temperature and depth.
+                  </p>
+                </div>
               </div>
-              <div className="doc-card">
-                <h3>Target Audience</h3>
-                <p>Smart Home users needing intuitive control.</p>
-              </div>
+            </div>
+
+            <div style={{ marginTop: '60px' }}>
+                <h2 style={{ fontSize: '24px', marginBottom: '20px', color: '#1d1d1f' }}>System Structure</h2>
+                <ul style={{ listStyle: 'none', padding: 0, color: '#424245', lineHeight: 1.8 }}>
+                    <li style={{ marginBottom: '10px' }}>
+                        <strong>Foundations:</strong> Colors, Typography, Shadows, and Spacing.
+                    </li>
+                    <li style={{ marginBottom: '10px' }}>
+                        <strong>Atoms:</strong> Visual minimum units. Basic building blocks like Buttons, Sliders, and Chips.
+                    </li>
+                    <li style={{ marginBottom: '10px' }}>
+                        <strong>Molecules:</strong> Functional minimum units. Combinations like Toggle Buttons, Dropdowns, and Volume Controls.
+                    </li>
+                    <li style={{ marginBottom: '10px' }}>
+                        <strong>Organisms:</strong> Functional sections. Complete functional units like Device Cards and Control Panels.
+                    </li>
+                </ul>
             </div>
           </div>
         );
+      case 'dashboard':
+        return <Dashboard />;
+      case 'lighting':
+        return <LightingControl />;
+
+
       case 'atomic':
         return (
           <div className="doc-section">
@@ -387,7 +418,7 @@ function App() {
 
             <div className="component-showcase">
               <div className="showcase-header">
-                <h2>Molecule: Light Control Sliders</h2>
+                <h2>Molecule: Vertical Slider</h2>
                 <p>Specialized linear sliders for light intensity and warmth control.</p>
               </div>
               <div className="showcase-demo row" style={{ flexDirection: 'column', gap: '40px', alignItems: 'flex-start' }}>
@@ -404,13 +435,6 @@ function App() {
                     <VerticalSlider handlePosition="in-top" />
                      <label>Vertical (in-top)</label>
                  </div>
-
-
-
-
-
-
-
               </div>
             </div>
 
@@ -432,103 +456,93 @@ function App() {
 
             <div className="component-showcase">
               <div className="showcase-header">
-                <h2>Organism: Binary Device Card</h2>
-                <p>Standard dashboard card for toggling binary devices (Lights, Plugs).</p>
+                <h2>Organism: Device Cards</h2>
+                <p>Standardized dashboard cards for various device types.</p>
               </div>
-              <div className="showcase-demo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '40px' }}> {/* Vertical stack */ }
+              <div className="showcase-demo" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', alignItems: 'start' }}>
+                  
+                  {/* 1. Interactable */}
+                  <div className="demo-item" style={{ width: '100%' }}>
+                     <label style={{ marginBottom: '12px', display: 'block' }}>Binary (Interactable)</label>
+                     <BinaryDeviceCard 
+                        name="Light 01"
+                        status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
+                        isOn={isPowerOn}
+                        onToggle={togglePower}
+                        icon={BulbIcon}
+                        isActuatable={true}
+                        isConnected={true}
+                     />
+                  </div>
+
+                  {/* 2. Action */}
+                  <div className="demo-item" style={{ width: '100%' }}>
+                      <label style={{ marginBottom: '12px', display: 'block' }}>Action (Momentary)</label>
+                      <ActionDeviceCard 
+                        name="Marshall Speaker"
+                        status={isPlaying ? "재생 중 - lofi beats" : "대기 중"}
+                        isPlaying={isPlaying}
+                        onAction={() => setIsPlaying(!isPlaying)}
+                        icon={isPlaying ? <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg> : <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>}
+                      />
+                  </div>
+
+                  {/* 3. Static / Info */}
+                  <div className="demo-item" style={{ width: '100%' }}>
+                     <label style={{ marginBottom: '12px', display: 'block' }}>Information (Static)</label>
+                     <BinaryDeviceCard 
+                        name="Refrigerator"
+                        status="냉장 3°C | 냉동 -18°C"
+                        isOn={true}
+                        onToggle={() => {}}
+                        icon={<svg viewBox="0 0 24 24"><path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7v-6h10v6zm0-8H7V3h10v8z" fill="currentColor"/></svg>}
+                        isActuatable={false}
+                        isConnected={true}
+                        style={{ 
+                           '--comp-button-filled-color': 'var(--color-status-cool)',
+                           '--comp-device-status-color-on': 'var(--color-status-cool)'
+                        }}
+                     />
+                  </div>
+
+                  {/* 4. Offline */}
+                  <div className="demo-item" style={{ width: '100%' }}>
+                     <label style={{ marginBottom: '12px', display: 'block' }}>Offline (Ghost)</label>
+                     <BinaryDeviceCard 
+                        name="Bedroom Light"
+                        status="연결 끊김"
+                        isOn={false}
+                        onToggle={() => {}}
+                        icon={<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5h1.5c1.66 0 3 1.34 3 3 0 1.66-1.34 3-3 3z" fill="currentColor"/><line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" strokeWidth="2" /></svg>}
+                        isActuatable={true}
+                        isConnected={false}
+                     />
+                  </div>
+              </div>
+            </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Organism: Complex Controllers</h2>
+                <p>Advanced control interfaces for detailed device management.</p>
+              </div>
+              <div className="showcase-demo" style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
                  
-                 {/* 1. Interactable */}
-                 <div className="demo-item">
-                    <BinaryDeviceCard 
-                       name="Light 01"
-                       status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
-                       isOn={isPowerOn}
-                       onToggle={togglePower}
-                       icon={BulbIcon}
-                       isActuatable={true}
-                       isConnected={true}
-                    />
-                    <label>Interactable (Toggle)</label>
+                 <div className="demo-item" style={{ width: '100%', alignItems: 'center' }}>
+                    <label style={{ marginBottom: '24px' }}>Speaker Volume Control</label>
+                    <SpeakerVolumeControl deviceName="Living Room Speaker" initialVolume={45} />
                  </div>
 
-                 {/* 2. Static / Info */}
-                 <div className="demo-item">
-                    <BinaryDeviceCard 
-                       name="Refrigerator"
-                       status="냉장 3°C | 냉동 -18°C"
-                       isOn={true}
-                       onToggle={() => {}}
-                       icon={<svg viewBox="0 0 24 24"><path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7v-6h10v6zm0-8H7V3h10v8z" fill="currentColor"/></svg>}
-                       isActuatable={false}
-                       isConnected={true}
-                       style={{ 
-                          '--comp-button-filled-color': 'var(--color-status-cool)',
-                          '--comp-device-status-color-on': 'var(--color-status-cool)'
-                       }}
-                    />
-                    <label>Information (Static)</label>
+                 <div className="demo-item" style={{ width: '100%', alignItems: 'center' }}>
+                    <label style={{ marginBottom: '24px' }}>Blind/Curtain Controller</label>
+                    <BlindCurtain />
                  </div>
 
-                 {/* 3. Offline */}
-                 <div className="demo-item">
-                    <BinaryDeviceCard 
-                       name="Bedroom Light"
-                       status="연결 끊김"
-                       isOn={false}
-                       onToggle={() => {}}
-                       icon={<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5h1.5c1.66 0 3 1.34 3 3 0 1.66-1.34 3-3 3z" fill="currentColor"/><line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" strokeWidth="2" /></svg>}
-                       isActuatable={true}
-                       isConnected={false}
-                    />
-                    <label>Offline (Ghost)</label>
+                 <div className="demo-item" style={{ width: '100%', alignItems: 'center' }}>
+                    <label style={{ marginBottom: '24px' }}>Lighting Brightness Controller</label>
+                    <IotLightingBrightnessController />
                  </div>
 
-              </div>
-            </div>
-
-            <div className="component-showcase">
-              <div className="showcase-header">
-                <h2>Organism: Action Device Card</h2>
-                <p>Card optimized for devices with a primary action (e.g., Play, Lock, Run).</p>
-              </div>
-              <div className="showcase-demo">
-                  <ActionDeviceCard 
-                    name="Marshall Speaker"
-                    status={isPlaying ? "재생 중 - lofi beats" : "대기 중"}
-                    isPlaying={isPlaying}
-                    onAction={() => setIsPlaying(!isPlaying)}
-                    icon={isPlaying ? <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg> : <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>}
-                  />
-              </div>
-            </div>
-
-            <div className="component-showcase">
-              <div className="showcase-header">
-                <h2>Organism: Speaker Volume Control</h2>
-                <p>Vertical slider for intuitive volume adjustment.</p>
-              </div>
-              <div className="showcase-demo">
-                 <SpeakerVolumeControl deviceName="Living Room Speaker" initialVolume={45} />
-              </div>
-            </div>
-
-            <div className="component-showcase">
-              <div className="showcase-header">
-                <h2>Organism: Blind Curtain</h2>
-                <p>Vertical slider controller for window blinds or curtains.</p>
-              </div>
-              <div className="showcase-demo">
-                 <BlindCurtain />
-              </div>
-            </div>
-
-            <div className="component-showcase">
-              <div className="showcase-header">
-                <h2>Organism: Lighting Controller</h2>
-                <p>Adaptive brightness controller with dynamic lighting feedback.</p>
-              </div>
-              <div className="showcase-demo">
-                <IotLightingBrightnessController />
               </div>
             </div>
           </div>
@@ -541,8 +555,6 @@ function App() {
             <h1 className="doc-title">Inputs</h1>
             <p className="doc-intro">Interactive controls for user input.</p>
             
-
-
             <div className="component-showcase">
               <div className="showcase-header">
                 <h2>Temperature Control</h2>
@@ -593,6 +605,21 @@ function App() {
               onClick={() => setActiveSection('foundations')}
             >
               Foundations
+            </button>
+          </div>
+          <div className="nav-group">
+            <div className="nav-label">Pages</div>
+            <button 
+              className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
+              onClick={() => setActiveSection('dashboard')}
+            >
+              Dashboard
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'lighting' ? 'active' : ''}`}
+              onClick={() => setActiveSection('lighting')}
+            >
+              Lighting Control
             </button>
           </div>
           <div className="nav-group">

@@ -1,0 +1,73 @@
+.tabBarWrapper {
+  position: sticky;
+  bottom: 0; /* Stick to bottom edge of view */
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  pointer-events: none;
+  padding-bottom: 24px;
+}
+
+.tabBar {
+  pointer-events: auto; /* Re-enable clicks on the bar itself */
+  display: flex;
+  justify-content: space-between; /* Spread items nicely */
+  align-items: center;
+  width: 100%; /* Fill the wrapper width */
+  box-sizing: border-box; /* Include padding in width */
+  
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.65); /* More transparent */
+  backdrop-filter: blur(20px) saturate(180%); /* Strong blur + saturation for vibrancy */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  
+  padding: 16px 32px;
+  border-radius: 40px; /* Fully rounded pill */
+  
+  /* Premium Shadow & Border */
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.1), /* Soft large shadow */
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset; /* Inner light border */
+}
+
+.tabItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: var(--color-text-3, #9ca3af);
+  position: relative;
+}
+
+.tabItem:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--color-text-2, #4b5563);
+}
+
+.tabItem:active {
+  transform: scale(0.92);
+}
+
+.tabItem.active {
+  color: var(--color-primary, #1d2129); /* Active Color */
+}
+
+/* Active Dot Indicator */
+.tabItem.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0px; 
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-primary, #1d2129);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

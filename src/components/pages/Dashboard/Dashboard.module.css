@@ -1,0 +1,61 @@
+.dashboard {
+  width: 100%;
+  max-width: 480px; /* Mobile-ish width constraint for the demo */
+  margin: 0 auto;
+  background-color: var(--color-bg-app); /* #F4F6F8 */
+  min-height: 85vh; /* Ensure it takes up vertical space */
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  padding-bottom: 0; /* TabBar wrapper handles spacing */
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-1);
+  margin-bottom: 16px;
+}
+
+/* Tabs / Chips Row */
+.tabs {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px; /* For scrollbar breathing room */
+  margin-bottom: 32px;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+}
+.tabs::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-2);
+  margin-bottom: 16px;
+}
+
+/* Device Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Columns */
+  gap: 16px;
+  align-items: start;
+}
+
+/* Spanning items */
+.span2 {
+  grid-column: span 2;
+}
+
+/* Media Query for larger screens? 
+   Actually keeping it mobile-width constrained inside the showcase area is better for context.
+*/
