@@ -28,6 +28,7 @@
   /* Status Colors */
   --color-status-active: #ff9f0a; /* Warm Yellow/Orange for active states */
   --color-status-active-bg: linear-gradient(135deg, #ff9f0a 0%, #ffc107 100%);
+  --color-status-cool: #2196F3; /* Cool Blue for refrigeration etc */
   
   /* Temperature Gradient Colors */
   --color-temp-warm: #FB8C6F;   /* Salmon */

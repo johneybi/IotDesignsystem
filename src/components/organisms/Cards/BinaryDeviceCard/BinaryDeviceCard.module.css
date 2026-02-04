@@ -5,6 +5,7 @@
   
   width: 100%;
   max-width: 320px;
+  min-width: 280px;
   background-color: var(--comp-card-bg-off); /* Default to OFF state color */
   border-radius: var(--comp-card-radius);
   padding: var(--comp-card-padding);

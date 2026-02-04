@@ -1,75 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
-import moonIcon from '../../../../assets/icon-moon.svg';
-import sunIcon from '../../../../assets/icon-sun.svg';
 import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
+import { Moon, Sun } from 'lucide-react';
 import './AdaptiveLightSliderNew.css';
 
 export default function AdaptiveLightSlider() {
-    console.log("DEBUG: AdaptiveLightSlider Rendered (V3 - Highlight Removed)");
     const constraintsRef = useRef(null);
 
     // Container dimensions
     // Height: 272px
     // Knob: 81px
-    // Drag range: 272 - 81 = 191px roughly, minus padding
-    // Let's assume the draggable area is the full height minus the knob height.
-
-    // Motion value for Y position
-    // Figma Coordinates:
+    // Drag range: 272 - 81 = 191px roughly.
     // Top (High Intensity): Y = 23px
     // Bottom (Low Intensity): Y = 173px
-    const y = useMotionValue(173); // Start at bottom (Low)
+    const y = useMotionValue(173); // Start at bottom (Low/Off)
 
-    // Input range for transforms
-    // Top (23) -> Mid (98) -> Bottom (173)
-    const inputY = [23, 98, 173];
-
-    // Background Gradients/Colors
-    // Top: Bright/High (Ivory/Yellow)
-    // Mid: Warm (Beige/Brown)
-    // Bottom: Low (Dark Navy/Purple)
-
-    // We'll interpolate the background color/gradient. 
-    // Since CSS gradients are complex to interpolate directly with basic colors, 
-    // we can interpolate the primary background color and use an overlay or straightforward hex interpolation.
-    // The user requested:
-    // Low: Dark Navy/Purple
-    // Mid: Warm Brown/Beige
-    // High: Bright Ivory/Yellow
-
-    // Colors for Gradient Interpolation
-    // Top Color
-    const topColor = useTransform(y, inputY, [
-        "rgba(255, 253, 220, 1)", // High: Bright Ivory
-        "rgba(210, 190, 160, 1)", // Mid: Warm Beige
-        "rgba(10, 10, 50, 1)"     // Low: Dark Navy
+    const inputY = [23, 173];
+    
+    // Background Color
+    // Transitions from Deep Dark Navy (Off) to Bright Warm Light (On/Max).
+    // Added intermediate point at 170 (~2% on) to make it "slightly brighter" immediately when turned on.
+    const bgColor = useTransform(y, [23, 170, 173], [
+        "rgb(255, 245, 225)", // High: Bright Warm Ivory
+        "rgb(80, 80, 110)",   // Just On: Much brighter visual feedback (Grey-Blue)
+        "rgb(20, 20, 35)"     // Off: Deep Dark
     ]);
+    
+    // Glow Opacity Logic
+    // 173 = Off (0%)
+    // 170~172 = Just On (1%+)
+    // We want a sharp jump.
+    const glowOpacity = useTransform(y, [23, 165, 172, 173], [1, 0.8, 0.5, 0]);
 
-    // Bottom Color
-    const bottomColor = useTransform(y, inputY, [
-        "rgba(255, 215, 100, 1)", // High: Yellow/Gold
-        "rgba(180, 140, 100, 1)", // Mid: Brownish
-        "rgba(30, 30, 80, 1)"     // Low: Lighter Navy/Purple
-    ]);
-
-    const background = useMotionTemplate`linear-gradient(to bottom, ${topColor}, ${bottomColor})`;
-
-    // Gradient Overlay opacity or specific gradient stops could be cleaner, 
-    // but let's try a direct background approach or a pseudo-element.
-    // For better visual "Gaze" effect, we can layer gradients. 
-    // But let's stick to the user's color request primarily.
-
-    // Icon Opacity / Transformation
-    const moonOpacity = useTransform(y, [98, 173], [0, 1]);
-    const sunOpacity = useTransform(y, [23, 98], [1, 0]);
-
-    // Knob Shadow - Constant based on Figma
-    // shadow-[0px_32.4px_32.4px_0px_rgba(0,0,0,0.25)]
-
-
-    // Drag Logic using Pointer Events (Relative Drag)
-    // Replaces Framer Motion's drag="y" to allow dragging from anywhere in the container.
+    // Icon Opacity
+    // Moon visible only at very bottom (effectively off)
+    const moonOpacity = useTransform(y, [170, 173], [0, 1]); 
+    // Sun visible as soon as we leave bottom
+    const sunOpacity = useTransform(y, [170, 173], [1, 0]);
     
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
@@ -80,22 +47,15 @@ export default function AdaptiveLightSlider() {
         isDragging.current = true;
         startY.current = e.clientY;
         startYValue.current = y.get();
-        
-        // Capture pointer to ensure we receive move events even if cursor leaves container
         e.currentTarget.setPointerCapture(e.pointerId);
     };
 
     const handlePointerMove = (e) => {
         if (!isDragging.current) return;
-
         const deltaY = e.clientY - startY.current;
         const newY = startYValue.current + deltaY;
-
-        // Clamp values to constraints [23, 173]
-        let clampedY = newY;
-        if (clampedY < 23) clampedY = 23;
-        if (clampedY > 173) clampedY = 173;
-
+        // Clamp: Top 23, Bottom 173
+        const clampedY = Math.min(Math.max(newY, 23), 173);
         y.set(clampedY);
     };
 
@@ -109,63 +69,41 @@ export default function AdaptiveLightSlider() {
             className="adaptive-slider-container"
             ref={sliderRef}
             style={{
-                background: background,
+                background: bgColor,
                 cursor: 'grab',
-                touchAction: 'none' // Important for preventing scroll while dragging
+                touchAction: 'none'
             }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
         >
-            {/* Constraints Container - Visual Helper or Layout guide, can remain */}
-            <div
-                ref={constraintsRef}
-                className="adaptive-slider-constraints"
+            {/* Glow Effect Layer */}
+            <motion.div 
+                className="adaptive-slider-glow"
+                style={{ opacity: glowOpacity }}
             />
 
+            <div ref={constraintsRef} className="adaptive-slider-constraints" />
+
             <motion.div
-                // Removed drag="y" and dragConstraints related props
-                // Position is now controlled solely by 'y' motion value updated via pointer events
                 style={{ y, x: "-50%" }}
                 className="adaptive-slider-knob-wrapper-v2" 
             >
-                {/* 
-                    Using SliderThumb as the visual knob. 
-                    We pass the custom class 'adaptive-slider-thumb' to override default atom styles (size, gradient).
-                */}
                 <SliderThumb className="adaptive-slider-thumb-v2">
-
-
-                    {/* Icons */}
                     <div className="adaptive-slider-icon-wrapper">
-                        <motion.img
-                            src={sunIcon}
-                            className="adaptive-slider-icon"
-                            name="sun"
-                            draggable="false"
-                            onDragStart={(e) => e.preventDefault()}
-                            style={{ 
-                                opacity: sunOpacity, 
-                                pointerEvents: 'none', 
-                                userSelect: 'none', 
-                                WebkitUserDrag: 'none' 
-                            }}
-                            alt="Sun"
-                        />
-                        <motion.img
-                            src={moonIcon}
-                            className="adaptive-slider-icon"
-                            name="moon"
-                            draggable="false"
-                            onDragStart={(e) => e.preventDefault()}
-                            style={{ 
-                                opacity: moonOpacity, 
-                                pointerEvents: 'none', 
-                                userSelect: 'none', 
-                                WebkitUserDrag: 'none' 
-                            }}
-                            alt="Moon"
-                        />
+                        {/* Sun Icon */}
+                        <motion.div 
+                            style={{ opacity: sunOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                            <Sun size={24} color="#333" strokeWidth={2.5} /> 
+                        </motion.div>
+                        
+                        {/* Moon Icon */}
+                        <motion.div 
+                            style={{ opacity: moonOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                             <Moon size={24} color="#666" strokeWidth={2} />
+                        </motion.div>
                     </div>
                 </SliderThumb>
             </motion.div>

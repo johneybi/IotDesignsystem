@@ -1,0 +1,52 @@
+.card {
+  --comp-card-bg-light: #FAFAFA;
+  --comp-card-radius: 24px;
+  --comp-card-padding: 24px;
+  --comp-text-primary: #111111;
+  --comp-text-secondary: #868686;
+
+  background-color: var(--comp-card-bg-light);
+  border-radius: var(--comp-card-radius);
+  padding: var(--comp-card-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  width: fit-content;
+  min-width: 140px; /* Ensure enough width for labels */
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--comp-text-primary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--comp-text-secondary);
+}
+
+.sliderWrapper {
+  /* Ensure the slider has space */
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Ensure it has height for the slider */
+  min-height: 272px; 
+}

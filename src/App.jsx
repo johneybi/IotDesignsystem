@@ -12,6 +12,7 @@ import BinaryDeviceCard from './components/organisms/Cards/BinaryDeviceCard/Bina
 import './App.css'
 
 import BlindCurtain from './components/organisms/BlindCurtain/BlindCurtain';
+import IotLightingBrightnessController from './components/organisms/IotLightingBrightnessController/IotLightingBrightnessController';
 import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
 import VerticalSlider from './components/molecules/Linear/VerticalSlider/VerticalSlider'
 
@@ -321,24 +322,74 @@ function App() {
                 <h2>Organism: Binary Device Card</h2>
                 <p>Standard dashboard card for toggling binary devices (Lights, Plugs).</p>
               </div>
-              <div className="showcase-demo"> {/* App BG color to see card contrast */}
-                <BinaryDeviceCard 
-                   name="Light 01"
-                   status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
-                   isOn={isPowerOn}
-                   onToggle={togglePower}
-                   icon={BulbIcon}
-                />
+              <div className="showcase-demo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '40px' }}> {/* Vertical stack */ }
+                 
+                 {/* 1. Interactable */}
+                 <div className="demo-item">
+                    <BinaryDeviceCard 
+                       name="Light 01"
+                       status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
+                       isOn={isPowerOn}
+                       onToggle={togglePower}
+                       icon={BulbIcon}
+                       isActuatable={true}
+                       isConnected={true}
+                    />
+                    <label>Interactable (Toggle)</label>
+                 </div>
+
+                 {/* 2. Static / Info */}
+                 <div className="demo-item">
+                    <BinaryDeviceCard 
+                       name="Refrigerator"
+                       status="냉장 3°C | 냉동 -18°C"
+                       isOn={true}
+                       onToggle={() => {}}
+                       icon={<svg viewBox="0 0 24 24"><path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7v-6h10v6zm0-8H7V3h10v8z" fill="currentColor"/></svg>}
+                       isActuatable={false}
+                       isConnected={true}
+                       style={{ 
+                          '--comp-button-filled-color': 'var(--color-status-cool)',
+                          '--comp-device-status-color-on': 'var(--color-status-cool)'
+                       }}
+                    />
+                    <label>Information (Static)</label>
+                 </div>
+
+                 {/* 3. Offline */}
+                 <div className="demo-item">
+                    <BinaryDeviceCard 
+                       name="Bedroom Light"
+                       status="연결 끊김"
+                       isOn={false}
+                       onToggle={() => {}}
+                       icon={<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5h1.5c1.66 0 3 1.34 3 3 0 1.66-1.34 3-3 3z" fill="currentColor"/><line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" strokeWidth="2" /></svg>}
+                       isActuatable={true}
+                       isConnected={false}
+                    />
+                    <label>Offline (Ghost)</label>
+                 </div>
+
               </div>
             </div>
 
             <div className="component-showcase">
               <div className="showcase-header">
                 <h2>Organism: Blind Curtain</h2>
-                <p>Vertical control for window treatments using the Vertical Slider (No Card).</p>
+                <p>Vertical slider controller for window blinds or curtains.</p>
               </div>
               <div className="showcase-demo">
-                 <BlindCurtain title="Living Room" />
+                 <BlindCurtain />
+              </div>
+            </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Organism: Lighting Controller</h2>
+                <p>Adaptive brightness controller with dynamic lighting feedback.</p>
+              </div>
+              <div className="showcase-demo">
+                <IotLightingBrightnessController />
               </div>
             </div>
           </div>

@@ -20,5 +20,5 @@
 }
 
 .on {
-  color: var(--color-status-active); /* Optional: Highlight status when on */
+  color: var(--comp-device-status-color-on, var(--color-status-active)); /* Optional: Highlight status when on */
 }

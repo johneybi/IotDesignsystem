@@ -16,18 +16,26 @@ import styles from './Button.module.css';
 const Button = ({ 
   active = false, // Functionally maps to "Binary = On/Off"
   disabled = false, // Functionally maps to "Disabled" state
+  variant = 'neumorph', // 'neumorph' | 'filled' | 'ghost'
   onClick, 
   icon, 
   className = '',
   ...props 
 }) => {
   // Determine variant class
-  let variantClass = styles.off; // Default
+  let variantClass = styles.off; // Default (neumorph off)
   
-  if (disabled) {
-    variantClass = styles.disabled;
-  } else if (active) {
-    variantClass = styles.on;
+  if (variant === 'filled') {
+    variantClass = styles.filled;
+  } else if (variant === 'ghost') {
+    variantClass = styles.ghost;
+  } else {
+    // Neumorph logic
+    if (disabled) {
+      variantClass = styles.disabled;
+    } else if (active) {
+      variantClass = styles.on;
+    }
   }
 
   return (

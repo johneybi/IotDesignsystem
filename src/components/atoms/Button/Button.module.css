@@ -80,6 +80,36 @@
   box-shadow: inset -2px -2px 4px var(--color-shadow-light);
 }
 
+/* Variant = Filled (Non-Interactive / Static) */
+.filled {
+  background: #f0f0f0; /* Flat grey */
+  border-color: transparent;
+  cursor: default;
+  color: var(--comp-button-filled-color, #555);
+}
+
+.filled::before,
+.filled::after {
+  box-shadow: none;
+  opacity: 0;
+}
+
+/* Variant = Ghost (Offline / Disconnected) */
+.ghost {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  opacity: 0.4;
+  color: #555;
+}
+
+.ghost::before,
+.ghost::after {
+  box-shadow: none;
+  opacity: 0;
+}
+
+
 /* Binary = disabled */
 .disabled {
   background: var(--comp-button-bg-enabled);
