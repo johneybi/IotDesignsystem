@@ -25,6 +25,7 @@ import Dropdown from './components/molecules/Selection/Dropdown/Dropdown';
 import Chip from './components/atoms/Chip/Chip';
 
 import ActionDeviceCard from './components/organisms/Cards/ActionDeviceCard/ActionDeviceCard';
+import SpeakerVolumeControl from './components/organisms/SpeakerVolumeControl/SpeakerVolumeControl';
 
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -498,6 +499,16 @@ function App() {
                     onAction={() => setIsPlaying(!isPlaying)}
                     icon={isPlaying ? <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg> : <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>}
                   />
+              </div>
+            </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Organism: Speaker Volume Control</h2>
+                <p>Vertical slider for intuitive volume adjustment.</p>
+              </div>
+              <div className="showcase-demo">
+                 <SpeakerVolumeControl deviceName="Living Room Speaker" initialVolume={45} />
               </div>
             </div>
 
