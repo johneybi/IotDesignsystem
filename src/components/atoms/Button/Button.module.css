@@ -7,7 +7,7 @@
   width: var(--comp-button-size);
   height: var(--comp-button-size);
   border-radius: var(--comp-button-radius);
-  border: 1px solid #c7c7c7;
+  border: 1px solid var(--comp-button-border-default);
   cursor: pointer;
   outline: none;
   font-family: inherit;
@@ -15,8 +15,8 @@
   user-select: none;
   padding: 0;
   margin: 0;
-  color: #555;
-  font-size: 14px;
+  color: var(--comp-button-text-default);
+  font-size: var(--sys-typescale-body-small);
   -webkit-tap-highlight-color: transparent;
   background-clip: padding-box;
   position: relative;
@@ -31,9 +31,8 @@
 /* Binary = off (Default/Normal) */
 .off {
   background: var(--comp-button-bg-enabled);
-  box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.9), 
-              2px 2px 4px 0px rgba(0, 0, 0, 0.1); /* Adapted for light bg */
-  border-color: #c7c7c7;
+  box-shadow: var(--sys-shadow-neu-flat-light), var(--sys-shadow-neu-flat-dark);
+  border-color: var(--comp-button-border-default);
 }
 
 .off::after {
@@ -56,10 +55,10 @@
 
 /* Variant = Filled (Non-Interactive / Static) */
 .filled {
-  background: #f0f0f0;
+  background: var(--sys-color-bg-disabled);
   border-color: transparent;
   cursor: default;
-  color: var(--comp-button-filled-color, #555);
+  color: var(--comp-button-filled-color, var(--sys-color-text-secondary));
   box-shadow: none;
 }
 
@@ -69,7 +68,7 @@
   border-color: transparent;
   cursor: default;
   opacity: 0.4;
-  color: #ffffff; /* White tone for visibility on dark/glass cards */
+  color: var(--sys-color-text-inverse); /* White tone for visibility on dark/glass cards */
   box-shadow: none;
 }
 
@@ -101,7 +100,7 @@
   box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.15), 
               2px 2px 4px 0px rgba(0, 0, 0, 0.08);
   border-color: rgba(0, 0, 0, 0.05); /* Adjusted to semi-transparent black (~#9f9f9f on #a3a3a3) */
-  color: #333; /* Darker than #555 as requested */
+  color: var(--sys-color-text-primary); /* Darker than #555 as requested */
 }
 
 .neumorphDark::after {

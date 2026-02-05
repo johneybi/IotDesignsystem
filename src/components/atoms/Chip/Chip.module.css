@@ -6,7 +6,7 @@
   padding: 8px 16px;
   border-radius: 99px; /* Pill shape */
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: var(--sys-typescale-body-small);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -37,7 +37,7 @@
 .solid.active {
   background-color: var(--color-text-1);
   color: var(--color-bg-white);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: var(--sys-shadow-lg);
 }
 
 /* Ghost Variant */

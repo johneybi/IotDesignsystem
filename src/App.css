@@ -11,112 +11,11 @@
   box-sizing: border-box;
 }
 
-:root {
-  --color-text-1: #1d2129;
-  --color-text-2: #4e5969;
-  --color-text-3: #86909c;
-  --color-border: #e5e6eb;
-  --color-fill-1: #f7f8fa;
-  --color-fill-2: #f2f3f5;
-  --color-bg-white: #ffffff;
-  --color-bg-app: #f4f6f8;
-  
-  --font-family: var(--font-main);
-  
-  /* Status Colors */
-  --color-status-active: #ff9f0a; /* Warm Yellow/Orange for active states */
-  --color-status-active-bg: linear-gradient(135deg, #ff9f0a 0%, #ffc107 100%);
-  --color-status-warm: #FF7043; /* Warm Orange for heating etc */
-  --color-status-cool: #2196F3; /* Cool Blue for refrigeration etc */
-  
-  /* Temperature Gradient Colors */
-  --color-temp-warm: #FB8C6F;   /* Salmon */
-  --color-temp-neutral: #E6D378; /* Muted Yellow */
-  --color-temp-cool: #6EE7B7;    /* Teal */
-
-  /* Component: Button */
-  --comp-button-size: 53px;
-  --comp-button-radius: 26.5px;
-  
-  /* Button - Enabled (Off) */
-  /* Refactored to use transparency (White Base) to match #e8e8e8/#f8f8f8 over #a3a3a3 */
-  /* Stop 1: 255*0.75 + 163*0.25 = 232 (#e8) */
-  /* Stop 2: 255*0.92 + 163*0.08 = 247.6 (#f8) */
-  --comp-button-bg-enabled: linear-gradient(-30deg, rgba(255, 255, 255, 0.75) 11.25%, rgba(255, 255, 255, 0.92) 84.42%);
-  --comp-button-shadow-enabled: 
-    2px 2px 4px 0px #ffffff,
-    -2px -2px 4px 0px rgba(0, 0, 0, 0.08);
-
-  /* Button - Active (On / Pressed) */
-  --comp-button-bg-active: linear-gradient(240deg, #e8e8e8 14%, #f8f8f8 87.17%);
-  --comp-button-shadow-active: 
-    inset 1px 1px 2px 0px rgba(255, 255, 255, 0.25),
-    inset -2px -2px 4px 0px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 4px 0px rgba(0, 0, 0, 0.29);
-  --comp-button-icon-color-active: var(--color-status-active); /* Default to Warm Yellow */
-
-  /* Button - Disabled */
-  --comp-button-border-disabled: #9f9f9f;
-  --comp-button-text-disabled: #a0a0a0;
-  --comp-button-opacity-disabled: 0.7;
-  --comp-button-shadow-disabled:
-    -2px -2px 4px 0px rgba(255, 255, 255, 0.3),
-    2px 2px 4px 0px rgba(0, 0, 0, 0.08);
-
-  /* Shadow Colors */
-  --color-shadow-light: #ffffff;
-  --color-shadow-dark: #b0b0b0;
-
-  /* Component: Slider */
-  --comp-slider-track-height: 12px;
-  --comp-slider-track-radius: 35px; /* Match rounded-[35px] */
-  --comp-slider-track-bg: #e5e5e5;
-  --comp-slider-track-border: 1px solid #a3a3a3;
-  --comp-slider-track-shadow: none; /* Removing inner shadow as per design */
-  
-  --comp-slider-fill-bg: #737373; /* Neutral 500 */
-  
-  --comp-slider-thumb-size: 20px;
-  --comp-slider-thumb-bg: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
-  --comp-slider-thumb-border: 1px solid #c7c7c7;
-  --comp-slider-thumb-shadow: 0px 8px 8px 0px rgba(0,0,0,0.25);
-  --comp-slider-thumb-shadow-active: 0px 4px 4px 0px rgba(0,0,0,0.25); /* Flatten slightly on press */
-
-  /* Slider Ticks & Labels */
-  --comp-slider-tick-bg: rgba(0, 0, 0, 0.2);
-  --comp-slider-tick-active-bg: rgba(255, 255, 255, 0.9);
-  --comp-slider-label-color: var(--color-text-3);
-  --comp-slider-label-active-color: var(--color-text-1); /* Use primary text color for active label */
-  /* Component: Card */
-  --comp-card-bg: #fafafa;
-  /* Refactored to use transparency (Black Base) to match #a3a3a3 over White */
-  /* 0*0.36 + 255*0.64 = 163 (#a3) */
-  --comp-card-bg-off: rgba(0, 0, 0, 0.36); /* Neutral Dark Base with Opacity */
-  --comp-card-radius: 20px;
-  --comp-card-padding: 24px; /* standardized from ~22px */
-  
-  /* Component: Device Info */
-  --comp-device-name-size: 20px;
-  --comp-device-name-color: #000000;
-  --comp-device-status-size: 13px;
-  --comp-device-status-color: #868686;
-
-  /* Specific Slider Gradients & Tokens */
-  --slider-gradient-silver-warm: linear-gradient(90deg, #515151 0%, #B7B7B7 100%);
-  --slider-gradient-silver-cool: linear-gradient(to left, #515151 0%, #B7B7B7 100%); /* Right to Left */
-  --slider-gradient-silver-vertical: linear-gradient(180deg, #515151 0%, #B7B7B7 100%); /* Top to Bottom */
-  --slider-thumb-gradient-matte: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
-  --slider-thumb-border-color: #c7c7c7;
-  --slider-knob-shadow-large: 0px 32.4px 32.4px 0px rgba(0, 0, 0, 0.25);
-  --slider-icon-color-dark: #515151;
-  --slider-icon-color-light: #FFFFFF;
-}
-
 body {
   margin: 0;
-  font-family: var(--font-family);
-  background-color: var(--color-bg-white);
-  color: var(--color-text-1);
+  font-family: var(--sys-font-family-main);
+  background-color: var(--sys-color-bg-primary);
+  color: var(--sys-color-text-primary);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -131,8 +30,8 @@ body {
 /* Sidebar */
 .ds-sidebar {
   width: 260px;
-  background-color: var(--color-bg-white);
-  border-right: 1px solid var(--color-border);
+  background-color: var(--sys-color-bg-primary);
+  border-right: 1px solid var(--sys-color-border-primary);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -145,8 +44,8 @@ body {
   padding: 0 20px;
   font-weight: 600;
   font-size: 18px;
-  color: var(--color-text-1);
-  border-bottom: 1px solid var(--color-border);
+  color: var(--sys-color-text-primary);
+  border-bottom: 1px solid var(--sys-color-border-primary);
 }
 
 .logo-circle {
@@ -169,7 +68,7 @@ body {
 
 .nav-label {
   font-size: 12px;
-  color: var(--color-text-3);
+  color: var(--sys-color-text-tertiary);
   margin-bottom: 8px;
   padding-left: 12px;
   font-weight: 500;
@@ -185,14 +84,14 @@ body {
   margin-bottom: 2px;
   border-radius: 4px;
   font-size: 14px;
-  color: var(--color-text-2);
+  color: var(--sys-color-text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-  background-color: var(--color-fill-2);
-  color: var(--color-text-1);
+  background-color: var(--sys-color-bg-tertiary);
+  color: var(--sys-color-text-primary);
 }
 
 .nav-item.active {
@@ -208,7 +107,7 @@ body {
 
 .nav-item.disabled:hover {
   background: none;
-  color: var(--color-text-3);
+  color: var(--sys-color-text-tertiary);
 }
 
 /* Main Content */
@@ -216,7 +115,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-bg-white);
+  background-color: var(--sys-color-bg-primary);
   min-width: 0; /* Prevent overflow */
 }
 
@@ -225,8 +124,8 @@ body {
   display: flex;
   align-items: center;
   padding: 0 40px;
-  background-color: var(--color-bg-white);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--sys-color-bg-primary);
+  border-bottom: 1px solid var(--sys-color-border-primary);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -234,7 +133,7 @@ body {
 
 .current-path {
   font-size: 14px;
-  color: var(--color-text-3);
+  color: var(--sys-color-text-tertiary);
 }
 
 .content-scroll {
@@ -252,12 +151,12 @@ body {
   font-size: 36px;
   font-weight: 600;
   margin: 0 0 16px 0;
-  color: var(--color-text-1);
+  color: var(--sys-color-text-primary);
 }
 
 .doc-intro {
   font-size: 16px;
-  color: var(--color-text-2);
+  color: var(--sys-color-text-secondary);
   line-height: 1.6;
   margin-bottom: 48px;
 }
@@ -270,10 +169,10 @@ body {
 }
 
 .doc-card {
-  background: var(--color-bg-white);
+  background: var(--sys-color-bg-primary);
   padding: 24px;
   border-radius: 4px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--sys-color-border-primary);
   transition: box-shadow 0.2s;
 }
 
@@ -285,28 +184,28 @@ body {
 .doc-card h3 {
   margin: 0 0 12px 0;
   font-size: 16px;
-  color: var(--color-text-1);
+  color: var(--sys-color-text-primary);
   font-weight: 600;
 }
 
 .doc-card p {
   margin: 0;
-  color: var(--color-text-2);
+  color: var(--sys-color-text-secondary);
   font-size: 14px;
   line-height: 1.5;
 }
 
 /* Component Showcase - Clean Arco Style */
 .component-showcase {
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--sys-color-border-primary);
   border-radius: 4px;
   margin-bottom: 48px;
-  background-color: var(--color-bg-white);
+  background-color: var(--sys-color-bg-primary);
 }
 
 .showcase-header {
   padding: 20px 24px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--sys-color-border-primary);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -315,19 +214,19 @@ body {
 .showcase-header h2 {
   margin: 0;
   font-size: 18px;
-  color: var(--color-text-1);
+  color: var(--sys-color-text-primary);
   font-weight: 500;
 }
 
 .showcase-header p {
   margin: 0;
-  color: var(--color-text-2);
+  color: var(--sys-color-text-secondary);
   font-size: 14px;
 }
 
 .showcase-demo {
   padding: 48px;
-  background-color: #F9FAFB; /* Very weak neutral gray */
+  background-color: #F9FAFB; /* Very weak neutral gray - consider tokenizing this too if widely used, maybe --sys-color-bg-secondary? */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -348,6 +247,6 @@ body {
 
 .demo-item label {
   font-size: 12px;
-  color: var(--color-text-3);
+  color: var(--sys-color-text-tertiary);
   font-family: monospace;
 }
