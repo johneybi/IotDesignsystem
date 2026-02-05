@@ -4,6 +4,22 @@
   gap: 4px;
 }
 
+.location {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sys-color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+}
+
+
+.nameRow {
+    display: flex;
+    align-items: center; /* Center looks safer often than baseline depending on fonts */
+    gap: 8px;
+}
+
 .name {
   margin: 0;
   font-size: var(--comp-device-name-size);
@@ -14,11 +30,34 @@
 }
 
 .status {
-  font-size: var(--comp-device-status-size);
-  color: var(--comp-device-status-color);
+  font-family: var(--ref-font-family-base, sans-serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--sys-color-text-tertiary); /* Soft grey when off */
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
   line-height: 1;
+  display: block;
 }
 
 .on {
-  color: var(--comp-device-status-color-on, var(--color-status-active)); /* Optional: Highlight status when on */
+  color: var(--sys-color-text-primary); /* Black/Dark when On, no semantic color */
+  background-color: transparent;
+}
+
+.statusContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.caption {
+    font-family: var(--ref-font-family-base, sans-serif);
+    font-size: 11px;
+    color: var(--sys-color-text-tertiary);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 4px;
 }

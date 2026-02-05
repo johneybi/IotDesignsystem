@@ -1,7 +1,7 @@
 .card {
   /* Override text colors for Off state (Dark background) */
-  /* Title remains default (Black) as requested */
-  --comp-device-status-color: #ffffff; /* Make status clearly visible */
+  --comp-device-name-color: #ffffff;
+  --sys-color-text-tertiary: rgba(255, 255, 255, 0.8);
   
   width: 100%;
   max-width: 100%;
@@ -11,7 +11,7 @@
   padding: var(--comp-card-padding);
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -22,19 +22,33 @@
   background-color: var(--comp-card-bg); /* ON state color (#fafafa) */
   
   /* Reset text colors for On state (Light background) */
-  --comp-device-name-color: #000000;
-  --comp-device-status-color: #868686;
+  --comp-device-name-color: var(--sys-color-text-primary);
+  --sys-color-text-tertiary: var(--ref-palette-neutral-variant-600);
 }
 
 .infoWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 8px; /* Visual balance with button top */
+  padding-top: 0;
 }
 
 .actionWrapper {
   flex-shrink: 0;
+}
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.statusText {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--comp-device-status-color);
+  text-align: right;
+  transition: color 0.3s ease;
 }
 
 

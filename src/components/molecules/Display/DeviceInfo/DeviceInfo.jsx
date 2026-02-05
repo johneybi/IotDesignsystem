@@ -4,14 +4,18 @@ import styles from './DeviceInfo.module.css';
 const DeviceInfo = ({ 
   name, 
   status, 
-  isOn = false 
+  isOn = false,
+  location
 }) => {
   return (
     <div className={styles.container}>
-      <h3 className={styles.name}>{name}</h3>
-      <span className={`${styles.status} ${isOn ? styles.on : ''}`}>
-        {status}
-      </span>
+      <div className={styles.nameRow}>
+          {name && <h3 className={styles.name}>{name}</h3>}
+          <div className={styles.statusContainer}>
+             <span className={styles.caption}>Status</span>
+             <span className={`${styles.status} ${isOn ? styles.on : ''}`}>{status}</span>
+          </div>
+      </div>
     </div>
   );
 };

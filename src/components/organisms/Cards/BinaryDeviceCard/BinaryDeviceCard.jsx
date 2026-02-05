@@ -4,7 +4,8 @@ import DeviceInfo from '../../../molecules/Display/DeviceInfo/DeviceInfo';
 import Button from '../../../atoms/Button/Button';
 
 const BinaryDeviceCard = ({ 
-  name, 
+  name,
+  location, 
   status, 
   isOn, 
   onToggle,
@@ -33,7 +34,8 @@ const BinaryDeviceCard = ({
       <div className={styles.infoWrapper}>
         <DeviceInfo 
           name={name} 
-          status={status} 
+          location={location}
+          status={status}
           isOn={isOn} 
         />
       </div>

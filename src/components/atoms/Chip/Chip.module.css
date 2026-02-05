@@ -22,39 +22,58 @@
 
 /* Solid Variant (Default) */
 /* Solid Variant (Default) */
+/* Solid Variant (Default) */
 .solid {
-  background-color: rgba(255, 255, 255, 0.35); /* Transparent Neutral */
-  color: var(--color-text-2);
-  backdrop-filter: blur(8px); /* subtle glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--ref-palette-neutral-0);
+  color: var(--ref-palette-neutral-1000);
+  border: 1px solid var(--ref-palette-neutral-200);
 }
 
 .solid:hover {
-  background-color: rgba(255, 255, 255, 0.55); /* Lighter on hover */
-  color: var(--color-text-1);
+  background-color: var(--ref-palette-neutral-50);
 }
 
 .solid.active {
-  background-color: var(--color-text-1);
-  color: var(--color-bg-white);
-  box-shadow: var(--sys-shadow-lg);
+  background-color: var(--ref-palette-neutral-1000);
+  color: var(--ref-palette-neutral-0);
+  border-color: var(--ref-palette-neutral-1000);
 }
 
-/* Ghost Variant */
+/* Ghost Variant (Transparent) */
 .ghost {
   background-color: transparent;
-  color: var(--color-text-2);
+  color: var(--ref-palette-neutral-700);
+  border: 1px solid transparent;
 }
 
 .ghost:hover {
-  background-color: var(--color-fill-1); /* Subtle hover state */
-  color: var(--color-text-1);
+  background-color: rgba(0,0,0,0.05);
+  color: var(--ref-palette-neutral-1000);
 }
 
 .ghost.active {
-  background-color: transparent;
-  color: var(--color-text-1);
-  font-weight: 600;
-  /* Optional: Add a small indicator dot or underline if needed, 
+  background-color: rgba(0,0,0,0.1);
+  color: var(--ref-palette-neutral-1000);
+  font-weight: 700;
+  /* Optional: Add a small indicator dot or underline if needed,
      but for now keeping it minimal as per "Matte" */
+}
+
+/* Translucent Variant */
+.translucent {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: var(--ref-palette-neutral-1000);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.translucent:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.translucent.active {
+  background-color: var(--ref-palette-neutral-1000);
+  color: var(--ref-palette-neutral-0);
+  border-color: var(--ref-palette-neutral-1000);
+  box-shadow: var(--sys-shadow-sm);
 }

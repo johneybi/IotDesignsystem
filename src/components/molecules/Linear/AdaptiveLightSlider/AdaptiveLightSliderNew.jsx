@@ -4,7 +4,7 @@ import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
 import { Moon, Sun } from 'lucide-react';
 import './AdaptiveLightSliderNew.css';
 
-export default function AdaptiveLightSlider() {
+export default function AdaptiveLightSlider({ onChange }) {
     const constraintsRef = useRef(null);
 
     // Container dimensions
@@ -17,19 +17,16 @@ export default function AdaptiveLightSlider() {
 
     const inputY = [23, 173];
     
-    // Background Color
-    // Transitions from Deep Dark Navy (Off) to Bright Warm Light (On/Max).
-    // Added intermediate point at 170 (~2% on) to make it "slightly brighter" immediately when turned on.
-    const bgColor = useTransform(y, [23, 170, 173], [
-        "rgb(255, 245, 225)", // High: Bright Warm Ivory
-        "rgb(80, 80, 110)",   // Just On: Much brighter visual feedback (Grey-Blue)
-        "rgb(20, 20, 35)"     // Off: Deep Dark
+    // Background Color (Light State)
+    const bgColor = useTransform(y, [23, 173], [
+        "rgb(255, 245, 225)", // High Intensity
+        "rgb(220, 215, 210)"  // Low Intensity (Dimmed Warm)
     ]);
     
+    // Dark Gradient Overlay Opacity (Visible when Off)
+    const gradientOpacity = useTransform(y, [165, 173], [0, 1]);
+
     // Glow Opacity Logic
-    // 173 = Off (0%)
-    // 170~172 = Just On (1%+)
-    // We want a sharp jump.
     const glowOpacity = useTransform(y, [23, 165, 172, 173], [1, 0.8, 0.5, 0]);
 
     // Icon Opacity
@@ -37,6 +34,15 @@ export default function AdaptiveLightSlider() {
     const moonOpacity = useTransform(y, [170, 173], [0, 1]); 
     // Sun visible as soon as we leave bottom
     const sunOpacity = useTransform(y, [170, 173], [1, 0]);
+
+    // Shadow Color Logic (Dynamic adaptation)
+    // Top (On): Warm Brown (Mixes well with warm bg in Multiply)
+    // Bottom (Off): Black (Standard shadow)
+    const shadowColor = useTransform(y, [23, 173], [
+        "rgba(180, 130, 80, 0.4)", 
+        "rgba(0, 0, 0, 0.25)"
+    ]);
+    const knobShadow = useMotionTemplate`0px 12px 24px 0px ${shadowColor}`;
     
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
@@ -57,6 +63,11 @@ export default function AdaptiveLightSlider() {
         // Clamp: Top 23, Bottom 173
         const clampedY = Math.min(Math.max(newY, 23), 173);
         y.set(clampedY);
+
+        if (onChange) {
+            const percentage = Math.round(((173 - clampedY) / 150) * 100);
+            onChange(percentage);
+        }
     };
 
     const handlePointerUp = (e) => {
@@ -77,6 +88,18 @@ export default function AdaptiveLightSlider() {
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
         >
+            {/* Dark Gradient Overlay (Off State) */}
+            <motion.div 
+                style={{ 
+                    opacity: gradientOpacity, 
+                    background: 'var(--slider-gradient-silver-vertical)',
+                    position: 'absolute', 
+                    inset: 0, 
+                    zIndex: 1, 
+                    pointerEvents: 'none'
+                }} 
+            />
+
             {/* Glow Effect Layer */}
             <motion.div 
                 className="adaptive-slider-glow"
@@ -89,6 +112,7 @@ export default function AdaptiveLightSlider() {
                 style={{ y, x: "-50%" }}
                 className="adaptive-slider-knob-wrapper-v2" 
             >
+                <motion.div className="adaptive-slider-knob-shadow" style={{ boxShadow: knobShadow }} />
                 <SliderThumb className="adaptive-slider-thumb-v2">
                     <div className="adaptive-slider-icon-wrapper">
                         {/* Sun Icon */}

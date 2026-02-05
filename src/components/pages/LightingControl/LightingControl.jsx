@@ -1,93 +1,91 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Zap, BookOpen, Coffee, Sun, Moon } from 'lucide-react';
 import styles from './LightingControl.module.css';
-
-import IotLightingBrightnessController from '../../organisms/IotLightingBrightnessController/IotLightingBrightnessController';
-import { Slider } from '../../molecules/Linear'; // Use standard Slider
 import TabBar from '../../organisms/Navigation/TabBar/TabBar';
+import dashboardBg from '../../../assets/images/dashboard_bg_mono.png';
+import { ChevronLeft, Power } from 'lucide-react';
+import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDeviceCard';
+import AdaptiveLightSlider from '../../molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew';
+import Readout from '../../molecules/Display/Readout/Readout';
+import ColorTemperatureSlider from '../../molecules/Linear/ColorTemperatureSlider/ColorTemperatureSlider';
+import Chip from '../../atoms/Chip/Chip';
 
 const LightingControl = () => {
-    const [activeScene, setActiveScene] = useState('Relax');
     const [navTab, setNavTab] = useState('devices');
-    const [colorTemp, setColorTemp] = useState(50); // 0 (Warm) - 100 (Cool)
-
-    const scenes = [
-        { id: 'Focus', icon: Zap, label: 'Focus' },
-        { id: 'Read', icon: BookOpen, label: 'Reading' },
-        { id: 'Relax', icon: Coffee, label: 'Relax' },
-    ];
-
-    // Helper to visualize simple Color Temp change text
-    const getTempLabel = (val) => {
-        if (val < 30) return 'Warm White';
-        if (val > 70) return 'Cool White';
-        return 'Neutral';
-    };
+    const [isLightOn, setIsLightOn] = useState(true);
+    const [brightness, setBrightness] = useState(0);
+    const [colorTemp, setColorTemp] = useState(4500);
 
     return (
         <div className={styles.page}>
-            <header className={styles.header}>
-                <button className={styles.backButton}>
-                    <ChevronLeft size={24} />
-                </button>
-                <div className={styles.titleArea}>
-                    <span className={styles.roomName}>Living Room</span>
-                    <span className={styles.deviceName}>Main Light</span>
-                </div>
-            </header>
+            <div className={styles.backgroundLayer}>
+                <img src={dashboardBg} alt="" className={styles.backgroundImage} />
+                <div className={styles.colorOverlay} />
+            </div>
 
-            <main className={styles.mainControl}>
-                {/* Visual + Brightness Controller */}
-                {/* Scaled wrapper for larger appearance */}
-                <div className={styles.responsiveScaler}>
-                    <IotLightingBrightnessController />
+            <div className={styles.content}>
+                <div className={styles.header}>
+                    <button className={styles.backButton}>
+                        <ChevronLeft size={24} />
+                    </button>
+                    <div className={styles.headerTitle}>
+                        <span className={styles.headerSubtitle}>Living Room</span>
+                        <span className={styles.headerMainTitle}>Main Light</span>
+                    </div>
                 </div>
-            </main>
-            
-            <section className={styles.secondaryControls}>
-                 <div className={styles.controlHeader}>
-                    <label className={styles.controlLabel}>Temperature</label>
-                    <span className={styles.valueLabel}>{getTempLabel(colorTemp)}</span>
-                 </div>
-                 
-                 {/* Temperature Slider with Visual Icons */}
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                     <Sun size={20} color="#F59E0B" style={{ opacity: 0.6 }} /> {/* Warm Icon Placeholder */}
-                     <div style={{ flex: 1 }} className={styles.tempSliderWrapper}>
-                        <Slider 
-                            value={colorTemp} 
-                            onChange={setColorTemp} 
-                            min={0} 
-                            max={100} 
+                
+                <div className={styles.cardRow}>
+                    <BinaryDeviceCard 
+                        status={isLightOn ? "On" : "Off"}
+                        isOn={isLightOn}
+                        onToggle={() => setIsLightOn(!isLightOn)}
+                        icon={<Power size={24} />}
+                        style={{ width: '100%' }}
+                    />
+                </div>
+
+                <div className={styles.controlRow}>
+                    <Readout value={brightness} unit="%" label="Brightness" />
+                    <div className={styles.sliderGroup}>
+                        <span className={styles.sliderLabel}>Light</span>
+                        <AdaptiveLightSlider onChange={setBrightness} />
+                        <span className={styles.sliderLabel}>Dark</span>
+                    </div>
+                </div>
+
+                <div className={styles.tempControlRow}>
+                    <div className={styles.tempHeader}>
+                        <span className={styles.sectionTitle}>Color Temperature</span>
+                        <span className={styles.tempValue}>{colorTemp}K</span>
+                    </div>
+                    <ColorTemperatureSlider value={colorTemp} onChange={setColorTemp} />
+                </div>
+
+                <div className={styles.modeRow}>
+                    <span className={styles.sectionTitle}>Mode</span>
+                    <div className={styles.chipGroup}>
+                        <Chip 
+                            label="Relax" 
+                            variant="translucent"
+                            active={colorTemp === 3000}
+                            onClick={() => setColorTemp(3000)} 
                         />
-                     </div>
-                     <Moon size={20} color="#3B82F6" style={{ opacity: 0.6 }} /> {/* Cool Icon Placeholder */}
-                 </div>
-            </section>
-
-            <section className={styles.scenesSection}>
-                <label className={styles.controlLabel} style={{ display:'block', marginBottom: '20px' }}>Scenes</label>
-                <div className={styles.scenesWrapper}>
-                    {scenes.map((scene) => {
-                        const Icon = scene.icon;
-                        const isActive = activeScene === scene.id;
-                        return (
-                            <button 
-                                key={scene.id} 
-                                className={`${styles.sceneBtn} ${isActive ? styles.active : ''}`}
-                                onClick={() => setActiveScene(scene.id)}
-                            >
-                                <div className={styles.sceneIcon}>
-                                    <Icon size={28} strokeWidth={isActive ? 2.5 : 2} />
-                                </div>
-                                <span className={styles.sceneName}>{scene.label}</span>
-                            </button>
-                        )
-                    })}
+                         <Chip 
+                            label="Reading" 
+                            variant="translucent"
+                            active={colorTemp === 4200}
+                            onClick={() => setColorTemp(4200)} 
+                        />
+                        <Chip 
+                            label="Activity" 
+                            variant="translucent"
+                            active={colorTemp === 6000}
+                            onClick={() => setColorTemp(6000)} 
+                        />
+                    </div>
                 </div>
-            </section>
-
-            <TabBar activeTab={navTab} onTabChange={setNavTab} />
+                
+                <TabBar activeTab={navTab} onTabChange={setNavTab} />
+            </div>
         </div>
     );
 };
