@@ -116,7 +116,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 100px; /* Spacing between Readout and Slider */
     width: 100%;
     margin-top: 32px;
 }
