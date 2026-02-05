@@ -44,20 +44,27 @@ const LightingControl = () => {
                     />
                 </div>
 
-                {/* Brightness Control & Readout */}
-                <div className={`${styles.controlRow} ${!isLightOn ? styles.controlsDisabled : ''}`}>
-                    <div className={styles.sliderGroup}>
-                        <span className={styles.sliderLabel}>{Math.round(brightness)}%</span>
+                {/* Brightness Control Card */}
+                <div className={`${styles.sliderCard} ${!isLightOn ? styles.controlsDisabled : ''}`}>
+                    <div className={styles.readoutContainer}>
+                        <span className={styles.readoutValue}>{Math.round(brightness)}%</span>
+                        <span className={styles.readoutLabel}>Brightness</span>
+                    </div>
+                    
+                    <div className={styles.sliderCenterColumn}>
+                        <span className={styles.sliderLimitLabel}>Light</span>
                         <AdaptiveLightSlider 
                             value={brightness}
                             onChange={setBrightness}
-                            height={280}
-                            style={{ width: '100%' }}
+                            height={340}
+                            style={{ width: '140px' }}
                         />
+                        <span className={styles.sliderLimitLabel}>Dark</span>
                     </div>
                 </div>
 
-                {/* Color Temperature */}
+                {/* Secondary Controls: Color Temperature */}
+                {/* Secondary Controls: Color Temperature */}
                 <div className={`${styles.tempControlRow} ${!isLightOn ? styles.controlsDisabled : ''}`}>
                     <div className={styles.tempHeader}>
                         <span className={styles.sectionTitle}>Color Temperature</span>
@@ -69,8 +76,9 @@ const LightingControl = () => {
                     />
                 </div>
 
-                {/* Mode Selection */}
-                <div className={`${styles.modeRow} ${!isLightOn ? styles.controlsDisabled : ''}`}>
+                {/* Secondary Controls: Mode Selection */}
+                {/* Secondary Controls: Mode Selection */}
+                <div className={`${styles.modeRow} ${!isLightOn ? styles.controlsDisabled : ''}`} style={{ marginBottom: 120 }}>
                     <span className={styles.sectionTitle}>Mode</span>
                     <div className={styles.chipGroup}>
                         <Chip 

@@ -12,7 +12,7 @@ const DeviceInfo = ({
       return (
         <div className={styles.container}>
             <div className={styles.statusContainerMinimal}>
-                <span className={styles.captionMinimal}>Status</span>
+                {/* Caption 'Status' removed for simplicity */}
                 <span className={`${styles.statusMinimal} ${isOn ? styles.onMinimal : ''}`}>
                     {status}
                 </span>

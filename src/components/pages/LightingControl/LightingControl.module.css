@@ -110,32 +110,62 @@
     margin-bottom: 24px;
     width: 100%;
 }
+/* .controlRow removed */
 
-.controlRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.sliderCard {
+    position: relative;
     width: 100%;
-    margin-top: 32px;
-}
-
-.sliderGroup {
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.48);
+    padding: 84px 24px 40px 24px; /* Top +60px, Bottom +16px */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    width: 116px;
-    flex-shrink: 0;
+    justify-content: center;
+    margin-top: 32px;
+    margin-bottom: 48px;
+    box-sizing: border-box;
 }
 
-.sliderLabel {
+.readoutContainer {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.readoutValue {
     font-family: var(--ref-font-family-base, sans-serif);
-    font-weight: 300;
-    font-size: 24px;
+    font-size: 32px;
+    font-weight: 400; /* Regular */
+    color: #000000;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.readoutLabel {
+    font-family: var(--ref-font-family-base, sans-serif);
+    font-size: 16px;
+    color: #B6B6B6;
+    font-weight: 400;
+}
+
+.sliderCenterColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%; /* Ensure full width for slider container */
+}
+
+.sliderLimitLabel {
+    font-family: var(--ref-font-family-base, sans-serif);
+    font-size: 20px;
+    font-weight: 300; /* Light */
     color: #777777;
     text-align: center;
-    line-height: 1.5;
 }
 
 .controlsDisabled {
@@ -147,21 +177,20 @@
 
 .tempControlRow {
     width: 100%;
-    margin-top: 40px;
-    padding: 0 16px;
+    margin-bottom: 48px; /* Restored spacing */
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 32px; /* Reduced space */
 }
 
 .modeRow {
     width: 100%;
-    padding: 0 16px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 120px; /* Space for TabBar */
+    /* Margin removed */
 }
 
 .chipGroup {
@@ -189,4 +218,37 @@
     font-size: 16px;
     color: var(--sys-color-text-primary);
     font-weight: 600;
+}
+
+.secondaryCard {
+    background-color: var(--comp-card-bg-off);
+    border-radius: var(--comp-card-radius);
+    padding: var(--comp-card-padding);
+    width: 100%;
+    margin-bottom: 24px; /* Standard spacing between cards */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+
+    /* Default Text Colors (Off/Inverse) */
+    --sys-color-text-primary: var(--comp-device-name-color-inverse);
+    color: var(--comp-device-name-color-inverse);
+
+    /* Chip styling for Dark/Off State */
+    --chip-bg-translucent: rgba(255, 255, 255, 0.1);
+    --chip-border-translucent: rgba(255, 255, 255, 0.2);
+}
+
+.secondaryCardActive {
+    background-color: rgba(255, 255, 255, 0.6); /* Increased transparency (0.8 -> 0.6) */
+    backdrop-filter: blur(12px); /* Glass effect */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    
+    /* Reset Text Colors (On/Normal) */
+    --sys-color-text-primary: var(--ref-palette-neutral-1000);
+    color: var(--ref-palette-neutral-1000);
+
+    /* Chip styling for Light/On State (Glass on Glass) */
+    --chip-bg-translucent: rgba(255, 255, 255, 0.85); /* Bright White */
+    --chip-border-translucent: rgba(255, 255, 255, 1.0);
 }

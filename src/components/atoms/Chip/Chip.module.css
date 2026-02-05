@@ -61,9 +61,9 @@
 
 /* Translucent Variant */
 .translucent {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--chip-bg-translucent, rgba(255, 255, 255, 0.4)); /* Increased opacity (0.2 -> 0.4) */
   color: var(--ref-palette-neutral-1000);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--chip-border-translucent, rgba(255, 255, 255, 0.2));
   backdrop-filter: blur(8px);
 }
 
