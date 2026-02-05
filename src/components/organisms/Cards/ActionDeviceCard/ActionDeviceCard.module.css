@@ -14,7 +14,9 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   
   /* Text defaults for inactive state */
-  --comp-device-status-color: #ffffff;
+  --comp-device-name-color: var(--comp-device-name-color-inverse);
+  --comp-device-status-color: var(--comp-device-name-color-inverse);
+  --sys-color-text-tertiary: var(--comp-device-status-color-inverse);
 }
 
 .card.active {

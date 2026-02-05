@@ -191,6 +191,16 @@ const Foundations = () => {
         </div>
       </div>
 
+      <div className="component-preview-section">
+        <h3>Device Info (Text Colors)</h3>
+         <div className="token-list">
+            <code>name-color: --comp-device-name-color</code>
+            <code>name-color-inverse: --comp-device-name-color-inverse</code>
+            <code>status-color: --comp-device-status-color</code>
+            <code>status-color-inverse: --comp-device-status-color-inverse</code>
+        </div>
+      </div>
+
       {/* Internal Styles for this Doc Page */}
       <style>{`
         .doc-title { font-size: 28px; margin-bottom: 8px; color: var(--sys-color-text-primary); }

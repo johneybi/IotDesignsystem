@@ -5,16 +5,28 @@ const DeviceInfo = ({
   name, 
   status, 
   isOn = false,
-  location
+  location,
+  variant = 'default'
 }) => {
+  if (variant === 'minimal') {
+      return (
+        <div className={styles.container}>
+            <div className={styles.statusContainerMinimal}>
+                <span className={styles.captionMinimal}>Status</span>
+                <span className={`${styles.statusMinimal} ${isOn ? styles.onMinimal : ''}`}>
+                    {status}
+                </span>
+            </div>
+        </div>
+      );
+  }
+
   return (
     <div className={styles.container}>
+      {location && <span className={styles.location}>{location}</span>}
       <div className={styles.nameRow}>
           {name && <h3 className={styles.name}>{name}</h3>}
-          <div className={styles.statusContainer}>
-             <span className={styles.caption}>Status</span>
-             <span className={`${styles.status} ${isOn ? styles.on : ''}`}>{status}</span>
-          </div>
+          <span className={`${styles.status} ${isOn ? styles.on : ''}`}>{status}</span>
       </div>
     </div>
   );

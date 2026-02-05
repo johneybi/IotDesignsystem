@@ -40,27 +40,37 @@ const LightingControl = () => {
                         onToggle={() => setIsLightOn(!isLightOn)}
                         icon={<Power size={24} />}
                         style={{ width: '100%' }}
+                        variant="minimal"
                     />
                 </div>
 
-                <div className={styles.controlRow}>
-                    <Readout value={brightness} unit="%" label="Brightness" />
+                {/* Brightness Control & Readout */}
+                <div className={`${styles.controlRow} ${!isLightOn ? styles.controlsDisabled : ''}`}>
                     <div className={styles.sliderGroup}>
-                        <span className={styles.sliderLabel}>Light</span>
-                        <AdaptiveLightSlider onChange={setBrightness} />
-                        <span className={styles.sliderLabel}>Dark</span>
+                        <span className={styles.sliderLabel}>{Math.round(brightness)}%</span>
+                        <AdaptiveLightSlider 
+                            value={brightness}
+                            onChange={setBrightness}
+                            height={280}
+                            style={{ width: '100%' }}
+                        />
                     </div>
                 </div>
 
-                <div className={styles.tempControlRow}>
+                {/* Color Temperature */}
+                <div className={`${styles.tempControlRow} ${!isLightOn ? styles.controlsDisabled : ''}`}>
                     <div className={styles.tempHeader}>
                         <span className={styles.sectionTitle}>Color Temperature</span>
                         <span className={styles.tempValue}>{colorTemp}K</span>
                     </div>
-                    <ColorTemperatureSlider value={colorTemp} onChange={setColorTemp} />
+                    <ColorTemperatureSlider 
+                        value={colorTemp}
+                        onChange={setColorTemp}
+                    />
                 </div>
 
-                <div className={styles.modeRow}>
+                {/* Mode Selection */}
+                <div className={`${styles.modeRow} ${!isLightOn ? styles.controlsDisabled : ''}`}>
                     <span className={styles.sectionTitle}>Mode</span>
                     <div className={styles.chipGroup}>
                         <Chip 
@@ -69,7 +79,7 @@ const LightingControl = () => {
                             active={colorTemp === 3000}
                             onClick={() => setColorTemp(3000)} 
                         />
-                         <Chip 
+                        <Chip 
                             label="Reading" 
                             variant="translucent"
                             active={colorTemp === 4200}

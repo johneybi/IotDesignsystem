@@ -12,6 +12,7 @@ const BinaryDeviceCard = ({
   icon,
   isActuatable = true, // true: Toggle (Neumorph), false: Static Info (Filled)
   isConnected = true,   // true: Online, false: Offline (Ghost)
+  variant = 'default',
   style = {},
   className = ''
 }) => {
@@ -30,13 +31,14 @@ const BinaryDeviceCard = ({
   const offlineStyle = !isConnected ? { opacity: 0.5, pointerEvents: 'none' } : {};
 
   return (
-    <div className={`${styles.card} ${isOn && isConnected ? styles.active : ''}`} style={{ ...offlineStyle, ...style }}>
-      <div className={styles.infoWrapper}>
+    <div className={`${styles.card} ${variant === 'minimal' ? styles.cardMinimal : ''} ${isOn && isConnected ? styles.active : ''}`} style={{ ...offlineStyle, ...style }}>
+      <div className={`${styles.infoWrapper} ${variant === 'minimal' ? styles.infoWrapperMinimal : ''}`}>
         <DeviceInfo 
           name={name} 
           location={location}
           status={status}
           isOn={isOn} 
+          variant={variant}
         />
       </div>
       <div className={styles.actionWrapper}>

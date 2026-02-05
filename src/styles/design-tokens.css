@@ -78,6 +78,9 @@
   --sys-color-temp-warm: var(--ref-palette-orange-400);
   --sys-color-temp-neutral: var(--ref-palette-yellow-400);
   --sys-color-temp-cool: var(--ref-palette-green-400);
+  
+  /* Opacity */
+  --sys-opacity-disabled: 0.4;
 
   /* Gradients */
   --sys-gradient-active: linear-gradient(135deg, var(--ref-palette-orange-500) 0%, var(--ref-palette-yellow-500) 100%);
@@ -173,8 +176,10 @@
   /* Component: Device Info */
   --comp-device-name-size: 20px;
   --comp-device-name-color: var(--ref-palette-neutral-1000);
+  --comp-device-name-color-inverse: #ffffff;
   --comp-device-status-size: 13px;
   --comp-device-status-color: #868686;
+  --comp-device-status-color-inverse: rgba(255, 255, 255, 0.95);
   
   /* Legacy/Specific (To be refactored further) */
   --slider-gradient-silver-warm: linear-gradient(90deg, #515151 0%, #B7B7B7 100%);

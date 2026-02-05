@@ -139,6 +139,13 @@
     line-height: 1.5;
 }
 
+.controlsDisabled {
+    opacity: var(--sys-opacity-disabled);
+    pointer-events: none;
+    filter: grayscale(0.2);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
 .tempControlRow {
     width: 100%;
     margin-top: 40px;
@@ -173,9 +180,9 @@
 
 .sectionTitle {
     font-family: var(--ref-font-family-base, sans-serif);
-    font-size: 16px;
-    color: var(--sys-color-text-secondary);
-    font-weight: 500;
+    font-size: 18px;
+    color: var(--sys-color-text-primary);
+    font-weight: 600;
 }
 
 .tempValue {

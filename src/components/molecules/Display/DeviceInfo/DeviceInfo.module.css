@@ -16,8 +16,9 @@
 
 .nameRow {
     display: flex;
-    align-items: center; /* Center looks safer often than baseline depending on fonts */
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
 }
 
 .name {
@@ -29,30 +30,32 @@
   white-space: pre-wrap;
 }
 
+/* -- Default Variant (Restored to Text Only, 2 Lines) -- */
 .status {
   font-family: var(--ref-font-family-base, sans-serif);
-  font-size: 24px;
+  font-size: 12px;
   font-weight: 500;
-  color: var(--sys-color-text-tertiary); /* Soft grey when off */
+  color: var(--sys-color-text-tertiary);
   background-color: transparent;
   padding: 0;
   border-radius: 0;
-  line-height: 1;
+  line-height: 1.4;
   display: block;
 }
 
 .on {
-  color: var(--sys-color-text-primary); /* Black/Dark when On, no semantic color */
+  color: var(--sys-color-status-active);
   background-color: transparent;
 }
 
-.statusContainer {
+/* -- Minimal Variant (New) -- */
+.statusContainerMinimal {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.caption {
+.captionMinimal {
     font-family: var(--ref-font-family-base, sans-serif);
     font-size: 11px;
     color: var(--sys-color-text-tertiary);
@@ -60,4 +63,21 @@
     letter-spacing: 0;
     line-height: 1;
     margin-bottom: 4px;
+}
+
+.statusMinimal {
+  font-family: var(--ref-font-family-base, sans-serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--sys-color-text-tertiary);
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  line-height: 1;
+  display: block;
+}
+
+.onMinimal {
+  color: var(--sys-color-text-primary);
+  background-color: transparent;
 }
