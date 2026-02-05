@@ -21,13 +21,16 @@
 /* Variants */
 
 /* Solid Variant (Default) */
+/* Solid Variant (Default) */
 .solid {
-  background-color: #E8EAED; /* Darker than F9FAFB for visibility */
+  background-color: rgba(255, 255, 255, 0.35); /* Transparent Neutral */
   color: var(--color-text-2);
+  backdrop-filter: blur(8px); /* subtle glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .solid:hover {
-  background-color: #D1D5DB; /* Darker on hover */
+  background-color: rgba(255, 255, 255, 0.55); /* Lighter on hover */
   color: var(--color-text-1);
 }
 
