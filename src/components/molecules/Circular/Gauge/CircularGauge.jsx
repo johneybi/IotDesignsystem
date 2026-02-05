@@ -17,19 +17,29 @@ const CircularGauge = ({
   circumference,
   segmentLength,
   offsetLength,
-  gradientId = "tempGradient"
+  gradientId = "tempGradient",
+  gradientColors
 }) => {
+  const defaultGradient = [
+    { offset: "0%", color: "var(--color-temp-warm)" },
+    { offset: "50%", color: "var(--color-temp-neutral)" },
+    { offset: "100%", color: "var(--color-temp-cool)" }
+  ];
+
+  const stops = gradientColors || defaultGradient;
+
   return (
     <svg className={styles.gaugeSvg} viewBox={`0 0 ${size} ${size}`}>
       <defs>
         <linearGradient 
           id={gradientId}
           gradientUnits="userSpaceOnUse"
+          gradientTransform={`rotate(-${startAngle} ${center} ${center})`}
           x1="0" y1={size} x2={size} y2={size}
         >
-          <stop offset="0%" stopColor="var(--color-temp-warm)" />   
-          <stop offset="50%" stopColor="var(--color-temp-neutral)" />  
-          <stop offset="100%" stopColor="var(--color-temp-cool)" /> 
+          {stops.map((stop, index) => (
+            <stop key={index} offset={stop.offset} stopColor={stop.color} />
+          ))}
         </linearGradient>
       </defs>
       

@@ -4,7 +4,7 @@ import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
 import { Moon, Sun } from 'lucide-react';
 import './AdaptiveLightSliderNew.css';
 
-export default function AdaptiveLightSlider({ onChange }) {
+export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 245, 225)", inactiveColor = "rgb(220, 215, 210)" }) {
     const constraintsRef = useRef(null);
 
     // Container dimensions
@@ -19,8 +19,8 @@ export default function AdaptiveLightSlider({ onChange }) {
     
     // Background Color (Light State)
     const bgColor = useTransform(y, [23, 173], [
-        "rgb(255, 245, 225)", // High Intensity
-        "rgb(220, 215, 210)"  // Low Intensity (Dimmed Warm)
+        activeColor,        // High Intensity (Dynamic Color)
+        inactiveColor       // Low Intensity (Dynamic Color)
     ]);
     
     // Dark Gradient Overlay Opacity (Visible when Off)
@@ -36,10 +36,22 @@ export default function AdaptiveLightSlider({ onChange }) {
     const sunOpacity = useTransform(y, [170, 173], [1, 0]);
 
     // Shadow Color Logic (Dynamic adaptation)
-    // Top (On): Warm Brown (Mixes well with warm bg in Multiply)
+    // Top (On): Dynamic active color with opacity
     // Bottom (Off): Black (Standard shadow)
+    
+    // Helper to add alpha to rgb string and darken it for shadow
+    const getShadowColor = (colorStr, alpha) => {
+        const match = colorStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (!match) return `rgba(180, 130, 80, ${alpha})`; // Fallback
+        
+        // Darken color significantly for shadow visibility on similar colored bg
+        const darken = (val) => Math.max(0, Math.round(val * 0.65));
+        
+        return `rgba(${darken(match[1])}, ${darken(match[2])}, ${darken(match[3])}, ${alpha})`;
+    };
+
     const shadowColor = useTransform(y, [23, 173], [
-        "rgba(180, 130, 80, 0.4)", 
+        getShadowColor(activeColor, 0.5), 
         "rgba(0, 0, 0, 0.25)"
     ]);
     const knobShadow = useMotionTemplate`0px 12px 24px 0px ${shadowColor}`;
@@ -103,7 +115,10 @@ export default function AdaptiveLightSlider({ onChange }) {
             {/* Glow Effect Layer */}
             <motion.div 
                 className="adaptive-slider-glow"
-                style={{ opacity: glowOpacity }}
+                style={{ 
+                    opacity: glowOpacity,
+                    background: `radial-gradient(circle at center bottom, #FFFFFF 10%, ${activeColor} 50%, transparent 70%)`
+                }}
             />
 
             <div ref={constraintsRef} className="adaptive-slider-constraints" />

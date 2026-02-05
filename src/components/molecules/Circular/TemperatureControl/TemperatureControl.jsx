@@ -11,7 +11,9 @@ const TemperatureControl = ({
   currentTemp = 24,
   onChange, 
   min = 18, 
-  max = 30 
+  max = 30,
+  gradientColors,
+  gradientId
 }) => {
   // Constants
   const size = 300;
@@ -82,6 +84,8 @@ const TemperatureControl = ({
         circumference={circumference}
         segmentLength={segmentLength}
         offsetLength={offsetLength}
+        gradientColors={gradientColors}
+        gradientId={gradientId}
       />
 
       {/* Atom: Indicators (Positioned Absolutely) */}

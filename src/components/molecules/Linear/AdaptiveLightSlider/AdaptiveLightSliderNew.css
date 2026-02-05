@@ -25,7 +25,7 @@
     transform: translateX(-50%);
     width: 140%; /* Wider than container for diffusion */
     height: 60%; /* Cover lower part */
-    background: radial-gradient(circle at center bottom, rgba(255, 220, 100, 0.8) 0%, rgba(255, 200, 50, 0.4) 40%, transparent 70%);
+    /* background handled inline dynamically */
     filter: blur(24px);
     border-radius: 50%; /* Oval shape */
     pointer-events: none;

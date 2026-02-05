@@ -9,6 +9,39 @@ import Readout from '../../molecules/Display/Readout/Readout';
 import ColorTemperatureSlider from '../../molecules/Linear/ColorTemperatureSlider/ColorTemperatureSlider';
 import Chip from '../../atoms/Chip/Chip';
 
+// Helper to get presentable color from Kelvin (Linear interpolation)
+const getVisualColorFromTemp = (kelvin) => {
+    // Clamp range
+    const minK = 3000;
+    const maxK = 6000;
+    const k = Math.min(Math.max(kelvin, minK), maxK);
+    
+    // Normalize 0.0 - 1.0
+    const t = (k - minK) / (maxK - minK);
+
+    // Warm (3000K) - Soft Warm White
+    const startColor = { r: 255, g: 200, b: 140 }; // Much softer yellow-orange
+    // Cool (6000K) - Bright Cool White (Cyan/Blue tint, no Purple)
+    const endColor = { r: 235, g: 250, b: 255 }; 
+
+    const r = Math.round(startColor.r + (endColor.r - startColor.r) * t);
+    const g = Math.round(startColor.g + (endColor.g - startColor.g) * t);
+    const b = Math.round(startColor.b + (endColor.b - startColor.b) * t);
+
+    return `rgb(${r}, ${g}, ${b})`;
+};
+
+// Helper to dim RGB color
+const dimRgb = (rgbString, factor = 0.6) => {
+    const match = rgbString.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (!match) return rgbString;
+    
+    const [_, r, g, b] = match;
+    const dim = (val) => Math.round(val * factor);
+    
+    return `rgb(${dim(r)}, ${dim(g)}, ${dim(b)})`;
+};
+
 const LightingControl = () => {
     const [navTab, setNavTab] = useState('devices');
     const [isLightOn, setIsLightOn] = useState(true);
@@ -58,6 +91,8 @@ const LightingControl = () => {
                             onChange={setBrightness}
                             height={340}
                             style={{ width: '140px' }}
+                            activeColor={getVisualColorFromTemp(colorTemp)}
+                            inactiveColor={dimRgb(getVisualColorFromTemp(colorTemp), 0.7)}
                         />
                         <span className={styles.sliderLimitLabel}>Dark</span>
                     </div>

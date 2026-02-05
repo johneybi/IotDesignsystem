@@ -39,7 +39,11 @@
   --ref-palette-yellow-400: #e6d378;
   --ref-palette-yellow-500: #ffc107;
   --ref-palette-green-400: #6ee7b7;
+  --ref-palette-blue-50: #e3f2fd;
+  --ref-palette-blue-200: #90caf9;
+  --ref-palette-blue-300: #64b5f6;
   --ref-palette-blue-500: #2196f3;
+  --ref-palette-blue-800: #1565c0;
 
   /* Fonts */
   --ref-font-family-base: 'Urbanist', 'SUIT Variable', sans-serif;
@@ -78,6 +82,11 @@
   --sys-color-temp-warm: var(--ref-palette-orange-400);
   --sys-color-temp-neutral: var(--ref-palette-yellow-400);
   --sys-color-temp-cool: var(--ref-palette-green-400);
+
+  /* AC Temperature Gradient */
+  --sys-color-temp-ac-cool-strong: var(--ref-palette-blue-800); /* Low Temp */
+  --sys-color-temp-ac-cool-mid: var(--ref-palette-blue-200);
+  --sys-color-temp-ac-cool-weak: var(--ref-palette-neutral-variant-100); /* High Temp (Gray/Off) */
   
   /* Opacity */
   --sys-opacity-disabled: 0.4;

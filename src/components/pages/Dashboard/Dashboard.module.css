@@ -2,12 +2,12 @@
   width: 100%;
   max-width: 480px; /* Mobile-ish width constraint for the demo */
   margin: 0 auto;
-  min-height: 85vh; /* Ensure it takes up vertical space */
+  height: 1040px; /* User specified fixed height */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Frame fixed, internal scroll */
   background-color: var(--color-bg-app); /* Fallback */
 }
 
@@ -49,6 +49,13 @@
     padding-bottom: 0;
     height: 100%;
     flex: 1;
+    overflow-y: auto; /* Internal scrolling */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
 }
 
 .header {
