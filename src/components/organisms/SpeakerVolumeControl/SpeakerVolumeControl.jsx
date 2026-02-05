@@ -52,7 +52,7 @@ const SpeakerVolumeControl = ({
     const getTopIconStyle = () => {
         return {
              top: '24px',
-             color: topIconIsOnBlack ? 'var(--slider-icon-color-light)' : 'var(--slider-icon-color-dark)',
+             color: topIconIsOnBlack ? 'var(--comp-slider-icon-color-light)' : 'var(--comp-slider-icon-color-dark)',
              transform: 'translateX(-50%)',
              opacity: 1
         };
@@ -64,7 +64,7 @@ const SpeakerVolumeControl = ({
     const getBottomIconStyle = () => {
         return {
             bottom: '24px',
-            color: isMuted ? '#FF4D4F' : 'var(--color-text-3)',
+            color: isMuted ? 'var(--sys-color-status-danger)' : 'var(--sys-color-text-tertiary)',
             opacity: isMuted ? 1 : 0.5,
             transform: 'translateX(-50%)'
         };

@@ -227,5 +227,24 @@
   
   --color-shadow-light: var(--sys-shadow-light);
   --color-shadow-dark: var(--sys-shadow-dark);
+
+  /* ========================================= */
+  /* NEW ADDITIONS (Refactoring)               */
+  /* ========================================= */
+  
+  /* Status: Danger / Error */
+  --sys-color-status-danger: #FF4D4F;
+
+  /* Button: Neumorph Dark (Transparent) */
+  --comp-button-bg-neumorph-dark: linear-gradient(150deg, rgba(255, 255, 255, 0.35) 15.58%, rgba(0, 0, 0, 0.05) 88.75%);
+  --comp-button-border-neumorph-dark: rgba(0, 0, 0, 0.05); /* ~#9f9f9f on #a3a3a3 */
+  --comp-button-shadow-neumorph-dark: 
+      -2px -2px 4px 0px rgba(255, 255, 255, 0.15), 
+      2px 2px 4px 0px rgba(0, 0, 0, 0.08);
+
+  /* Slider: Legacy Mappings */
+  --comp-slider-track-bg-silver: var(--slider-gradient-silver-vertical);
+  --comp-slider-icon-color-dark: #515151;
+  --comp-slider-icon-color-light: var(--ref-palette-neutral-0);
 }
 

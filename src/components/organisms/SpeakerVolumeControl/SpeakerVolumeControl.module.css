@@ -41,7 +41,7 @@
 
 .frameBottom {
   width: 100%;
-  background: var(--slider-gradient-silver-vertical);
+  background: var(--comp-slider-track-bg-silver);
   transition: height 0.1s linear;
 }
 
