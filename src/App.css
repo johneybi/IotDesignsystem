@@ -39,7 +39,10 @@
   --comp-button-radius: 26.5px;
   
   /* Button - Enabled (Off) */
-  --comp-button-bg-enabled: linear-gradient(-30deg, #e8e8e8 11.25%, #f8f8f8 84.42%);
+  /* Refactored to use transparency (White Base) to match #e8e8e8/#f8f8f8 over #a3a3a3 */
+  /* Stop 1: 255*0.75 + 163*0.25 = 232 (#e8) */
+  /* Stop 2: 255*0.92 + 163*0.08 = 247.6 (#f8) */
+  --comp-button-bg-enabled: linear-gradient(-30deg, rgba(255, 255, 255, 0.75) 11.25%, rgba(255, 255, 255, 0.92) 84.42%);
   --comp-button-shadow-enabled: 
     2px 2px 4px 0px #ffffff,
     -2px -2px 4px 0px rgba(0, 0, 0, 0.08);
@@ -86,7 +89,9 @@
   --comp-slider-label-active-color: var(--color-text-1); /* Use primary text color for active label */
   /* Component: Card */
   --comp-card-bg: #fafafa;
-  --comp-card-bg-off: #a3a3a3; /* Neutral 400 from Figma */
+  /* Refactored to use transparency (Black Base) to match #a3a3a3 over White */
+  /* 0*0.36 + 255*0.64 = 163 (#a3) */
+  --comp-card-bg-off: rgba(0, 0, 0, 0.36); /* Neutral Dark Base with Opacity */
   --comp-card-radius: 20px;
   --comp-card-padding: 24px; /* standardized from ~22px */
   

@@ -94,10 +94,13 @@
 
 /* Variant = Neumorph Dark (for Dark Backgrounds) */
 .neumorphDark {
-  background: linear-gradient(150deg, #c3c3c3 15.58%, #9b9b9b 88.75%);
+  /* Refactored for Transparency on top of Card (#a3a3a3) */
+  /* Target Top: #c3c3c3 over #a3a3a3 -> White 35% */
+  /* Target Bottom: #9b9b9b over #a3a3a3 -> Black 5% */
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.35) 15.58%, rgba(0, 0, 0, 0.05) 88.75%);
   box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.15), 
               2px 2px 4px 0px rgba(0, 0, 0, 0.08);
-  border-color: #9f9f9f;
+  border-color: rgba(0, 0, 0, 0.05); /* Adjusted to semi-transparent black (~#9f9f9f on #a3a3a3) */
   color: #555;
 }
 
