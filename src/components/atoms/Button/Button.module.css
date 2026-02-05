@@ -69,7 +69,7 @@
   border-color: transparent;
   cursor: default;
   opacity: 0.4;
-  color: #555;
+  color: #ffffff; /* White tone for visibility on dark/glass cards */
   box-shadow: none;
 }
 
@@ -101,7 +101,7 @@
   box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.15), 
               2px 2px 4px 0px rgba(0, 0, 0, 0.08);
   border-color: rgba(0, 0, 0, 0.05); /* Adjusted to semi-transparent black (~#9f9f9f on #a3a3a3) */
-  color: #555;
+  color: #333; /* Darker than #555 as requested */
 }
 
 .neumorphDark::after {

@@ -43,13 +43,13 @@
   padding: 8px;
   border-radius: 50%;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  color: var(--color-text-3, #9ca3af);
+  color: #999999; /* Neutral Grey */
   position: relative;
 }
 
 .tabItem:hover {
   background-color: rgba(0, 0, 0, 0.03);
-  color: var(--color-text-2, #4b5563);
+  color: #666666; /* Darker Neutral Grey */
 }
 
 .tabItem:active {
@@ -57,7 +57,7 @@
 }
 
 .tabItem.active {
-  color: var(--color-primary, #1d2129); /* Active Color */
+  color: #111111; /* Neutral Black */
 }
 
 /* Active Dot Indicator */
@@ -67,7 +67,7 @@
   bottom: 0px; 
   width: 5px;
   height: 5px;
-  background-color: var(--color-primary, #1d2129);
+  background-color: #111111; /* Neutral Black */
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
