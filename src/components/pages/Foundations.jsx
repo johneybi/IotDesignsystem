@@ -95,6 +95,8 @@ const Foundations = () => {
              <TokenRow label="Bg Tertiary" varName="--sys-color-bg-tertiary" />
              <TokenRow label="Bg App" varName="--sys-color-bg-app" />
              <TokenRow label="Bg Disabled" varName="--sys-color-bg-disabled" />
+             <TokenRow label="Page Bg Start" varName="--sys-color-page-bg-start" />
+             <TokenRow label="Page Bg End" varName="--sys-color-page-bg-end" />
           </div>
         </div>
 
@@ -142,6 +144,25 @@ const Foundations = () => {
             <Swatch name="Temp Warm" varName="--sys-color-temp-warm" />
             <Swatch name="Temp Neutral" varName="--sys-color-temp-neutral" />
             <Swatch name="Temp Cool" varName="--sys-color-temp-cool" />
+          </div>
+        </div>
+
+        {/* Room Gradients */}
+        <div className="token-group" style={{ gridColumn: '1 / -1' }}>
+          <h4>Room Gradients (Dynamic Overlay)</h4>
+          <p className="sub-desc">Start and End colors for room-specific background overlays.</p>
+          <div className="swatch-row">
+            <Swatch name="Orange Start" varName="--sys-color-gradient-orange-start" />
+            <Swatch name="Orange End" varName="--sys-color-gradient-orange-end" />
+            
+            <Swatch name="Blue Start" varName="--sys-color-gradient-blue-start" />
+            <Swatch name="Blue End" varName="--sys-color-gradient-blue-end" />
+            
+            <Swatch name="Green Start" varName="--sys-color-gradient-green-start" />
+            <Swatch name="Green End" varName="--sys-color-gradient-green-end" />
+            
+            <Swatch name="Purple Start" varName="--sys-color-gradient-purple-start" />
+            <Swatch name="Purple End" varName="--sys-color-gradient-purple-end" />
           </div>
         </div>
       </div>

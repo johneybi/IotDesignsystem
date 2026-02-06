@@ -8,14 +8,14 @@
   min-width: 140px;
   background-color: var(--comp-card-bg-off); /* Default to OFF state color */
   border-radius: var(--comp-card-radius);
-  padding: 20px; /* Reduced from 24px for better fit in half-width */
+  padding: 20px; /* Consolidate to token if available, keeping 20px for now */
   display: flex;
   justify-content: space-between;
   align-items: flex-start; /* Restored default alignment */
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--sys-shadow-md);
 }
 
 /* Compact (Half-Width) Variant */
@@ -45,11 +45,11 @@
 }
 
 .card.active {
-  background-color: var(--comp-card-bg); /* ON state color (#fafafa) */
-  
-  /* Reset text colors for On state (Light background) */
-  --comp-device-name-color: var(--sys-color-text-primary);
-  --sys-color-text-tertiary: var(--ref-palette-neutral-variant-600);
+    background-color: var(--comp-card-bg); /* ON state color (#fafafa) */
+    
+    /* Reset text colors for On state (Light background) */
+    --comp-device-name-color: var(--sys-color-text-primary);
+    --sys-color-text-tertiary: var(--sys-color-text-tertiary); /* Restore default tertiary */
 }
 
 /* Minimal Variant Specifics */

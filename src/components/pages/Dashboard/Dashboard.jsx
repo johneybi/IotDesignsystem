@@ -11,15 +11,15 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
     const [activeTab, setActiveTab] = useState('All');
     const [navTab, setNavTab] = useState('home');
 
-    // Room Colors for Dynamic Overlay
-    const roomColors = {
-        'All': 'rgba(242, 243, 245, 0.40)', // Neutral (Restored)
-        'Living Room': 'rgba(255, 204, 0, 0.15)', // Warm Yellow (Updated)
-        'Bedroom': 'rgba(33, 150, 243, 0.15)', // Cool Blue (Unchanged)
-        'Kitchen': 'rgba(110, 231, 183, 0.15)' // Teal (Updated)
+    // Room Gradients for Dynamic Overlay (0% -> 100%)
+    const roomGradients = {
+        'All': { start: 'var(--sys-color-gradient-orange-start)', end: 'var(--sys-color-gradient-orange-end)' },
+        'Living Room': { start: 'var(--sys-color-gradient-blue-start)', end: 'var(--sys-color-gradient-blue-end)' },
+        'Bedroom': { start: 'var(--sys-color-gradient-green-start)', end: 'var(--sys-color-gradient-green-end)' },
+        'Kitchen': { start: 'var(--sys-color-gradient-purple-start)', end: 'var(--sys-color-gradient-purple-end)' }
     };
 
-    const currentOverlayColor = roomColors[activeTab] || roomColors['All'];
+    const currentGradient = roomGradients[activeTab] || roomGradients['All'];
 
     // Mock Date
     const today = new Date();
@@ -69,7 +69,8 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                 <div 
                     className={styles.colorOverlay} 
                     style={{ 
-                        background: `linear-gradient(180deg, ${currentOverlayColor} 0%, rgba(242, 243, 245, 0.95) 100%)` 
+                        background: `linear-gradient(180deg, ${currentGradient.start} 0%, ${currentGradient.end} 100%)`,
+                        mixBlendMode: 'screen' 
                     }} 
                 />
             </div>
@@ -110,7 +111,7 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                 </div>
 
                 {/* Devices */}
-                <div className={styles.section}>
+                <div className={styles.section} style={{ marginBottom: 120 }}>
                     <div className={styles.deviceHeader}>
                          <h2 className={styles.sectionTitle}>Devices</h2>
                     </div>
@@ -169,10 +170,8 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                         })}
                     </div>
                 </div>
+                <TabBar activeTab={navTab} onTabChange={setNavTab} />
             </div>
-
-            {/* Tab Bar - Moved Outside Content */}
-            <TabBar activeTab={navTab} onTabChange={setNavTab} />
         </div>
     );
 };

@@ -11,7 +11,7 @@
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--sys-shadow-md);
   
   /* Text defaults for inactive state */
   --comp-device-name-color: var(--comp-device-name-color-inverse);
@@ -41,8 +41,8 @@
   background-color: var(--comp-card-bg); /* Active State */
   
   /* Reset text colors */
-  --comp-device-name-color: #000000;
-  --comp-device-status-color: #868686;
+  --comp-device-name-color: var(--sys-color-text-primary);
+  --comp-device-status-color: var(--sys-color-text-tertiary);
 }
 
 .infoWrapper {

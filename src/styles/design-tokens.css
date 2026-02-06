@@ -94,6 +94,23 @@
   /* Gradients */
   --sys-gradient-active: linear-gradient(135deg, var(--ref-palette-orange-500) 0%, var(--ref-palette-yellow-500) 100%);
   
+  /* Room Gradients (Start/End pairs for dynamic interpolation) */
+  --sys-color-gradient-orange-start: rgba(236, 157, 0, 0.8);
+  --sys-color-gradient-orange-end: rgba(244, 222, 198, 0.77);
+  
+  --sys-color-gradient-blue-start: rgba(42, 75, 240, 0.54);
+  --sys-color-gradient-blue-end: rgba(191, 209, 244, 0.75);
+  
+  --sys-color-gradient-green-start: rgba(180, 243, 33, 0.37);
+  --sys-color-gradient-green-end: rgba(216, 252, 218, 0.7);
+  
+  --sys-color-gradient-purple-start: rgba(197, 110, 231, 0.4);
+  --sys-color-gradient-purple-end: rgba(235, 207, 249, 0.74);
+
+  /* Page Backgrounds (Generic/Neutral) */
+  --sys-color-page-bg-start: rgba(242, 243, 245, 0.52);
+  --sys-color-page-bg-end: rgba(242, 243, 245, 0.85);
+  
   /* Typography */
   --sys-font-family-main: var(--ref-font-family-base);
 
