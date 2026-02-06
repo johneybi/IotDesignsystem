@@ -65,6 +65,11 @@ const AirConditionerControl = () => {
 
                 {/* Main Temperature Control Card */}
                 <div className={`${styles.mainControlCard} ${!isOn ? styles.controlsDisabled : ''}`}>
+                    {/* Current Mode Display (Top Right) */}
+                    <div className={styles.currentModeDisplay}>
+                        {activeMode} Mode
+                    </div>
+
                     <div className={styles.readoutContainer}>
                         <span className={styles.readoutValue}>{currentTemp}°C</span>
                         <span className={styles.readoutLabel}>Current Temp</span>

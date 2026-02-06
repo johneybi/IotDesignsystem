@@ -15,6 +15,7 @@ import BlindCurtain from './components/organisms/BlindCurtain/BlindCurtain';
 import IotLightingBrightnessController from './components/organisms/IotLightingBrightnessController/IotLightingBrightnessController';
 import AdaptiveLightSlider from './components/molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew'
 import VerticalSlider from './components/molecules/Linear/VerticalSlider/VerticalSlider'
+import HorizontalSlider from './components/molecules/Linear/HorizontalSlider/HorizontalSlider'
 
 import TemperatureControl from './components/molecules/Circular/TemperatureControl/TemperatureControl'
 import ToggleBtn from './components/molecules/ToggleBtn/ToggleBtn';
@@ -29,6 +30,7 @@ import SpeakerVolumeControl from './components/organisms/SpeakerVolumeControl/Sp
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import LightingControl from './components/pages/LightingControl/LightingControl';
 import AirConditionerControl from './components/pages/AirConditionerControl/AirConditionerControl';
+import SmartCurtainControl from './components/pages/SmartCurtainControl/SmartCurtainControl';
 
 const PowerIcon = <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" fill="currentColor"/></svg>;
 const BulbIcon = <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" fill="currentColor"/></svg>;
@@ -122,6 +124,8 @@ function App() {
         return <LightingControl />;
       case 'airconditioner':
         return <AirConditionerControl />;
+      case 'curtain':
+        return <SmartCurtainControl />;
 
 
       case 'atomic':
@@ -439,6 +443,23 @@ function App() {
                      <label>Vertical (in-top)</label>
                  </div>
               </div>
+
+            <div className="component-showcase">
+              <div className="showcase-header">
+                <h2>Molecule: Horizontal Slider</h2>
+                <p>Linear slider for horizontal adjustments.</p>
+              </div>
+              <div className="showcase-demo row" style={{ flexDirection: 'column', gap: '40px' }}>
+                 <div className="demo-item" style={{ width: '100%' }}>
+                    <HorizontalSlider />
+                    <label>Horizontal (Default)</label>
+                 </div>
+                 <div className="demo-item" style={{ width: '100%' }}>
+                    <HorizontalSlider handlePosition="in-right" />
+                    <label>Horizontal (in-right logic)</label>
+                 </div>
+              </div>
+            </div>
             </div>
 
             <div className="component-showcase">
@@ -629,6 +650,12 @@ function App() {
               onClick={() => setActiveSection('airconditioner')}
             >
               Air Conditioner
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'curtain' ? 'active' : ''}`}
+              onClick={() => setActiveSection('curtain')}
+            >
+              Smart Curtain
             </button>
           </div>
           <div className="nav-group">

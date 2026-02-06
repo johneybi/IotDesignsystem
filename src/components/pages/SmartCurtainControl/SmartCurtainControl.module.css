@@ -32,7 +32,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Restored Neutral Background via Tokens */
+    /* Neutral/Daylight Background */
     background: linear-gradient(180deg, var(--sys-color-page-bg-start) 0%, var(--sys-color-page-bg-end) 100%);
     mix-blend-mode: screen;
 }
@@ -46,15 +46,14 @@
     height: 100%;
     flex: 1;
     overflow-y: auto;
-    scrollbar-width: none; /* Hide scrollbar Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .content::-webkit-scrollbar {
-    display: none; /* Hide scrollbar Chrome/Safari */
+    display: none;
 }
 
-/* Header Styles */
 /* Header Styles */
 .header {
     position: relative;
@@ -75,7 +74,7 @@
     border: none;
     width: 44px;
     height: 44px;
-    margin-left: -10px; /* Align icon optically with content edge */
+    margin-left: -10px;
     cursor: pointer;
     color: var(--sys-color-text-primary);
     display: flex;
@@ -116,51 +115,37 @@
     margin-bottom: 24px;
 }
 
-.currentModeDisplay {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    font-family: var(--ref-font-family-base, sans-serif);
-    font-size: 13px;
-    color: var(--sys-color-text-primary); /* Darker text for contrast */
-    font-weight: 600;
-    z-index: 10;
-    
-    /* Badge Styling */
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
-    padding: 6px 12px;
-    border-radius: 100px; /* Pill shape */
-    backdrop-filter: blur(4px);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
 .mainControlCard {
     position: relative;
     width: 100%;
     border-radius: 24px;
     background-color: var(--comp-card-bg-translucent, rgba(255, 255, 255, 0.48));
-    padding: 112px 24px 8px 24px; /* Adjusted: Top -32px, Bottom -32px */
+    padding: 24px; /* Standard padding */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     margin-bottom: 32px;
     box-sizing: border-box;
+    /* min-height: 200px; Remove fixed constraint */
+    height: auto;
+    overflow: visible;
 }
 
 .readoutContainer {
-    position: absolute;
-    top: 24px;
-    left: 24px;
+    /* position: absolute; <-- Removed absolute positioning */
+    /* top: 24px; */
+    /* left: 24px; */
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 24px; /* Space between title/readout and slider */
 }
 
 .readoutValue {
     font-family: var(--ref-font-family-base, sans-serif);
     font-size: 32px;
-    font-weight: 400; /* Regular */
+    font-weight: 400;
     color: var(--sys-color-text-primary);
     line-height: 1;
     margin-bottom: 4px;
@@ -180,7 +165,7 @@
     filter: grayscale(100%);
 }
 
-/* Mode & Automation Rows */
+/* Section Styles */
 .sectionRow {
     width: 100%;
     padding: 0 12px;
@@ -195,12 +180,6 @@
     font-size: 18px;
     color: var(--sys-color-text-primary);
     font-weight: 600;
-}
-
-.chipGroup {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
 }
 
 /* Automation / Smart Schedule Styles */
@@ -238,7 +217,7 @@
 
 .cardStatus {
     font-size: 14px;
-    color: var(--sys-color-status-active); /* Orange for active time */
+    color: var(--sys-color-status-active);
     font-weight: 500;
 }
 
@@ -252,10 +231,100 @@
     border-top: 1px solid rgba(0,0,0,0.04);
 }
 
-/* Specific spacing for slider in card */
-/* Specific spacing for slider in card */
-.controlsArea :global(.slider-root) { 
-    margin-bottom: 0;
+.currentModeDisplay {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-family: var(--ref-font-family-base, sans-serif);
+    font-size: 13px;
+    color: var(--sys-color-text-primary);
+    font-weight: 600;
+    z-index: 10;
+    
+    /* Badge Styling */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 6px 12px;
+    border-radius: 100px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
+/* Slider Content Wrapper to fix layout issues */
+.sliderContentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
 
+/* Custom Horizontal Slider Styling for Smart Curtain (Figma) */
+.mainControlCard :global(.horizontal-slider-wrapper) {
+    /* Spacing requested by user */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%; /* Ensure full width */
+}
+
+.mainControlCard :global(.horizontal-slider-container) {
+    /* Track (Container) */
+    --slider-track-bg: rgba(193, 193, 193, 0.57);
+    --slider-track-shadow: none;
+
+    /* Fill (Left Frame) */
+    --slider-fill-bg: #FFFFFF;
+    /* Shadow casting to the Right as per vertical design "10px straight", rotated logic means right */
+    --slider-fill-shadow: 10px 0px 9.3px 0px rgba(85, 85, 85, 0.23);
+}
+
+/* Ensure icons have contrast against white fill? Left icon is on top of fill. */
+.mainControlCard :global(.horizontal-slider-icon) {
+    /* If left icon inside white fill, it needs dark color */
+    mix-blend-mode: difference; /* Optional: Ensure visibility */
+}
+
+/* Control Buttons (Figma Neumorphism) */
+.controlButtonsRow {
+    display: flex;
+    gap: 39px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px; /* Increased margin from slider to push buttons down cleanly */
+    margin-bottom: 10px; /* Small bottom margin for safety */
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.controlBtn {
+    width: 49px;
+    height: 49px;
+    border-radius: 27px;
+    border: 1px solid #C7C7C7;
+    background-image: linear-gradient(-30deg, rgb(232, 232, 232) 11.25%, rgb(248, 248, 248) 84.42%);
+    box-shadow: -2px -2px 4px 0px rgba(255, 255, 255, 0.4), 2px 2px 4px 0px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.controlBtn:active {
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
+}
+
+/* Inner highlight border simulation */
+.btnInnerShadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    box-shadow: inset 1px 1px 2px 0px rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+}
