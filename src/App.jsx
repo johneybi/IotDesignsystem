@@ -596,6 +596,15 @@ function App() {
         );
       case 'foundations':
         return <Foundations />;
+      case 'all_pages':
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '120px', paddingBottom: '100px', alignItems: 'center' }}>
+            <Dashboard />
+            <LightingControl />
+            <AirConditionerControl />
+            <SmartCurtainControl />
+          </div>
+        );
       default:
         return <div>Select a section</div>;
     }
@@ -632,7 +641,14 @@ function App() {
             </button>
           </div>
           <div className="nav-group">
-            <div className="nav-label">Pages</div>
+            <div 
+              className="nav-label" 
+              onClick={() => setActiveSection('all_pages')}
+              style={{ cursor: 'pointer' }}
+              title="Click to view all pages"
+            >
+              Pages
+            </div>
             <button 
               className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
               onClick={() => setActiveSection('dashboard')}
