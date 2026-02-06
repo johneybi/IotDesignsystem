@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SystemShut, LightBulb, Play, Pause, Fridge, WifiOff } from 'iconoir-react';
 import { Action } from './components/molecules/Binary'
 import { Slider } from './components/molecules/Linear'
 
@@ -32,8 +33,7 @@ import LightingControl from './components/pages/LightingControl/LightingControl'
 import AirConditionerControl from './components/pages/AirConditionerControl/AirConditionerControl';
 import SmartCurtainControl from './components/pages/SmartCurtainControl/SmartCurtainControl';
 
-const PowerIcon = <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" fill="currentColor"/></svg>;
-const BulbIcon = <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" fill="currentColor"/></svg>;
+
 
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -193,7 +193,7 @@ function App() {
                     {/* Interactive Pattern */}
                     <Button 
                       active={isPowerOn} 
-                      icon={PowerIcon} 
+                      icon={<SystemShut width={24} height={24} />} 
                       onClick={togglePower} 
                     />
                     <label>Interactive</label>
@@ -203,17 +203,17 @@ function App() {
 
                  {/* Explicit States */}
                  <div className="demo-item">
-                    <Button active={false} icon={BulbIcon} />
+                    <Button active={false} icon={<LightBulb width={24} height={24} />} />
                     <label>State: Off</label>
                  </div>
                  <div className="demo-item">
-                    <Button active={true} icon={BulbIcon} />
+                    <Button active={true} icon={<LightBulb width={24} height={24} />} />
                     <label>State: On</label>
                  </div>
                   <div className="demo-item">
                      <Button 
                        disabled={true} 
-                       icon={PowerIcon} 
+                       icon={<SystemShut width={24} height={24} />} 
                        onClick={() => {}} 
                      />
                      <label>State: Disabled</label>
@@ -223,11 +223,11 @@ function App() {
 
                   {/* Variants */}
                   <div className="demo-item">
-                     <Button variant="filled" icon={BulbIcon} />
+                     <Button variant="filled" icon={<LightBulb width={24} height={24} />} />
                      <label>Variant: Filled<br/>(Static)</label>
                   </div>
                   <div className="demo-item">
-                     <Button variant="ghost" icon={BulbIcon} />
+                     <Button variant="ghost" icon={<LightBulb width={24} height={24} />} />
                      <label>Variant: Ghost<br/>(Offline)</label>
                   </div>
                </div>
@@ -387,7 +387,7 @@ function App() {
                 <div className="demo-item">
                   <Action 
                     onClick={() => console.log('Action Triggered')}
-                    icon={<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>}
+                    icon={<Play width={24} height={24} />}
                   />
                   <label>Trigger Button<br/>(Momentary)</label>
                 </div>
@@ -493,7 +493,7 @@ function App() {
                         status={isPowerOn ? "조명 켜짐" : "조명 꺼짐"}
                         isOn={isPowerOn}
                         onToggle={togglePower}
-                        icon={BulbIcon}
+                        icon={<LightBulb width={24} height={24} />}
                         isActuatable={true}
                         isConnected={true}
                      />
@@ -507,7 +507,7 @@ function App() {
                         status={isPlaying ? "재생 중 - lofi beats" : "대기 중"}
                         isPlaying={isPlaying}
                         onAction={() => setIsPlaying(!isPlaying)}
-                        icon={isPlaying ? <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg> : <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>}
+                        icon={isPlaying ? <Pause width={24} height={24} /> : <Play width={24} height={24} />}
                       />
                   </div>
 
@@ -519,7 +519,7 @@ function App() {
                         status="냉장 3°C | 냉동 -18°C"
                         isOn={true}
                         onToggle={() => {}}
-                        icon={<svg viewBox="0 0 24 24"><path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7v-6h10v6zm0-8H7V3h10v8z" fill="currentColor"/></svg>}
+                        icon={<Fridge width={24} height={24} />}
                         isActuatable={false}
                         isConnected={true}
                         style={{ 
@@ -537,7 +537,7 @@ function App() {
                         status="연결 끊김"
                         isOn={false}
                         onToggle={() => {}}
-                        icon={<svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5h1.5c1.66 0 3 1.34 3 3 0 1.66-1.34 3-3 3z" fill="currentColor"/><line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" strokeWidth="2" /></svg>}
+                        icon={<WifiOff width={24} height={24} />}
                         isActuatable={true}
                         isConnected={false}
                      />

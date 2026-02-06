@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { NavArrowDown } from 'iconoir-react';
 import styles from './Dropdown.module.css';
 
 const Dropdown = ({ 
@@ -54,9 +55,7 @@ const Dropdown = ({
       >
         <span>{displayLabel}</span>
         <div className={styles.icon}>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <NavArrowDown width={12} height={12} strokeWidth={1.5} color="currentColor" />
         </div>
       </div>
 

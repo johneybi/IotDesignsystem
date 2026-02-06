@@ -1,12 +1,12 @@
 import React from 'react';
-import { Home, BarChart2, Settings, Smartphone } from 'lucide-react';
+import { HomeSimple, StatsReport, Settings, SystemRestart } from 'iconoir-react'; 
 import styles from './TabBar.module.css';
 
 const TabBar = ({ activeTab = 'home', onTabChange }) => {
     const tabs = [
-        { id: 'home', icon: Home, label: 'Home' },
-        { id: 'devices', icon: Smartphone, label: 'Devices' },
-        { id: 'stats', icon: BarChart2, label: 'Stats' },
+        { id: 'home', icon: HomeSimple, label: 'Home' },
+        { id: 'devices', icon: SystemRestart, label: 'Devices' }, // Temporary mapping for Devices
+        { id: 'stats', icon: StatsReport, label: 'Stats' },
         { id: 'settings', icon: Settings, label: 'Settings' },
     ];
 
@@ -25,7 +25,8 @@ const TabBar = ({ activeTab = 'home', onTabChange }) => {
                             aria-label={tab.label}
                         >
                             <Icon 
-                                size={26} 
+                                width={26}
+                                height={26} 
                                 strokeWidth={isActive ? 2.5 : 2} 
                             />
                         </button>

@@ -4,7 +4,7 @@ import IndicatorDot from '../../../atoms/IndicatorDot/IndicatorDot';
 import CircularGauge from '../Gauge/CircularGauge';
 import Readout from '../../Display/Readout/Readout';
 import { Action } from '../../Binary';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus } from 'iconoir-react';
 
 const TemperatureControl = ({ 
   targetTemp = 24, 
@@ -109,7 +109,7 @@ const TemperatureControl = ({
           onClick={handleDecrease}
           disabled={targetTemp <= min}
           aria-label="Decrease temperature"
-          icon={<Minus size={24} />}
+          icon={<Minus width={24} height={24} />}
         />
 
         {/* Molecule: Readout */}
@@ -123,7 +123,7 @@ const TemperatureControl = ({
           onClick={handleIncrease}
           disabled={targetTemp >= max}
           aria-label="Increase temperature"
-          icon={<Plus size={24} />}
+          icon={<Plus width={24} height={24} />}
         />
       </div>
     </div>

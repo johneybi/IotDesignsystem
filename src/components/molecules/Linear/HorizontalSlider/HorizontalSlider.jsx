@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { SunLight, HalfMoon } from 'iconoir-react';
 import SliderHandle from '../../../atoms/SliderHandle/SliderHandle';
 import './HorizontalSlider.css';
 
 const HorizontalSlider = ({ 
-    leftIcon = <Moon size={24} strokeWidth={1.5} color="#515151" />, // Default Left
-    rightIcon = <Sun size={24} strokeWidth={1.5} color="white" />, // Default Right
+    leftIcon = <HalfMoon width={24} height={24} strokeWidth={1.5} color="#515151" />, // Default Left
+    rightIcon = <SunLight width={24} height={24} strokeWidth={1.5} color="white" />, // Default Right
     leftIconColor, 
     rightIconColor,
     handlePosition = "in-left",

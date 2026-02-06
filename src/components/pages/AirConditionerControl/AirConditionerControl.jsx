@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './AirConditionerControl.module.css';
 import TabBar from '../../organisms/Navigation/TabBar/TabBar';
 import dashboardBg from '../../../assets/images/dashboard_bg_mono.png';
-import { ChevronLeft, Power } from 'lucide-react';
+import { NavArrowLeft, SystemShut } from 'iconoir-react';
 import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDeviceCard';
 import TemperatureControl from '../../molecules/Circular/TemperatureControl/TemperatureControl';
 import Chip from '../../atoms/Chip/Chip';
@@ -43,7 +43,7 @@ const AirConditionerControl = () => {
                 {/* Header */}
                 <div className={styles.header}>
                     <button className={styles.backButton}>
-                        <ChevronLeft size={24} />
+                        <NavArrowLeft width={24} height={24} />
                     </button>
                     <div className={styles.headerTitle}>
                         <span className={styles.headerSubtitle}>Living Room</span>
@@ -57,7 +57,7 @@ const AirConditionerControl = () => {
                         status={getStatus()}
                         isOn={isOn}
                         onToggle={() => setIsOn(!isOn)}
-                        icon={<Power size={24} />}
+                        icon={<SystemShut width={24} height={24} />}
                         style={{ width: '100%' }}
                         variant="minimal"
                     />

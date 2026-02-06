@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { SunLight, HalfMoon } from 'iconoir-react';
 import SliderHandle from '../../../atoms/SliderHandle/SliderHandle';
 import './VerticalSlider.css';
 
@@ -175,10 +175,10 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
                 {showIcons && (
                     <>
                         <div className="vertical-slider-icon" style={getMoonStyle()}>
-                            <Moon size={24} strokeWidth={1.5} color={moonColor} />
+                            <HalfMoon width={24} height={24} strokeWidth={1.5} color={moonColor} />
                         </div>
                         <div className="vertical-slider-icon" style={{ ...getSunStyle(), top: 'auto', bottom: getSunStyle().bottom }}>
-                            <Sun size={24} strokeWidth={1.5} color={sunColor} />
+                            <SunLight width={24} height={24} strokeWidth={1.5} color={sunColor} />
                         </div>
                     </>
                 )}

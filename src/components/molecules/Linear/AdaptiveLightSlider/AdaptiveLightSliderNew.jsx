@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
 import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
-import { Moon, Sun } from 'lucide-react';
+import { HalfMoon, SunLight } from 'iconoir-react';
 import './AdaptiveLightSliderNew.css';
 
 export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 245, 225)", inactiveColor = "rgb(220, 215, 210)" }) {
@@ -134,14 +134,14 @@ export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 
                         <motion.div 
                             style={{ opacity: sunOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         >
-                            <Sun size={24} color="#333" strokeWidth={2.5} /> 
+                            <SunLight width={24} height={24} color="#333" strokeWidth={2.5} /> 
                         </motion.div>
                         
                         {/* Moon Icon */}
                         <motion.div 
                             style={{ opacity: moonOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         >
-                             <Moon size={24} color="#666" strokeWidth={2} />
+                             <HalfMoon width={24} height={24} color="#666" strokeWidth={2} />
                         </motion.div>
                     </div>
                 </SliderThumb>

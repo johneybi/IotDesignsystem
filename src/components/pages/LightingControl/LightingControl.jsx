@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './LightingControl.module.css';
 import TabBar from '../../organisms/Navigation/TabBar/TabBar';
 import dashboardBg from '../../../assets/images/dashboard_bg_mono.png';
-import { ChevronLeft, Power } from 'lucide-react';
+import { NavArrowLeft, SystemShut } from 'iconoir-react';
 import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDeviceCard';
 import AdaptiveLightSlider from '../../molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew';
 import Readout from '../../molecules/Display/Readout/Readout';
@@ -58,7 +58,7 @@ const LightingControl = () => {
             <div className={styles.content}>
                 <div className={styles.header}>
                     <button className={styles.backButton}>
-                        <ChevronLeft size={24} />
+                        <NavArrowLeft width={24} height={24} />
                     </button>
                     <div className={styles.headerTitle}>
                         <span className={styles.headerSubtitle}>Living Room</span>
@@ -71,7 +71,7 @@ const LightingControl = () => {
                         status={isLightOn ? "On" : "Off"}
                         isOn={isLightOn}
                         onToggle={() => setIsLightOn(!isLightOn)}
-                        icon={<Power size={24} />}
+                        icon={<SystemShut width={24} height={24} />}
                         style={{ width: '100%' }}
                         variant="minimal"
                     />

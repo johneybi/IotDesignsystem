@@ -5,7 +5,7 @@ import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDevic
 import ActionDeviceCard from '../../organisms/Cards/ActionDeviceCard/ActionDeviceCard';
 import TabBar from '../../organisms/Navigation/TabBar/TabBar';
 import dashboardBg from '../../../assets/images/dashboard_bg_mono.png';
-import { Sun, Moon, LogOut } from 'lucide-react';
+import { SunLight, HalfMoon, LogOut, LightBulb, Play, Pause, Wind, SoundHigh } from 'iconoir-react';
 
 const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-level routing shim (since App.jsx handles 'pages' via state)
     const [activeTab, setActiveTab] = useState('All');
@@ -54,10 +54,7 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
         : devices.filter(d => d.room === activeTab || d.room === 'All');
 
     // Device Icons (Inline SVGs for specific devices)
-    const BulbIcon = <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>;
-    const PlayIcon = <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>;
-    const PauseIcon = <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg>;
-    const ACIcon = <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-4.97 0-9 4.03-9 9 0 4.97 4.03 9 9 9s9-4.03 9-9c0-4.97-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm1-10h-2v4h-2v2h2v4h2v-4h2v-2h-2V8z"/></svg>; // Temp placeholder
+
 
     // Tabs
     const tabs = ['All', 'Living Room', 'Bedroom', 'Kitchen'];
@@ -91,19 +88,19 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                     <div className={styles.sceneScroll}>
                         <div className={styles.sceneCard}>
                             <div className={`${styles.sceneIcon} ${styles.morning}`}>
-                                <Sun size={20} color="#FFF" />
+                                <SunLight width={20} height={20} color="#FFF" />
                             </div>
                             <span className={styles.sceneLabel}>Morning</span>
                         </div>
                         <div className={styles.sceneCard}>
                             <div className={`${styles.sceneIcon} ${styles.night}`}>
-                                <Moon size={20} color="#FFF" />
+                                <HalfMoon width={20} height={20} color="#FFF" />
                             </div>
                             <span className={styles.sceneLabel}>Night</span>
                         </div>
                         <div className={styles.sceneCard}>
                             <div className={`${styles.sceneIcon} ${styles.away}`}>
-                                <LogOut size={20} color="#FFF" />
+                                <LogOut width={20} height={20} color="#FFF" />
                             </div>
                             <span className={styles.sceneLabel}>Away</span>
                         </div>
@@ -131,9 +128,9 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                     <div className={styles.grid}>
                         {filteredDevices.map(device => {
                             // Icon Selection
-                            let icon = BulbIcon;
-                            if (device.icon === 'speaker') icon = device.isPlaying ? PauseIcon : PlayIcon;
-                            if (device.icon === 'ac') icon = ACIcon;
+                            let icon = <LightBulb width={24} height={24} />;
+                            if (device.icon === 'speaker') icon = <SoundHigh width={24} height={24} />;
+                            if (device.icon === 'ac') icon = <Wind width={24} height={24} />;
 
                             const isFullWidth = device.span === 2;
 
@@ -162,7 +159,13 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                                     icon={icon}
                                     isConnected={device.isConnected !== false}
                                     className={device.span === 2 ? styles.span2 : ''}
-                                    style={device.span === 2 ? { width: '100%' } : {}}
+                                    style={{ 
+                                        ...(device.span === 2 ? { width: '100%' } : {}),
+                                        ...(device.icon === 'ac' ? { 
+                                            '--comp-button-icon-color-active': 'var(--sys-color-status-cool)',
+                                            '--sys-color-status-active': 'var(--sys-color-status-cool)'
+                                        } : {})
+                                    }}
                                     onClick={() => device.targetPage && onNavigate && onNavigate(device.targetPage)}
                                     isFullWidth={isFullWidth}
                                 />

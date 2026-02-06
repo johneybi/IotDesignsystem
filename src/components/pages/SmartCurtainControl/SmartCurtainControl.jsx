@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './SmartCurtainControl.module.css';
 import TabBar from '../../organisms/Navigation/TabBar/TabBar';
 import dashboardBg from '../../../assets/images/dashboard_bg_mono.png';
-import { ChevronLeft, DoorClosed, DoorOpen, Blinds, Pause } from 'lucide-react'; // Using Blinds icon
+import { NavArrowLeft, NavArrowRight, Pause } from 'iconoir-react';
+import { Blinds } from 'lucide-react'; // Using Lucide for Blinds icon specifically
 import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDeviceCard';
 import HorizontalSlider from '../../molecules/Linear/HorizontalSlider/HorizontalSlider';
 import ToggleBtn from '../../molecules/ToggleBtn/ToggleBtn';
@@ -38,7 +39,7 @@ const SmartCurtainControl = () => {
                 {/* Header */}
                 <div className={styles.header}>
                     <button className={styles.backButton}>
-                        <ChevronLeft size={24} />
+                        <NavArrowLeft width={24} height={24} />
                     </button>
                     <div className={styles.headerTitle}>
                         <span className={styles.headerSubtitle}>Living Room</span>
@@ -87,19 +88,19 @@ const SmartCurtainControl = () => {
                             {/* Close Button (Left) - Slider to 0 */}
                             <button className={styles.controlBtn} onClick={() => setCurtainLevel(0)} title="닫기">
                                 <div className={styles.btnInnerShadow} />
-                                <DoorClosed size={24} color="#515151" strokeWidth={1.5} />
+                                <NavArrowLeft width={24} height={24} color="#515151" strokeWidth={1.5} />
                             </button>
                             
                             {/* Pause Button (Middle) */}
                             <button className={styles.controlBtn} onClick={() => {}} title="일시정지">
                                 <div className={styles.btnInnerShadow} />
-                                <Pause size={24} color="#515151" strokeWidth={1.5} />
+                                <Pause width={24} height={24} color="#515151" strokeWidth={1.5} />
                             </button>
 
                             {/* Open Button (Right) - Slider to 100 */}
                             <button className={styles.controlBtn} onClick={() => setCurtainLevel(100)} title="열기">
                                 <div className={styles.btnInnerShadow} />
-                                <DoorOpen size={24} color="#515151" strokeWidth={1.5} />
+                                <NavArrowRight width={24} height={24} color="#515151" strokeWidth={1.5} />
                             </button>
                         </div>
                     </div>

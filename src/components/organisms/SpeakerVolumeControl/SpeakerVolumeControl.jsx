@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { SoundHigh, SoundOff } from 'iconoir-react';
 import SliderHandle from '../../atoms/SliderHandle/SliderHandle';
 import styles from './SpeakerVolumeControl.module.css';
 
@@ -102,11 +102,11 @@ const SpeakerVolumeControl = ({
 
                     {/* Icons */}
                     <div className={styles.icon} style={getTopIconStyle()}>
-                        <Volume2 size={24} /> 
+                        <SoundHigh width={24} height={24} /> 
                     </div>
                     
                     <div className={styles.icon} style={getBottomIconStyle()}>
-                        <VolumeX size={24} />
+                        <SoundOff width={24} height={24} />
                     </div>
 
                     {/* Handle */}
