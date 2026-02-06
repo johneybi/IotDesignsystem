@@ -13,7 +13,7 @@
   justify-content: space-between;
   align-items: flex-start; /* Restored default alignment */
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */ /* Removed: was clipping button borders (::after with inset: -1px) */
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: var(--sys-shadow-md);
 }

@@ -96,7 +96,7 @@
   /* Refactored for Transparency on top of Card (#a3a3a3) */
   background: var(--comp-button-bg-neumorph-dark);
   box-shadow: var(--comp-button-shadow-neumorph-dark);
-  border-color: var(--comp-button-border-neumorph-dark); 
+  border: none; /* Remove border entirely to prevent uneven rendering */
   color: var(--sys-color-text-primary); /* Darker than #555 as requested */
 }
 
