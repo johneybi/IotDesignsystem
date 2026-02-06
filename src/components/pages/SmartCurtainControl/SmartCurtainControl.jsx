@@ -64,7 +64,7 @@ const SmartCurtainControl = () => {
 
 
                     <div className={styles.readoutContainer}>
-                        <span className={styles.readoutValue}>{curtainLevel}%</span>
+                        <span className={styles.readoutValue}>{Math.round(curtainLevel)}%</span>
                         <span className={styles.readoutLabel}>Openness</span>
                     </div>
                     

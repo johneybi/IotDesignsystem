@@ -124,7 +124,7 @@
     position: relative;
     width: 100%;
     border-radius: 24px;
-    background-color: var(--comp-card-bg-translucent, rgba(255, 255, 255, 0.48));
+    background-color: var(--comp-card-bg-translucent);
     padding: 84px 24px 40px 24px; /* Top +60px, Bottom +16px */
     display: flex;
     flex-direction: column;

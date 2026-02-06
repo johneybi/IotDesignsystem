@@ -119,7 +119,7 @@
     position: relative;
     width: 100%;
     border-radius: 24px;
-    background-color: var(--comp-card-bg-translucent, rgba(255, 255, 255, 0.48));
+    background-color: var(--comp-card-bg-translucent);
     padding: 24px; /* Standard padding */
     display: flex;
     flex-direction: column;
@@ -184,7 +184,7 @@
 
 /* Automation / Smart Schedule Styles */
 .capabilityCard {
-    background-color: rgba(255, 255, 255, 0.48);
+    background-color: var(--comp-card-bg-translucent);
     border-radius: 20px;
     padding: 20px;
     margin-bottom: 16px;

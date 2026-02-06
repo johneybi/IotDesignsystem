@@ -16,10 +16,14 @@ const HorizontalSlider = ({
     width = "100%", 
     height = "116px",
     min = 0,
-    max = 100
+    max = 100,
+    value, // Controlled value from parent
+    onChange // Callback to update parent state
 }) => {
     // sliderPos: 0 (Left) to 100 (Right)
-    const [sliderPos, setSliderPos] = useState(50);
+    // Use controlled value if provided, otherwise use internal state
+    const [internalSliderPos, setInternalSliderPos] = useState(50);
+    const sliderPos = value !== undefined ? value : internalSliderPos;
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startX = useRef(0);
@@ -50,7 +54,12 @@ const HorizontalSlider = ({
         if (newPos < 0) newPos = 0;
         if (newPos > 100) newPos = 100;
 
-        setSliderPos(newPos);
+        // Update parent state if onChange is provided, otherwise update internal state
+        if (onChange) {
+            onChange(newPos);
+        } else {
+            setInternalSliderPos(newPos);
+        }
     };
 
     const handlePointerUp = (e) => {

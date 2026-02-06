@@ -127,7 +127,7 @@
     z-index: 10;
     
     /* Badge Styling */
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    background-color: var(--comp-card-bg-translucent);
     padding: 6px 12px;
     border-radius: 100px; /* Pill shape */
     backdrop-filter: blur(4px);
@@ -138,7 +138,7 @@
     position: relative;
     width: 100%;
     border-radius: 24px;
-    background-color: var(--comp-card-bg-translucent, rgba(255, 255, 255, 0.48));
+    background-color: var(--comp-card-bg-translucent);
     padding: 112px 24px 8px 24px; /* Adjusted: Top -32px, Bottom -32px */
     display: flex;
     flex-direction: column;
@@ -205,7 +205,7 @@
 
 /* Automation / Smart Schedule Styles */
 .capabilityCard {
-    background-color: rgba(255, 255, 255, 0.48);
+    background-color: var(--comp-card-bg-translucent);
     border-radius: 20px;
     padding: 20px;
     margin-bottom: 16px;
