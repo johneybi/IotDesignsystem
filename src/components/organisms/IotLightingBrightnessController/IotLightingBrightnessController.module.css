@@ -1,11 +1,11 @@
 .card {
-  --comp-card-bg-light: #FAFAFA;
-  --comp-card-radius: 24px;
-  --comp-card-padding: 24px;
-  --comp-text-primary: #111111;
-  --comp-text-secondary: #868686;
+  background-color: var(--comp-card-bg);
+  border-radius: var(--comp-card-radius);
+  padding: var(--comp-card-padding);
+  display: flex;
+  flex-direction: column;
 
-  background-color: var(--comp-card-bg-light);
+  background-color: var(--comp-card-bg);
   border-radius: var(--comp-card-radius);
   padding: var(--comp-card-padding);
   display: flex;
@@ -30,14 +30,14 @@
 .title {
   font-size: 16px;
   font-weight: 600;
-  color: var(--comp-text-primary);
+  color: var(--sys-color-text-primary);
   margin-bottom: 4px;
   white-space: nowrap;
 }
 
 .subtitle {
   font-size: 13px;
-  color: var(--comp-text-secondary);
+  color: var(--sys-color-text-secondary);
 }
 
 .sliderWrapper {

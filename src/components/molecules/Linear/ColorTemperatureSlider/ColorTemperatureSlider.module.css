@@ -3,7 +3,7 @@
     width: 100%;
     height: 40px; /* Tightly fitted to knob size */
     border-radius: 20px;
-    background: linear-gradient(90deg, #FFCD94 0%, #FFF3E0 50%, #DAF0FF 100%); /* Softer warm color */
+    background: var(--comp-slider-gradient-temperature);
     touch-action: none;
     cursor: auto;
     display: flex;

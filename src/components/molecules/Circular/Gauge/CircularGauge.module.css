@@ -10,7 +10,7 @@
 
 .track {
   fill: none;
-  stroke: #e0e0e0;
+  stroke: var(--comp-gauge-track-stroke);
   stroke-linecap: round;
   transition: all 0.3s ease;
 }

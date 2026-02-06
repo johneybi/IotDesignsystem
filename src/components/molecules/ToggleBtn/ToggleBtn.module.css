@@ -39,14 +39,14 @@
 
 /* OFF State */
 .off {
-  border-color: #a9a9a9;
-  background: linear-gradient(to right, #515151, #8b8b8b);
+  border-color: var(--comp-toggle-border-off);
+  background: var(--comp-toggle-bg-off);
 }
 
 /* ON State */
 .on {
-  border-color: #e0e0e0;
-  background: linear-gradient(to right, #f2e6a4, #fed701);
+  border-color: var(--comp-toggle-border-on);
+  background: var(--comp-toggle-bg-on);
 }
 
 .thumbOverride {
@@ -65,7 +65,7 @@
   /* Variable overrides */
   --comp-slider-thumb-size: 28.8px;
   --comp-slider-thumb-bg: var(--comp-button-bg-enabled);
-  --comp-slider-thumb-border: 1.177px solid #c7c7c7;
+  --comp-slider-thumb-border: 1.177px solid var(--sys-color-border-secondary);
   
   /* Disable default shadow to use custom pseudo-elements */
   --comp-slider-thumb-shadow: none; 

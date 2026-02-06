@@ -32,7 +32,7 @@
     left: 0;
     height: 100%;
     /* Gradient Left (Dark) -> Right (Light) or Variable */
-    background: var(--slider-fill-bg, linear-gradient(90deg, #515151 0%, #B7B7B7 100%));
+    background: var(--slider-fill-bg, var(--slider-gradient-silver-warm));
     box-shadow: var(--slider-fill-shadow, none);
     z-index: 10;
     pointer-events: none;

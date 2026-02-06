@@ -1,13 +1,14 @@
 import React from 'react';
-import { HomeSimple, StatsReport, Settings, SystemRestart } from 'iconoir-react'; 
+import { Home, LayoutGrid, Thermometer, Settings } from 'lucide-react'; 
 import styles from './TabBar.module.css';
 
-const TabBar = ({ activeTab = 'home', onTabChange }) => {
+// Static TabBar - displays smart home navigation context without interaction
+const TabBar = () => {
     const tabs = [
-        { id: 'home', icon: HomeSimple, label: 'Home' },
-        { id: 'devices', icon: SystemRestart, label: 'Devices' }, // Temporary mapping for Devices
-        { id: 'stats', icon: StatsReport, label: 'Stats' },
-        { id: 'settings', icon: Settings, label: 'Settings' },
+        { id: 'home', icon: Home },
+        { id: 'devices', icon: LayoutGrid },
+        { id: 'climate', icon: Thermometer },
+        { id: 'settings', icon: Settings },
     ];
 
     return (
@@ -15,21 +16,19 @@ const TabBar = ({ activeTab = 'home', onTabChange }) => {
             <nav className={styles.tabBar}>
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
-                    const isActive = activeTab === tab.id;
+                    // First tab (home) is always shown as active for visual context
+                    const isActive = tab.id === 'home';
                     
                     return (
-                        <button 
+                        <div 
                             key={tab.id}
                             className={`${styles.tabItem} ${isActive ? styles.active : ''}`}
-                            onClick={() => onTabChange && onTabChange(tab.id)}
-                            aria-label={tab.label}
                         >
                             <Icon 
-                                width={26}
-                                height={26} 
+                                size={26}
                                 strokeWidth={isActive ? 2.5 : 2} 
                             />
-                        </button>
+                        </div>
                     );
                 })}
             </nav>

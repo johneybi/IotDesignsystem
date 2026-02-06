@@ -11,7 +11,7 @@
 }
 
 .tabBar {
-  pointer-events: auto; /* Re-enable clicks on the bar itself */
+  pointer-events: none; /* Static display - no interaction */
   display: flex;
   justify-content: space-between; /* Spread items nicely */
   align-items: center;
@@ -37,27 +37,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  color: #999999; /* Neutral Grey */
+  padding: 8px 12px;
+  color: var(--sys-color-text-tertiary);
   position: relative;
 }
 
-.tabItem:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-  color: #666666; /* Darker Neutral Grey */
-}
-
-.tabItem:active {
-  transform: scale(0.92);
-}
-
 .tabItem.active {
-  color: #111111; /* Neutral Black */
+  color: var(--sys-color-text-primary);
+}
+
+.tabLabel {
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--sys-font-family-main, 'SUIT Variable', sans-serif);
 }
 
 /* Active Dot Indicator */
@@ -67,7 +62,8 @@
   bottom: 0px; 
   width: 5px;
   height: 5px;
-  background-color: #111111; /* Neutral Black */
+  background-color: var(--sys-color-text-primary);
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+

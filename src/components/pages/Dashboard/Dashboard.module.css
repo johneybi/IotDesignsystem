@@ -156,10 +156,10 @@
     background: var(--ref-palette-neutral-0);
 }
 
-/* Scene Colors using tokens approx or hard values if semantic tokens missing for scenes */
-.morning { background: linear-gradient(135deg, #FF9F0A 0%, #FFCC80 100%); border: none; }
-.night { background: linear-gradient(135deg, #32465A 0%, #15191E 100%); border: none; }
-.away { background: linear-gradient(135deg, #9F9F9F 0%, #757575 100%); border: none; }
+/* Scene Colors using design tokens */
+.morning { background: var(--sys-gradient-scene-morning); border: none; }
+.night { background: var(--sys-gradient-scene-night); border: none; }
+.away { background: var(--sys-gradient-scene-away); border: none; }
 
 
 .sceneLabel {

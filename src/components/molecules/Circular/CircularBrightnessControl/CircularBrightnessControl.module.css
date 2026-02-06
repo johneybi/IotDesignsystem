@@ -24,13 +24,13 @@
 .value {
   font-size: 48px;
   font-weight: 700;
-  color: var(--color-text-1, #1d2129);
+  color: var(--sys-color-text-primary);
   line-height: 1.1;
 }
 
 .label {
     font-size: 14px;
-    color: var(--color-text-3, #86909c);
+    color: var(--sys-color-text-tertiary);
     font-weight: 500;
     margin-top: 4px;
 }

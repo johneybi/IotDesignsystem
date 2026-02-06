@@ -14,7 +14,7 @@
   font-family: 'Urbanist', sans-serif;
   font-size: 42px;
   font-weight: 300; 
-  color: #1a1a1a;
+  color: var(--sys-color-text-primary);
   line-height: 1.2;
   margin: 0;
 }
@@ -27,7 +27,7 @@
 
 .label {
   font-size: 15px;
-  color: #757575;
+  color: var(--sys-color-text-secondary);
   margin-top: 0px;
   font-family: 'SUIT Variable', sans-serif;
 }

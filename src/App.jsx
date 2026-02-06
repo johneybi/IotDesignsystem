@@ -658,17 +658,6 @@ function App() {
               Smart Curtain
             </button>
           </div>
-          <div className="nav-group">
-            <div className="nav-label">Components</div>
-            <button 
-              className={`nav-item ${activeSection === 'inputs' ? 'active' : ''}`}
-              onClick={() => setActiveSection('inputs')}
-            >
-              Inputs
-            </button>
-            <button className="nav-item disabled">Feedback</button>
-            <button className="nav-item disabled">Data Display</button>
-          </div>
         </nav>
       </aside>
 

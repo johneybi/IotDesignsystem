@@ -18,12 +18,12 @@
 .title {
     font-size: 16px;
     font-weight: 600;
-    color: var(--color-text-primary, #333);
+    color: var(--sys-color-text-primary);
 }
 
 .subtitle {
     font-size: 12px;
-    color: var(--color-text-secondary, #888);
+    color: var(--sys-color-text-secondary);
 }
 
 .sliderWrapper {
@@ -36,5 +36,5 @@
 
 .status {
     font-size: 14px;
-    color: var(--color-text-secondary, #666);
+    color: var(--sys-color-text-secondary);
 }

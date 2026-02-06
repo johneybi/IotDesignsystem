@@ -262,7 +262,24 @@
 
   /* Slider: Legacy Mappings */
   --comp-slider-track-bg-silver: var(--slider-gradient-silver-vertical);
-  --comp-slider-icon-color-dark: #515151;
+  --comp-slider-icon-color-dark: var(--ref-palette-neutral-700);
   --comp-slider-icon-color-light: var(--ref-palette-neutral-0);
+
+  /* Component: Toggle */
+  --comp-toggle-bg-off: linear-gradient(to right, var(--ref-palette-neutral-700) 0%, var(--ref-palette-neutral-500) 100%);
+  --comp-toggle-bg-on: linear-gradient(to right, #f2e6a4 0%, #fed701 100%);
+  --comp-toggle-border-off: var(--sys-color-border-secondary);
+  --comp-toggle-border-on: var(--ref-palette-neutral-100);
+
+  /* Component: Scene Gradients */
+  --sys-gradient-scene-morning: linear-gradient(135deg, #FF9F0A 0%, #FFCC80 100%);
+  --sys-gradient-scene-night: linear-gradient(135deg, #32465A 0%, #15191E 100%);
+  --sys-gradient-scene-away: linear-gradient(135deg, #9F9F9F 0%, #757575 100%);
+
+  /* Component: Temperature Slider */
+  --comp-slider-gradient-temperature: linear-gradient(90deg, #FFCD94 0%, #FFF3E0 50%, #DAF0FF 100%);
+
+  /* Component: Gauge */
+  --comp-gauge-track-stroke: var(--ref-palette-neutral-100);
 }
 
