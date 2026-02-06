@@ -9,14 +9,12 @@ const ActionDeviceCard = ({
   isPlaying = false, 
   onAction,
   icon,
+  onClick, /* New Prop */
   isConnected = true,
   style = {},
-  className = ''
+  className = '',
+  isFullWidth = true
 }) => {
-  
-  // Determine Button Variant
-  // For Action Card, usually we want the button to look 'pressed' or 'active' when playing
-  // Or 'neumorph' state when ready to play.
   
   let buttonVariant = 'neumorph';
   if (!isConnected) {
@@ -25,26 +23,36 @@ const ActionDeviceCard = ({
     buttonVariant = 'neumorph-dark';
   }
 
-  // Determine Card Opacity for Offline state
   const offlineStyle = !isConnected ? { opacity: 0.5, pointerEvents: 'none' } : {};
+
+  const handleAction = (e) => {
+    e.stopPropagation();
+    onAction && onAction();
+  };
 
   return (
     <div 
-      className={`${styles.card} ${isPlaying && isConnected ? styles.active : ''} ${className}`} 
-      style={{ ...offlineStyle, ...style }}
+      className={`
+        ${styles.card} 
+        ${isPlaying && isConnected ? styles.active : ''} 
+        ${!isFullWidth ? styles.compact : ''}
+        ${className}
+      `} 
+      style={{ ...offlineStyle, ...style, cursor: onClick ? 'pointer' : 'default' }}
+      onClick={onClick}
     >
       <div className={styles.infoWrapper}>
         <DeviceInfo 
           name={name} 
           status={status} 
-          isOn={isPlaying} // Reuse DeviceInfo's ON state for active text styling if needed
+          isOn={isPlaying} 
         />
       </div>
       <div className={styles.actionWrapper}>
         <Button 
           active={isPlaying} 
           icon={icon} 
-          onClick={onAction}
+          onClick={handleAction}
           variant={buttonVariant}
           disabled={!isConnected}
         />

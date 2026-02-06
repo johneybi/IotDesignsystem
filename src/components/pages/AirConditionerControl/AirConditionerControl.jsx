@@ -6,7 +6,9 @@ import { ChevronLeft, Power } from 'lucide-react';
 import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDeviceCard';
 import TemperatureControl from '../../molecules/Circular/TemperatureControl/TemperatureControl';
 import Chip from '../../atoms/Chip/Chip';
-import Dropdown from '../../molecules/Selection/Dropdown/Dropdown';
+import Dropdown from '../../molecules/Selection/Dropdown/Dropdown'; // Keep for other uses if needed, or remove if unused.
+import Slider from '../../molecules/Linear/Slider/Slider';
+import ToggleBtn from '../../molecules/ToggleBtn/ToggleBtn';
 
 const AirConditionerControl = () => {
     const [navTab, setNavTab] = useState('devices');
@@ -14,15 +16,13 @@ const AirConditionerControl = () => {
     const [targetTemp, setTargetTemp] = useState(24);
     const [currentTemp, setCurrentTemp] = useState(26);
     const [activeMode, setActiveMode] = useState('Cooling');
-    const [schedule, setSchedule] = useState('none');
-
-    const scheduleOptions = [
-        { label: 'No Schedule', value: 'none' },
-        { label: 'Turn off in 30 min', value: 'off_30' },
-        { label: 'Turn off in 1 hr', value: 'off_60' },
-        { label: 'Sleep Mode (8hr)', value: 'sleep_8' },
-        { label: 'Wake up at 7:00 AM', value: 'wake_7' },
-    ];
+    
+    // Smart Schedule State
+    const [timerEnabled, setTimerEnabled] = useState(false);
+    const [timerValue, setTimerValue] = useState('1 hr'); // Default string matching option
+    
+    const [wakeUpEnabled, setWakeUpEnabled] = useState(false);
+    const [wakeUpValue, setWakeUpValue] = useState('7:00 AM'); // Default string matching option
 
     // Determine status text based on state and temperature difference
     const getStatus = () => {
@@ -110,22 +110,91 @@ const AirConditionerControl = () => {
                     </div>
                 </div>
 
-                {/* Automation (Schedule) */}
+                {/* Smart Schedule */}
                 <div className={`${styles.sectionRow} ${!isOn ? styles.controlsDisabled : ''}`} style={{ paddingBottom: 120 }}>
-                    <span className={styles.sectionTitle}>Automation</span>
-                    <Dropdown 
-                        options={scheduleOptions}
-                        value={schedule}
-                        onChange={(opt) => setSchedule(opt.value)}
-                        placeholder="Select Schedule"
-                        style={{ width: '100%' }}
-                    />
+                    <span className={styles.sectionTitle}>Smart Schedule</span>
+                    
+                    {/* Scheduled Off */}
+                    <ScheduleCard 
+                        title="Scheduled Off"
+                        isOn={timerEnabled}
+                        onToggle={() => setTimerEnabled(!timerEnabled)}
+                        valueDescription={timerEnabled ? `In ${timerValue}` : "Off"}
+                    >
+                        <Dropdown 
+                            options={[
+                                { label: '30 Minutes', value: '30 min' },
+                                { label: '1 Hour', value: '1 hr' },
+                                { label: '2 Hours', value: '2 hrs' },
+                                { label: '4 Hours', value: '4 hrs' },
+                                { label: '8 Hours', value: '8 hrs' },
+                            ]}
+                            value={timerValue}
+                            onChange={(opt) => setTimerValue(opt.value)}
+                            placeholder="Duration"
+                            disabled={!timerEnabled}
+                            style={{ width: '100%' }}
+                        />
+                    </ScheduleCard>
+
+                    {/* Scheduled On */}
+                    <ScheduleCard 
+                        title="Scheduled On"
+                        isOn={wakeUpEnabled}
+                        onToggle={() => setWakeUpEnabled(!wakeUpEnabled)}
+                        valueDescription={wakeUpEnabled ? `At ${wakeUpValue}` : "Off"}
+                    >
+                         <Dropdown 
+                            options={[
+                                { label: '6:00 AM', value: '6:00 AM' },
+                                { label: '6:30 AM', value: '6:30 AM' },
+                                { label: '7:00 AM', value: '7:00 AM' },
+                                { label: '7:30 AM', value: '7:30 AM' },
+                                { label: '8:00 AM', value: '8:00 AM' },
+                                { label: '18:00 (6 PM)', value: '6:00 PM' },
+                                { label: '19:00 (7 PM)', value: '7:00 PM' },
+                            ]}
+                            value={wakeUpValue}
+                            onChange={(opt) => setWakeUpValue(opt.value)}
+                            placeholder="Time"
+                            disabled={!wakeUpEnabled}
+                            style={{ width: '100%' }}
+                        />
+                    </ScheduleCard>
                 </div>
 
                 <TabBar activeTab={navTab} onTabChange={setNavTab} />
             </div>
         </div>
     );
+};
+
+// Helper Sub-component for capability cards
+const ScheduleCard = ({ title, isOn, onToggle, valueDescription, children }) => (
+    <div className={`${styles.capabilityCard} ${!isOn ? styles.disabled : ''}`}>
+        <div className={styles.cardHeader}>
+            <div className={styles.cardTitleBlock}>
+                <span className={styles.cardTitle}>{title}</span>
+                <span className={`${styles.cardStatus} ${!isOn ? styles.inactive : ''}`}>
+                    {valueDescription}
+                </span>
+            </div>
+            <ToggleBtn isOn={isOn} onToggle={onToggle} size="small" />
+        </div>
+        {isOn && (
+            <div className={styles.controlsArea}>
+                {children}
+            </div>
+        )}
+    </div>
+);
+
+// Helper for time formatting (decimal hours to HH:MM AM)
+const formatTime = (decimalTime) => {
+    const hrs = Math.floor(decimalTime);
+    const mins = Math.round((decimalTime - hrs) * 60);
+    const minsStr = mins < 10 ? `0${mins}` : mins;
+    return `${hrs}:${minsStr} AM`;
 };
 
 export default AirConditionerControl;

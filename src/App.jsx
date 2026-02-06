@@ -117,7 +117,7 @@ function App() {
           </div>
         );
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigate={setActiveSection} />;
       case 'lighting':
         return <LightingControl />;
       case 'airconditioner':

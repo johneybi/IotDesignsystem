@@ -101,6 +101,23 @@
   left: 0px; /* Flush left */
 }
 
-.thumbOn {
-  left: 36.2px; /* Flush right (65 - 28.8 = 36.2) */
+
+/* Small Variant */
+.small {
+  width: 48px;
+  height: 26px;
+}
+
+.small .thumbOverride {
+  width: 20px !important;
+  height: 20px !important;
+  /* Recalculate thumb size variable if used elsewhere, but here it's overridden directly above */
+}
+
+.small.on .thumbOverride {
+  left: 23px; /* 48 - 2(border) - 20(thumb) - 3(gap) = 23 */
+}
+
+.small.off .thumbOverride {
+  left: 3px; 
 }

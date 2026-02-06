@@ -183,3 +183,60 @@
     gap: 8px;
     flex-wrap: wrap;
 }
+
+/* Automation / Smart Schedule Styles */
+.capabilityCard {
+    background-color: rgba(255, 255, 255, 0.48);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: opacity 0.3s ease;
+}
+
+.capabilityCard.disabled {
+    opacity: 0.6;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.cardTitleBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.cardTitle {
+    font-family: var(--ref-font-family-base, sans-serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sys-color-text-primary);
+    margin-bottom: 4px;
+}
+
+.cardStatus {
+    font-size: 14px;
+    color: var(--sys-color-status-active); /* Orange for active time */
+    font-weight: 500;
+}
+
+.cardStatus.inactive {
+    color: var(--sys-color-text-tertiary);
+}
+
+.controlsArea {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Specific spacing for slider in card */
+/* Specific spacing for slider in card */
+.controlsArea :global(.slider-root) { 
+    margin-bottom: 0;
+}
+
+

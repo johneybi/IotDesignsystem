@@ -12,10 +12,10 @@ import styles from './ToggleBtn.module.css';
  * @param {function} onToggle - Callback function when toggled.
  * @param {string} className - Optional external class implementation.
  */
-const ToggleBtn = ({ isOn = false, onToggle, className = '' }) => {
+const ToggleBtn = ({ isOn = false, onToggle, className = '', size = 'medium' }) => {
   return (
     <div 
-      className={`${styles.container} ${isOn ? styles.on : styles.off} ${className}`}
+      className={`${styles.container} ${isOn ? styles.on : styles.off} ${size === 'small' ? styles.small : ''} ${className}`}
       onClick={onToggle}
     >
       <SliderThumb 

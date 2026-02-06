@@ -4,7 +4,7 @@
   min-width: 140px;
   background-color: var(--comp-card-bg-off); /* Default Off/Inactive */
   border-radius: var(--comp-card-radius);
-  padding: var(--comp-card-padding);
+  padding: 20px; /* Reduced from 24px for better fit in half-width */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -17,6 +17,24 @@
   --comp-device-name-color: var(--comp-device-name-color-inverse);
   --comp-device-status-color: var(--comp-device-name-color-inverse);
   --sys-color-text-tertiary: var(--comp-device-status-color-inverse);
+}
+
+.compact {
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.compact .infoWrapper {
+  width: 100%;
+  align-items: flex-start;
+  text-align: left;
+  padding-top: 0;
+}
+
+.compact .actionWrapper {
+  align-self: flex-end;
 }
 
 .card.active {

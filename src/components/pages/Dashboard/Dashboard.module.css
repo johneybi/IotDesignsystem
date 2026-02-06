@@ -1,14 +1,14 @@
 .dashboard {
-  width: 100%;
-  max-width: 480px; /* Mobile-ish width constraint for the demo */
-  margin: 0 auto;
-  height: 1040px; /* User specified fixed height */
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden; /* Frame fixed, internal scroll */
-  background-color: var(--color-bg-app); /* Fallback */
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    height: 1040px; /* Frame Height */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--sys-color-bg-app);
 }
 
 .backgroundLayer {
@@ -22,9 +22,6 @@
 }
 
 .backgroundImage {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -36,8 +33,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #da8345;
-    mix-blend-mode: screen;
+    /* Gradient overlay for premium feel - reusing app translucent logic or custom strict gradient */
+    background: linear-gradient(180deg, rgba(242, 243, 245, 0.40) 0%, rgba(242, 243, 245, 0.90) 100%);
+    backdrop-filter: blur(2px);
 }
 
 .content {
@@ -46,63 +44,171 @@
     display: flex;
     flex-direction: column;
     padding: 24px;
-    padding-bottom: 0;
     height: 100%;
     flex: 1;
-    overflow-y: auto; /* Internal scrolling */
+    overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    padding-bottom: 120px; /* Space for TabBar */
 }
 
 .content::-webkit-scrollbar {
     display: none;
 }
 
+/* Header Styles */
 .header {
-  margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    padding-top: 16px;
 }
 
-.title {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--color-text-1);
-  margin-bottom: 16px;
+.greetingBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-/* Tabs / Chips Row */
-.tabs {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 8px; /* For scrollbar breathing room */
-  margin-bottom: 32px;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
-  -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+.date {
+    font-family: var(--sys-font-family-main);
+    font-size: var(--sys-typescale-body-small);
+    color: var(--sys-color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
-.tabs::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
+
+.greeting {
+    font-family: var(--sys-font-family-main);
+    font-size: var(--sys-typescale-heading-medium); /* 20px */
+    font-weight: 700;
+    color: var(--sys-color-text-primary);
+    line-height: 1.2;
+}
+
+.profileIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--ref-palette-neutral-200);
+    border: 2px solid var(--ref-palette-neutral-0);
+    box-shadow: var(--sys-shadow-sm);
+    /* Mock image logic */
+    background-image: url("https://ui-avatars.com/api/?name=Johney&background=random");
+    background-size: cover;
+}
+
+/* Scenes Section */
+.scenesSection {
+    margin-bottom: 32px;
 }
 
 .sectionTitle {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text-2);
-  margin-bottom: 16px;
+    font-family: var(--sys-font-family-main);
+    font-size: 18px; /* Close to body-large */
+    font-weight: 600;
+    color: var(--sys-color-text-primary);
+    margin-bottom: 16px;
+    padding-left: 4px;
 }
 
-/* Device Grid */
+.sceneScroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px; /* Space for scrollbar if visible */
+    margin-left: -4px; /* Optical align */
+    padding-left: 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sceneScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.sceneCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    min-width: 72px;
+}
+
+.sceneIcon {
+    width: 64px;
+    height: 64px;
+    border-radius: 24px; /* Premium curvature */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Glassmorphism strict tokens */
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--sys-color-border-primary);
+    box-shadow: var(--sys-shadow-sm);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sceneIcon:active {
+    transform: scale(0.95);
+    background: var(--ref-palette-neutral-0);
+}
+
+/* Scene Colors using tokens approx or hard values if semantic tokens missing for scenes */
+.morning { background: linear-gradient(135deg, #FF9F0A 0%, #FFCC80 100%); border: none; }
+.night { background: linear-gradient(135deg, #32465A 0%, #15191E 100%); border: none; }
+.away { background: linear-gradient(135deg, #9F9F9F 0%, #757575 100%); border: none; }
+
+
+.sceneLabel {
+    font-family: var(--sys-font-family-main);
+    font-size: var(--sys-typescale-detail);
+    font-weight: 600;
+    color: var(--sys-color-text-secondary);
+}
+
+/* Device Section & Tabs */
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
+}
+
+/* Grid */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 Columns */
-  gap: 16px;
-  align-items: start;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    padding-bottom: 24px; /* Space at end of scroll */
 }
 
-/* Spanning items */
 .span2 {
-  grid-column: span 2;
+    grid-column: span 2;
 }
 
-/* Media Query for larger screens? 
-   Actually keeping it mobile-width constrained inside the showcase area is better for context.
-*/
+/* Spacing fix for cards */
+.grid > * {
+    /* Reverted to auto to respect card's intrinsic design */
+    height: auto;
+}
+
+.span2 > * {
+    min-height: auto;
+}

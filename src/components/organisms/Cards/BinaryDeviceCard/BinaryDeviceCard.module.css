@@ -8,7 +8,7 @@
   min-width: 140px;
   background-color: var(--comp-card-bg-off); /* Default to OFF state color */
   border-radius: var(--comp-card-radius);
-  padding: var(--comp-card-padding);
+  padding: 20px; /* Reduced from 24px for better fit in half-width */
   display: flex;
   justify-content: space-between;
   align-items: flex-start; /* Restored default alignment */
@@ -16,6 +16,25 @@
   overflow: hidden;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Compact (Half-Width) Variant */
+.compact {
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px; 
+}
+
+.compact .infoWrapper {
+  width: 100%;
+  align-items: flex-start;
+  text-align: left;
+  padding-top: 0;
+}
+
+.compact .actionWrapper {
+  align-self: flex-end;
 }
 
 .cardOn {
