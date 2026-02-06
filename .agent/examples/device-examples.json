@@ -1,0 +1,306 @@
+{
+  "matterDeviceExamples": [
+    {
+      "name": "Dimmable Light (밝기 조절 조명)",
+      "matterDeviceTypeId": 257,
+      "input": {
+        "nodeId": "0000000000000001",
+        "vendorId": 4447,
+        "productId": 1001,
+        "deviceType": {
+          "id": 257,
+          "name": "Dimmable Light"
+        },
+        "deviceName": "거실 조명",
+        "location": "거실",
+        "endpoints": [
+          {
+            "endpointId": 1,
+            "clusters": [
+              {
+                "clusterId": 6,
+                "clusterName": "OnOff",
+                "attributes": { "onOff": true },
+                "commands": ["On", "Off", "Toggle"]
+              },
+              {
+                "clusterId": 8,
+                "clusterName": "LevelControl",
+                "attributes": { 
+                  "currentLevel": 191,
+                  "minLevel": 1,
+                  "maxLevel": 254
+                },
+                "commands": ["MoveToLevel", "Move", "Step", "Stop"]
+              }
+            ]
+          }
+        ],
+        "isOnline": true
+      },
+      "pattern": "Range",
+      "components": ["BinaryDeviceCard", "VerticalSlider", "Readout"],
+      "clusterToUIMapping": {
+        "OnOff": "BinaryDeviceCard.isOn",
+        "LevelControl.currentLevel": "VerticalSlider.value (0-100%로 변환)"
+      }
+    },
+    {
+      "name": "Color Temperature Light (색온도 조명)",
+      "matterDeviceTypeId": 268,
+      "input": {
+        "nodeId": "0000000000000002",
+        "vendorId": 4447,
+        "productId": 1002,
+        "deviceType": {
+          "id": 268,
+          "name": "Color Temperature Light"
+        },
+        "deviceName": "침실 스탠드",
+        "location": "침실",
+        "endpoints": [
+          {
+            "endpointId": 1,
+            "clusters": [
+              {
+                "clusterId": 6,
+                "clusterName": "OnOff",
+                "attributes": { "onOff": true },
+                "commands": ["On", "Off", "Toggle"]
+              },
+              {
+                "clusterId": 8,
+                "clusterName": "LevelControl",
+                "attributes": { "currentLevel": 200 },
+                "commands": ["MoveToLevel"]
+              },
+              {
+                "clusterId": 768,
+                "clusterName": "ColorControl",
+                "attributes": {
+                  "colorTemperatureMireds": 250,
+                  "colorTempPhysicalMinMireds": 153,
+                  "colorTempPhysicalMaxMireds": 370
+                },
+                "commands": ["MoveToColorTemperature"]
+              }
+            ]
+          }
+        ],
+        "isOnline": true
+      },
+      "pattern": "Range",
+      "components": ["BinaryDeviceCard", "VerticalSlider", "ColorTemperatureSlider"],
+      "clusterToUIMapping": {
+        "OnOff": "BinaryDeviceCard.isOn",
+        "LevelControl": "VerticalSlider.value",
+        "ColorControl.colorTemperatureMireds": "ColorTemperatureSlider.value (Mireds→Kelvin 변환)"
+      }
+    },
+    {
+      "name": "Thermostat (온도조절기)",
+      "matterDeviceTypeId": 769,
+      "input": {
+        "nodeId": "0000000000000003",
+        "vendorId": 4448,
+        "productId": 2001,
+        "deviceType": {
+          "id": 769,
+          "name": "Thermostat"
+        },
+        "deviceName": "거실 온도조절기",
+        "location": "거실",
+        "endpoints": [
+          {
+            "endpointId": 1,
+            "clusters": [
+              {
+                "clusterId": 513,
+                "clusterName": "Thermostat",
+                "attributes": {
+                  "localTemperature": 2150,
+                  "occupiedCoolingSetpoint": 2400,
+                  "occupiedHeatingSetpoint": 2000,
+                  "systemMode": 3,
+                  "minHeatSetpointLimit": 1600,
+                  "maxCoolSetpointLimit": 3000
+                },
+                "commands": ["SetpointRaiseLower"]
+              }
+            ]
+          }
+        ],
+        "isOnline": true
+      },
+      "pattern": "Circular",
+      "components": ["BinaryDeviceCard", "TemperatureControl", "CircularGauge"],
+      "clusterToUIMapping": {
+        "Thermostat.localTemperature": "TemperatureControl.currentTemp (÷100)",
+        "Thermostat.occupiedCoolingSetpoint": "TemperatureControl.targetTemp (÷100)",
+        "Thermostat.systemMode": "AC Mode Selector (0:Off, 3:Cool, 4:Heat)"
+      }
+    },
+    {
+      "name": "Room Air Conditioner (에어컨)",
+      "matterDeviceTypeId": 114,
+      "input": {
+        "nodeId": "0000000000000004",
+        "vendorId": 4449,
+        "productId": 3001,
+        "deviceType": {
+          "id": 114,
+          "name": "Room Air Conditioner"
+        },
+        "deviceName": "거실 에어컨",
+        "location": "거실",
+        "endpoints": [
+          {
+            "endpointId": 1,
+            "clusters": [
+              {
+                "clusterId": 6,
+                "clusterName": "OnOff",
+                "attributes": { "onOff": true },
+                "commands": ["On", "Off", "Toggle"]
+              },
+              {
+                "clusterId": 513,
+                "clusterName": "Thermostat",
+                "attributes": {
+                  "localTemperature": 2100,
+                  "occupiedCoolingSetpoint": 2400,
+                  "systemMode": 3
+                },
+                "commands": ["SetpointRaiseLower"]
+              },
+              {
+                "clusterId": 514,
+                "clusterName": "FanControl",
+                "attributes": {
+                  "fanMode": 1,
+                  "fanModeSequence": 2,
+                  "percentCurrent": 50
+                },
+                "commands": []
+              }
+            ]
+          }
+        ],
+        "isOnline": true
+      },
+      "pattern": "Circular",
+      "components": ["BinaryDeviceCard", "TemperatureControl", "CircularGauge", "FanModeSelector"],
+      "clusterToUIMapping": {
+        "OnOff": "BinaryDeviceCard.isOn",
+        "Thermostat": "TemperatureControl",
+        "FanControl.fanMode": "FanModeSelector (0:Off, 1:Low, 2:Med, 3:High, 4:Auto)"
+      }
+    },
+    {
+      "name": "Window Covering (스마트 커튼/블라인드)",
+      "matterDeviceTypeId": 514,
+      "input": {
+        "nodeId": "0000000000000005",
+        "vendorId": 4450,
+        "productId": 4001,
+        "deviceType": {
+          "id": 514,
+          "name": "Window Covering"
+        },
+        "deviceName": "거실 커튼",
+        "location": "거실",
+        "endpoints": [
+          {
+            "endpointId": 1,
+            "clusters": [
+              {
+                "clusterId": 258,
+                "clusterName": "WindowCovering",
+                "attributes": {
+                  "currentPositionLiftPercentage": 50,
+                  "targetPositionLiftPercentage": 50,
+                  "operationalStatus": 0,
+                  "type": 0
+                },
+                "commands": ["UpOrOpen", "DownOrClose", "StopMotion", "GoToLiftPercentage"]
+              }
+            ]
+          }
+        ],
+        "isOnline": true
+      },
+      "pattern": "Range",
+      "components": ["BinaryDeviceCard", "HorizontalSlider", "BlindCurtain"],
+      "clusterToUIMapping": {
+        "WindowCovering.currentPositionLiftPercentage": "HorizontalSlider.value",
+        "WindowCovering.GoToLiftPercentage": "Slider.onChange → Command 호출"
+      }
+    },
+    {
+      "name": "Temperature Sensor (온도 센서)",
+      "matterDeviceTypeId": 770,
+      "input": {
+        "nodeId": "0000000000000006",
+        "vendorId": 4451,
+        "productId": 5001,
+        "deviceType": {
+          "id": 770,
+          "name": "Temperature Sensor"
+        },
+        "deviceName": "거실 온습도",
+        "location": "거실",
+        "endpoints": [
+          {
+            "endpointId": 1,
+            "clusters": [
+              {
+                "clusterId": 1026,
+                "clusterName": "TemperatureMeasurement",
+                "attributes": {
+                  "measuredValue": 2350,
+                  "minMeasuredValue": -4000,
+                  "maxMeasuredValue": 8500
+                },
+                "commands": []
+              },
+              {
+                "clusterId": 1029,
+                "clusterName": "RelativeHumidityMeasurement",
+                "attributes": {
+                  "measuredValue": 4500
+                },
+                "commands": []
+              }
+            ]
+          }
+        ],
+        "isOnline": true
+      },
+      "pattern": "Binary",
+      "components": ["BinaryDeviceCard (info-only, isActuatable: false)"],
+      "clusterToUIMapping": {
+        "TemperatureMeasurement.measuredValue": "Readout (÷100, °C)",
+        "RelativeHumidityMeasurement.measuredValue": "Readout (÷100, %)"
+      },
+      "note": "센서는 제어 불가 - 정보 표시 전용"
+    }
+  ],
+  "matterClusterReference": {
+    "6": { "name": "OnOff", "pattern": "Binary" },
+    "8": { "name": "LevelControl", "pattern": "Range" },
+    "258": { "name": "WindowCovering", "pattern": "Range" },
+    "513": { "name": "Thermostat", "pattern": "Circular" },
+    "514": { "name": "FanControl", "pattern": "Range" },
+    "768": { "name": "ColorControl", "pattern": "Range" },
+    "1026": { "name": "TemperatureMeasurement", "pattern": "Info" },
+    "1029": { "name": "RelativeHumidityMeasurement", "pattern": "Info" }
+  },
+  "valueConversions": {
+    "LevelControl.currentLevel": "0-254 → 0-100%",
+    "Thermostat.localTemperature": "centidegrees → degrees (÷100)",
+    "ColorControl.colorTemperatureMireds": "Mireds → Kelvin (1000000÷mireds)",
+    "WindowCovering.currentPositionLiftPercentage": "0-100% (direct)",
+    "TemperatureMeasurement.measuredValue": "centidegrees → degrees (÷100)",
+    "RelativeHumidityMeasurement.measuredValue": "centipercent → percent (÷100)"
+  }
+}

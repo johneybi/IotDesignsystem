@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Matter Device Data Schema",
+  "description": "Flowthing Design System - Matter 규격 기반 기기 데이터 스키마",
+  "type": "object",
+  "required": ["nodeId", "deviceType", "endpoints"],
+  "properties": {
+    "nodeId": {
+      "type": "string",
+      "description": "Matter Node ID (64-bit identifier)",
+      "pattern": "^[0-9A-Fa-f]{16}$"
+    },
+    "vendorId": {
+      "type": "integer",
+      "description": "Matter Vendor ID (Connectivity Standards Alliance 할당)"
+    },
+    "productId": {
+      "type": "integer",
+      "description": "제조사 제품 ID"
+    },
+    "deviceType": {
+      "type": "object",
+      "description": "Matter Device Type",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Matter Device Type ID"
+        },
+        "name": {
+          "type": "string",
+          "enum": [
+            "On/Off Light",
+            "Dimmable Light",
+            "Color Temperature Light",
+            "Extended Color Light",
+            "On/Off Plug-in Unit",
+            "Dimmable Plug-in Unit",
+            "Thermostat",
+            "Room Air Conditioner",
+            "Temperature Sensor",
+            "Humidity Sensor",
+            "Window Covering",
+            "Door Lock",
+            "Speaker",
+            "Basic Video Player"
+          ]
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "deviceName": {
+      "type": "string",
+      "description": "사용자 지정 기기명"
+    },
+    "location": {
+      "type": "string",
+      "description": "설치 위치 (Room)"
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "Matter Endpoints",
+      "items": {
+        "type": "object",
+        "properties": {
+          "endpointId": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65534
+          },
+          "clusters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/cluster"
+            }
+          }
+        }
+      }
+    },
+    "fabricInfo": {
+      "type": "object",
+      "description": "Matter Fabric 정보",
+      "properties": {
+        "fabricId": { "type": "string" },
+        "nodeOperationalCert": { "type": "string" }
+      }
+    },
+    "isOnline": {
+      "type": "boolean",
+      "default": true,
+      "description": "네트워크 연결 상태"
+    }
+  },
+  "$defs": {
+    "cluster": {
+      "type": "object",
+      "properties": {
+        "clusterId": {
+          "type": "integer",
+          "description": "Matter Cluster ID"
+        },
+        "clusterName": {
+          "type": "string",
+          "enum": [
+            "OnOff",
+            "LevelControl",
+            "ColorControl",
+            "Thermostat",
+            "FanControl",
+            "WindowCovering",
+            "DoorLock",
+            "MediaPlayback",
+            "AudioOutput",
+            "TemperatureMeasurement",
+            "RelativeHumidityMeasurement",
+            "OccupancySensing"
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Cluster Attributes (현재 상태값)"
+        },
+        "commands": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "지원 명령어"
+        }
+      },
+      "required": ["clusterId", "clusterName"]
+    }
+  }
+}
