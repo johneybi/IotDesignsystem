@@ -58,6 +58,8 @@
 ## 참조 파일
 
 - 📋 전체 가이드: `.agent/workflows/design-system-guide.md`
+- 🤖 AI 프롬프트: `.agent/prompts/prompt-strategy.md`
+- 🛡️ 제약 규칙: `.agent/guardrails/`
 - 📐 데이터 스키마: `.agent/schemas/device-data.schema.json`
 - 📦 예제 데이터: `.agent/examples/device-examples.json`
 - 🧩 컴포넌트 참조: `.agent/reference/component-mapping.md`
