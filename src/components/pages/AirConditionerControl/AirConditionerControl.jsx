@@ -10,7 +10,7 @@ import Dropdown from '../../molecules/Selection/Dropdown/Dropdown'; // Keep for 
 import Slider from '../../molecules/Linear/Slider/Slider';
 import ToggleBtn from '../../molecules/ToggleBtn/ToggleBtn';
 
-const AirConditionerControl = () => {
+const AirConditionerControl = ({ onNavigate }) => {
     const [navTab, setNavTab] = useState('devices');
     const [isOn, setIsOn] = useState(true);
     const [targetTemp, setTargetTemp] = useState(24);
@@ -42,7 +42,7 @@ const AirConditionerControl = () => {
             <div className={styles.content}>
                 {/* Header */}
                 <div className={styles.header}>
-                    <button className={styles.backButton}>
+                    <button className={styles.backButton} onClick={() => onNavigate && onNavigate('dashboard')}>
                         <NavArrowLeft width={24} height={24} />
                     </button>
                     <div className={styles.headerTitle}>

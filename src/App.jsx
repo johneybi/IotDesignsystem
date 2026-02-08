@@ -122,11 +122,11 @@ function App() {
       case 'dashboard':
         return <Dashboard onNavigate={setActiveSection} />;
       case 'lighting':
-        return <LightingControl />;
+        return <LightingControl onNavigate={setActiveSection} />;
       case 'airconditioner':
-        return <AirConditionerControl />;
+        return <AirConditionerControl onNavigate={setActiveSection} />;
       case 'curtain':
-        return <SmartCurtainControl />;
+        return <SmartCurtainControl onNavigate={setActiveSection} />;
 
 
       case 'atomic':

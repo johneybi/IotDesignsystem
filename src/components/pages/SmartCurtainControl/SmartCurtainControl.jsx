@@ -9,7 +9,7 @@ import HorizontalSlider from '../../molecules/Linear/HorizontalSlider/Horizontal
 import ToggleBtn from '../../molecules/ToggleBtn/ToggleBtn';
 import Dropdown from '../../molecules/Selection/Dropdown/Dropdown';
 
-const SmartCurtainControl = () => {
+const SmartCurtainControl = ({ onNavigate }) => {
     const [navTab, setNavTab] = useState('devices');
     const [isOpen, setIsOpen] = useState(true); // Power state? Or just Open/Close state? Let's use it as "Master Toggle"
     const [curtainLevel, setCurtainLevel] = useState(50); // 0 = Closed, 100 = Open
@@ -38,7 +38,7 @@ const SmartCurtainControl = () => {
             <div className={styles.content}>
                 {/* Header */}
                 <div className={styles.header}>
-                    <button className={styles.backButton}>
+                    <button className={styles.backButton} onClick={() => onNavigate && onNavigate('dashboard')}>
                         <NavArrowLeft width={24} height={24} />
                     </button>
                     <div className={styles.headerTitle}>

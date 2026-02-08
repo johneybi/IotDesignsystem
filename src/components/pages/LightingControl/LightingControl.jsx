@@ -42,7 +42,7 @@ const dimRgb = (rgbString, factor = 0.6) => {
     return `rgb(${dim(r)}, ${dim(g)}, ${dim(b)})`;
 };
 
-const LightingControl = () => {
+const LightingControl = ({ onNavigate }) => {
     const [navTab, setNavTab] = useState('devices');
     const [isLightOn, setIsLightOn] = useState(true);
     const [brightness, setBrightness] = useState(0);
@@ -57,7 +57,7 @@ const LightingControl = () => {
 
             <div className={styles.content}>
                 <div className={styles.header}>
-                    <button className={styles.backButton}>
+                    <button className={styles.backButton} onClick={() => onNavigate && onNavigate('dashboard')}>
                         <NavArrowLeft width={24} height={24} />
                     </button>
                     <div className={styles.headerTitle}>
