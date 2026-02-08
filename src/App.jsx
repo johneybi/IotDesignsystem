@@ -33,6 +33,7 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import LightingControl from './components/pages/LightingControl/LightingControl';
 import AirConditionerControl from './components/pages/AirConditionerControl/AirConditionerControl';
 import SmartCurtainControl from './components/pages/SmartCurtainControl/SmartCurtainControl';
+import SpeakerControl from './components/pages/SpeakerControl/SpeakerControl';
 
 
 
@@ -127,6 +128,8 @@ function App() {
         return <AirConditionerControl onNavigate={setActiveSection} />;
       case 'curtain':
         return <SmartCurtainControl onNavigate={setActiveSection} />;
+      case 'speaker':
+        return <SpeakerControl onNavigate={setActiveSection} />;
 
 
       case 'atomic':
@@ -681,6 +684,12 @@ function App() {
               onClick={() => setActiveSection('curtain')}
             >
               Smart Curtain
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'speaker' ? 'active' : ''}`}
+              onClick={() => setActiveSection('speaker')}
+            >
+              Speaker Control
             </button>
           </div>
         </nav>
