@@ -22,6 +22,7 @@ import TemperatureControl from './components/molecules/Circular/TemperatureContr
 import ToggleBtn from './components/molecules/ToggleBtn/ToggleBtn';
 import Foundations from './components/pages/Foundations';
 import Dropdown from './components/molecules/Selection/Dropdown/Dropdown';
+import Guardrails from './components/pages/Guardrails';
 
 import Chip from './components/atoms/Chip/Chip';
 
@@ -596,6 +597,8 @@ function App() {
         );
       case 'foundations':
         return <Foundations />;
+      case 'guardrails':
+        return <Guardrails />;
       case 'all_pages':
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '120px', paddingBottom: '100px', alignItems: 'center' }}>
@@ -638,6 +641,12 @@ function App() {
               onClick={() => setActiveSection('foundations')}
             >
               Foundations
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'guardrails' ? 'active' : ''}`}
+              onClick={() => setActiveSection('guardrails')}
+            >
+              AI Guardrails
             </button>
           </div>
           <div className="nav-group">
