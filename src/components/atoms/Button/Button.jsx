@@ -16,9 +16,10 @@ import styles from './Button.module.css';
 const Button = ({ 
   active = false, // Functionally maps to "Binary = On/Off"
   disabled = false, // Functionally maps to "Disabled" state
-  variant = 'neumorph', // 'neumorph' | 'filled' | 'ghost'
+  variant = 'neumorph', // 'neumorph' | 'filled' | 'ghost' | 'neumorphDark'
   onClick, 
-  icon, 
+  icon,
+  children,
   className = '',
   ...props 
 }) => {
@@ -50,6 +51,7 @@ const Button = ({
       {...props}
     >
       {icon && <div className={styles.icon}>{icon}</div>}
+      {children && <span className={styles.label}>{children}</span>}
     </button>
   );
 };

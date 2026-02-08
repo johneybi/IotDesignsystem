@@ -5,7 +5,7 @@ import BinaryDeviceCard from '../../organisms/Cards/BinaryDeviceCard/BinaryDevic
 import ActionDeviceCard from '../../organisms/Cards/ActionDeviceCard/ActionDeviceCard';
 import TabBar from '../../organisms/Navigation/TabBar/TabBar';
 import dashboardBg from '../../../assets/images/dashboard_bg_mono.png';
-import { SunLight, HalfMoon, LogOut, LightBulb, Play, Pause, Wind, SoundHigh } from 'iconoir-react';
+import { SunLight, HalfMoon, LogOut, LightBulb, Play, Pause, Wind, SoundHigh, Settings, WashingMachine, Fridge } from 'iconoir-react';
 
 const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-level routing shim (since App.jsx handles 'pages' via state)
     const [activeTab, setActiveTab] = useState('All');
@@ -31,6 +31,8 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
         { id: 'light1', name: 'Main Light', type: 'binary', room: 'Living Room', isOn: true, status: '88%', icon: 'bulb', targetPage: 'lighting', span: 2 },
         { id: 'ac1', name: 'Air Conditioner', type: 'binary', room: 'Living Room', isOn: true, status: '23°C', icon: 'ac', targetPage: 'airconditioner', span: 2 }, 
         { id: 'speaker', name: 'Speaker', type: 'action', room: 'Living Room', isPlaying: false, status: 'Paused', icon: 'speaker', span: 1 }, 
+        { id: 'washer', name: 'Washer', type: 'binary', room: 'Kitchen', isOn: false, status: 'Stopped', icon: 'washer', targetPage: 'washer', span: 1 },
+        { id: 'refrigerator', name: 'Refrigerator', type: 'binary', room: 'Kitchen', isOn: true, status: '3°C | -18°C', icon: 'fridge', targetPage: 'refrigerator', span: 1 },
         { id: 'light2', name: 'Bedroom Light', type: 'binary', room: 'Bedroom', isOn: false, status: 'Off', icon: 'bulb', targetPage: 'lighting', span: 1 },
         { id: 'light3', name: 'Kitchen Light', type: 'binary', room: 'Kitchen', isOn: false, status: 'Disconnected', icon: 'bulb', isConnected: false, span: 1 },
         { id: 'master', name: 'Master Switch', type: 'binary', room: 'All', isOn: true, status: 'All On', icon: 'bulb', span: 1 }
@@ -131,6 +133,9 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                             let icon = <LightBulb width={24} height={24} />;
                             if (device.icon === 'speaker') icon = <SoundHigh width={24} height={24} />;
                             if (device.icon === 'ac') icon = <Wind width={24} height={24} />;
+                            if (device.icon === 'settings') icon = <Settings width={24} height={24} />;
+                            if (device.icon === 'washer') icon = <WashingMachine width={24} height={24} />;
+                            if (device.icon === 'fridge') icon = <Fridge width={24} height={24} />;
 
                             const isFullWidth = device.span === 2;
 
@@ -157,12 +162,17 @@ const Dashboard = ({ onNavigate }) => { // Accepting onNavigate prop for App-lev
                                     isOn={device.isOn}
                                     onToggle={() => toggleDevice(device.id)}
                                     icon={icon}
+                                    isActuatable={device.id === 'refrigerator' ? false : true}
                                     isConnected={device.isConnected !== false}
                                     className={device.span === 2 ? styles.span2 : ''}
                                     style={{ 
                                         ...(device.span === 2 ? { width: '100%' } : {}),
                                         ...(device.icon === 'ac' ? { 
                                             '--comp-button-icon-color-active': 'var(--sys-color-status-cool)',
+                                            '--sys-color-status-active': 'var(--sys-color-status-cool)'
+                                        } : {}),
+                                        ...(device.id === 'refrigerator' ? {
+                                            '--comp-button-filled-color': 'var(--sys-color-status-cool)',
                                             '--sys-color-status-active': 'var(--sys-color-status-cool)'
                                         } : {})
                                     }}

@@ -91,6 +91,14 @@
   z-index: 1; 
 }
 
+.label {
+  font-family: var(--ref-font-family-base, sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1;
+  white-space: nowrap;
+}
+
 /* Variant = Neumorph Dark (for Dark Backgrounds) */
 .neumorphDark {
   /* Refactored for Transparency on top of Card (#a3a3a3) */

@@ -40,10 +40,14 @@
   --ref-palette-yellow-500: #ffc107;
   --ref-palette-green-400: #6ee7b7;
   --ref-palette-blue-50: #e3f2fd;
+  --ref-palette-blue-100: #bbdefb;
   --ref-palette-blue-200: #90caf9;
   --ref-palette-blue-300: #64b5f6;
   --ref-palette-blue-500: #2196f3;
+  --ref-palette-blue-600: #1e88e5;
+  --ref-palette-blue-700: #1976d2;
   --ref-palette-blue-800: #1565c0;
+  --ref-palette-blue-900: #0d47a1;
 
   /* Fonts */
   --ref-font-family-base: 'Urbanist', 'SUIT Variable', sans-serif;
@@ -83,10 +87,20 @@
   --sys-color-temp-neutral: var(--ref-palette-yellow-400);
   --sys-color-temp-cool: var(--ref-palette-green-400);
 
-  /* AC Temperature Gradient */
+  /* Temperature Control Colors - Air Conditioner */
   --sys-color-temp-ac-cool-strong: var(--ref-palette-blue-800); /* Low Temp */
   --sys-color-temp-ac-cool-mid: var(--ref-palette-blue-200);
   --sys-color-temp-ac-cool-weak: var(--ref-palette-neutral-variant-100); /* High Temp (Gray/Off) */
+
+  /* Temperature Control Colors - Refrigerator (Fridge) */
+  --sys-color-temp-fridge-cold: var(--ref-palette-blue-600); /* -2°C */
+  --sys-color-temp-fridge-mid: var(--ref-palette-blue-300); /* 3°C */
+  --sys-color-temp-fridge-warm: var(--ref-palette-blue-100); /* 8°C */
+
+  /* Temperature Control Colors - Refrigerator (Freezer) */
+  --sys-color-temp-freezer-cold: var(--ref-palette-blue-900); /* -24°C */
+  --sys-color-temp-freezer-mid: var(--ref-palette-blue-700); /* -18°C */
+  --sys-color-temp-freezer-warm: var(--ref-palette-blue-500); /* -16°C */
   
   /* Opacity */
   --sys-opacity-disabled: 0.4;
