@@ -34,6 +34,8 @@ import LightingControl from './components/pages/LightingControl/LightingControl'
 import AirConditionerControl from './components/pages/AirConditionerControl/AirConditionerControl';
 import SmartCurtainControl from './components/pages/SmartCurtainControl/SmartCurtainControl';
 import SpeakerControl from './components/pages/SpeakerControl/SpeakerControl';
+import WasherControl from './components/pages/WasherControl/WasherControl';
+import RefrigeratorControl from './components/pages/RefrigeratorControl/RefrigeratorControl';
 
 
 
@@ -130,6 +132,10 @@ function App() {
         return <SmartCurtainControl onNavigate={setActiveSection} />;
       case 'speaker':
         return <SpeakerControl onNavigate={setActiveSection} />;
+      case 'washer':
+        return <WasherControl onNavigate={setActiveSection} />;
+      case 'refrigerator':
+        return <RefrigeratorControl onNavigate={setActiveSection} />;
 
 
       case 'atomic':
@@ -690,6 +696,18 @@ function App() {
               onClick={() => setActiveSection('speaker')}
             >
               Speaker Control
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'washer' ? 'active' : ''}`}
+              onClick={() => setActiveSection('washer')}
+            >
+              Washer
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'refrigerator' ? 'active' : ''}`}
+              onClick={() => setActiveSection('refrigerator')}
+            >
+              Refrigerator
             </button>
           </div>
         </nav>
