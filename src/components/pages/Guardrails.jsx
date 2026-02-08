@@ -452,26 +452,27 @@ border-radius: 24px;`}
         }
 
         .guardrail-title {
-          font-size: 22px;
+          font-size: 20px;
           color: var(--sys-color-text-primary);
+          margin-top: 32px;
           margin-bottom: 12px;
           padding-left: 12px;
-          border-left: 4px solid var(--sys-color-status-active);
+          border-left: 4px solid var(--ref-palette-blue-500);
         }
 
         .guardrail-desc {
-          font-size: 15px;
-          color: var(--sys-color-text-secondary);
+          font-size: 14px;
+          color: var(--sys-color-text-tertiary);
           margin-bottom: 24px;
           line-height: 1.6;
         }
 
         .rule-card {
-          background: var(--comp-card-bg);
-          border-radius: var(--comp-card-radius);
+          background: var(--sys-color-bg-primary);
+          border: 1px solid var(--sys-color-border-primary);
+          border-radius: 4px;
           padding: 24px;
           margin-bottom: 20px;
-          box-shadow: var(--sys-shadow-sm);
         }
 
         .rule-card h3 {
@@ -482,9 +483,9 @@ border-radius: 24px;`}
         }
 
         .code-block {
-          background: var(--sys-color-bg-tertiary);
-          border: 1px solid var(--sys-color-border-secondary);
-          border-radius: 8px;
+          background: #F9FAFB;
+          border: 1px solid var(--sys-color-border-primary);
+          border-radius: 4px;
           padding: 16px;
           font-family: 'Consolas', 'Monaco', monospace;
           font-size: 13px;
@@ -501,7 +502,7 @@ border-radius: 24px;`}
         }
 
         .rules-table thead {
-          background: var(--sys-color-bg-secondary);
+          background: #F9FAFB;
         }
 
         .rules-table th {
@@ -509,20 +510,20 @@ border-radius: 24px;`}
           text-align: left;
           font-weight: 600;
           color: var(--sys-color-text-primary);
-          border-bottom: 2px solid var(--sys-color-border-secondary);
+          border-bottom: 2px solid var(--sys-color-border-primary);
         }
 
         .rules-table td {
           padding: 12px;
           color: var(--sys-color-text-secondary);
-          border-bottom: 1px solid var(--sys-color-border-secondary);
+          border-bottom: 1px solid var(--sys-color-border-primary);
           line-height: 1.5;
         }
 
         .rules-table code {
-          background: var(--sys-color-bg-tertiary);
+          background: #F9FAFB;
           padding: 2px 6px;
-          border-radius: 4px;
+          border-radius: 3px;
           font-family: 'Consolas', 'Monaco', monospace;
           font-size: 12px;
           color: var(--sys-color-text-primary);
@@ -546,8 +547,8 @@ border-radius: 24px;`}
         .note {
           margin: 12px 0 0 0;
           padding: 12px;
-          background: var(--sys-color-bg-secondary);
-          border-left: 3px solid var(--sys-color-status-active);
+          background: #F9FAFB;
+          border-left: 3px solid var(--ref-palette-blue-500);
           border-radius: 4px;
           font-size: 13px;
           color: var(--sys-color-text-secondary);
