@@ -4,7 +4,8 @@ import SliderHandle from '../../atoms/SliderHandle/SliderHandle';
 import styles from './SpeakerVolumeControl.module.css';
 
 const SpeakerVolumeControl = ({ 
-  initialVolume = 50 
+  initialVolume = 50,
+  onChange // 볼륨 변경 콜백
 }) => {
     // sliderPos: 0 (Top/Max Vol) to 100 (Bottom/Min Vol)
     // Inverted logic: Volume 100 = 0% Top Offset. Volume 0 = 100% Top Offset.
@@ -35,6 +36,12 @@ const SpeakerVolumeControl = ({
         if (newPos > 100) newPos = 100;
 
         setSliderPos(newPos);
+        
+        // onChange 콜백 호출
+        if (onChange) {
+            const newVolume = Math.round(100 - newPos);
+            onChange(newVolume);
+        }
     };
 
     const handlePointerUp = (e) => {
@@ -58,14 +65,33 @@ const SpeakerVolumeControl = ({
         };
     };
 
-    // Bottom Icon (Mute)
+    // Bottom Icon (Mute) - fill과 겹칠 때도 보이도록 개선
     const isMuted = volume === 0;
+    const bottomIconIsOnFill = sliderPos < 92; // 하단 아이콘이 fill 영역과 겹침
 
     const getBottomIconStyle = () => {
+        // fill과 겹칠 때는 밝은 색상, 아닐 때는 어두운 색상
+        let color;
+        let opacity;
+        
+        if (isMuted) {
+            // 뮤트 상태: 항상 위험 색상으로 강조
+            color = 'var(--sys-color-status-danger)';
+            opacity = 1;
+        } else if (bottomIconIsOnFill) {
+            // fill과 겹침: 밝은 회색으로 낮은 위계 표시
+            color = 'var(--comp-slider-icon-color-light)';
+            opacity = 0.4;
+        } else {
+            // fill과 안겹침: 어두운 회색
+            color = 'var(--sys-color-text-tertiary)';
+            opacity = 0.5;
+        }
+        
         return {
             bottom: '24px',
-            color: isMuted ? 'var(--sys-color-status-danger)' : 'var(--sys-color-text-tertiary)',
-            opacity: isMuted ? 1 : 0.5,
+            color: color,
+            opacity: opacity,
             transform: 'translateX(-50%)'
         };
     };
