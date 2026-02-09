@@ -615,6 +615,9 @@ function App() {
             <LightingControl />
             <AirConditionerControl />
             <SmartCurtainControl />
+            <SpeakerControl />
+            <WasherControl />
+            <RefrigeratorControl />
           </div>
         );
       default:
