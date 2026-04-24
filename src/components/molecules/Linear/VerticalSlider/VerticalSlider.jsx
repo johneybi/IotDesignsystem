@@ -6,6 +6,7 @@ import './VerticalSlider.css';
 const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosition = "in-bottom", variant = "standard", showIcons = true }) => {
     // sliderPos: 0 (Top/Dark) to 100 (Bottom/Bright)
     const [sliderPos, setSliderPos] = useState(50);
+    const [isPointerDown, setIsPointerDown] = useState(false);
     const sliderRef = useRef(null);
     const isDragging = useRef(false);
     const startY = useRef(0);
@@ -15,6 +16,7 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
 
     const handlePointerDown = (e) => {
         isDragging.current = true;
+        setIsPointerDown(true);
         startY.current = e.clientY;
         startSliderPos.current = sliderPos;
         e.currentTarget.setPointerCapture(e.pointerId);
@@ -41,6 +43,7 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
 
     const handlePointerUp = (e) => {
         isDragging.current = false;
+        setIsPointerDown(false);
         e.currentTarget.releasePointerCapture(e.pointerId);
     };
 
@@ -149,7 +152,7 @@ const VerticalSlider = ({ moonColor = "white", sunColor = "#515151", handlePosit
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
-                style={{ cursor: isDragging.current ? 'grabbing' : 'grab' }}
+                style={{ cursor: isPointerDown ? 'grabbing' : 'grab' }}
             >
                 {/* Frames */}
                 <div

@@ -14,7 +14,7 @@ const AirConditionerControl = ({ onNavigate }) => {
     const [navTab, setNavTab] = useState('devices');
     const [isOn, setIsOn] = useState(true);
     const [targetTemp, setTargetTemp] = useState(24);
-    const [currentTemp, setCurrentTemp] = useState(26);
+    const [currentTemp] = useState(26);
     const [activeMode, setActiveMode] = useState('Cooling');
     
     // Smart Schedule State
@@ -193,13 +193,5 @@ const ScheduleCard = ({ title, isOn, onToggle, valueDescription, children }) => 
         )}
     </div>
 );
-
-// Helper for time formatting (decimal hours to HH:MM AM)
-const formatTime = (decimalTime) => {
-    const hrs = Math.floor(decimalTime);
-    const mins = Math.round((decimalTime - hrs) * 60);
-    const minsStr = mins < 10 ? `0${mins}` : mins;
-    return `${hrs}:${minsStr} AM`;
-};
 
 export default AirConditionerControl;

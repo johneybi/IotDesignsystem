@@ -6,8 +6,6 @@ import './HorizontalSlider.css';
 const HorizontalSlider = ({ 
     leftIcon = <HalfMoon width={24} height={24} strokeWidth={1.5} color="#515151" />, // Default Left
     rightIcon = <SunLight width={24} height={24} strokeWidth={1.5} color="white" />, // Default Right
-    leftIconColor, 
-    rightIconColor,
     handlePosition = "in-left",
     variant = "standard", 
     showIcons = true,
@@ -15,8 +13,6 @@ const HorizontalSlider = ({
     showValue = true, // New prop: Default to true to maintain existing behavior elsewhere
     width = "100%", 
     height = "116px",
-    min = 0,
-    max = 100,
     value, // Controlled value from parent
     onChange // Callback to update parent state
 }) => {

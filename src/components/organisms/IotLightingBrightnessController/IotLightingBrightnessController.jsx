@@ -1,6 +1,5 @@
 import React from 'react';
 import AdaptiveLightSlider from '../../molecules/Linear/AdaptiveLightSlider/AdaptiveLightSliderNew';
-import styles from './IotLightingBrightnessController.module.css';
 
 /**
  * IotLightingBrightnessController

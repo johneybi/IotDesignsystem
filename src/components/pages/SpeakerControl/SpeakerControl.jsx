@@ -12,7 +12,7 @@ const SpeakerControl = ({ onNavigate }) => {
     const [isOn, setIsOn] = useState(true);
     const [volume, setVolume] = useState(50); // 0-100%
     const [isPlaying, setIsPlaying] = useState(true); // true = Playing, false = Paused
-    const [currentTrack, setCurrentTrack] = useState('lofi hip hop radio - beats to relax/study to'); // 현재 재생중인 곡
+    const [currentTrack] = useState('lofi hip hop radio - beats to relax/study to'); // 현재 재생중인 곡
 
     // Matter 데이터 매핑:
     // speaker.py의 LevelControl.currentLevel (127/254) ≈ 50%

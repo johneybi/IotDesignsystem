@@ -24,6 +24,16 @@ npm run dev
 ## 📐 Atomic Design Classification (아토믹 계층 정의)
 
 이 시스템은 사용자 경험(UX)과 기능적 복잡도를 기준으로 **Atom**, **Molecule**, **Organism**을 재정의하여 설계되었습니다.
+Flowthing에서 AI의 역할은 새 컴포넌트를 디자인하는 것이 아니라, 사전에 정의된 디자인 시스템 컴포넌트를 기기 명세에 맞게 선택하고 조립하는 것입니다.
+
+```text
+Device Spec
+  → Capability Classifier
+  → Component Registry
+  → UI Blueprint
+  → Guardrail Validator
+  → React Renderer
+```
 
 ### 1. Atom (시각적 최소 단위)
 
@@ -44,6 +54,12 @@ IoT 환경의 **4대 행동 패턴**을 기반으로 기능 로직이 주입된 
 - **Linear Molecule**:
   - 슬라이더/다이얼 아톰에 '수치 조절 로직'이 붙은 상태.
   - 예: 온도 조절 다이얼, 밝기 슬라이더.
+- **State Molecule**:
+  - 여러 상태 중 하나를 선택하는 로직이 붙은 상태.
+  - 예: 모드 선택, 풍량 선택.
+- **Action Molecule**:
+  - 상태 표시와 분리된 즉시 실행 명령.
+  - 예: 열기, 닫기, 일시정지, 시작.
 
 ### 3. Organism (맥락 적응형 컨트롤러)
 

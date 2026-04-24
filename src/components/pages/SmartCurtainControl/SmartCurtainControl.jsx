@@ -21,13 +21,6 @@ const SmartCurtainControl = ({ onNavigate }) => {
     const [wakeUpEnabled, setWakeUpEnabled] = useState(false);
     const [wakeUpValue, setWakeUpValue] = useState('7:00 AM');
 
-    const getStatus = () => {
-        if (!isOpen) return "Closed"; // If power off, assume closed? Or just "Locked"? Let's say "Closed"
-        if (curtainLevel === 0) return "Closed";
-        if (curtainLevel === 100) return "Fully Open";
-        return `${curtainLevel}% Open`;
-    };
-
     return (
         <div className={styles.page}>
             <div className={styles.backgroundLayer}>

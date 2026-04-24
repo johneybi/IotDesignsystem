@@ -23,6 +23,7 @@ import ToggleBtn from './components/molecules/ToggleBtn/ToggleBtn';
 import Foundations from './components/pages/Foundations';
 import Dropdown from './components/molecules/Selection/Dropdown/Dropdown';
 import Guardrails from './components/pages/Guardrails';
+import AssemblyDemo from './components/pages/AssemblyDemo/AssemblyDemo';
 
 import Chip from './components/atoms/Chip/Chip';
 
@@ -47,8 +48,6 @@ function App() {
   const [selectedRoom, setSelectedRoom] = useState('living_room');
   const [isToggled, setIsToggled] = useState(false);
   const [stepLevel, setStepLevel] = useState(3);
-  const [active, setActive] = useState(false);
-
   const roomOptions = [
       { value: 'living_room', label: 'Living Room' },
       { value: 'bedroom', label: 'Bedroom' },
@@ -57,7 +56,7 @@ function App() {
 
   // Restored: Device States (Fixes ReferenceErrors)
   const [targetTemp, setTargetTemp] = useState(24);
-  const [currentTemp, setCurrentTemp] = useState(21); 
+  const [currentTemp] = useState(21); 
   const [isPowerOn, setIsPowerOn] = useState(false);
   
   // Restored: Action state
@@ -608,6 +607,8 @@ function App() {
         return <Foundations />;
       case 'guardrails':
         return <Guardrails />;
+      case 'assembly':
+        return <AssemblyDemo />;
       case 'all_pages':
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '120px', paddingBottom: '100px', alignItems: 'center' }}>
@@ -659,6 +660,12 @@ function App() {
               onClick={() => setActiveSection('guardrails')}
             >
               AI Guardrails
+            </button>
+            <button 
+              className={`nav-item ${activeSection === 'assembly' ? 'active' : ''}`}
+              onClick={() => setActiveSection('assembly')}
+            >
+              Assembly Demo
             </button>
           </div>
           <div className="nav-group">

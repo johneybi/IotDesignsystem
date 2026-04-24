@@ -91,49 +91,50 @@ const Guardrails = () => {
       <section className="guardrail-section">
         <h2 className="guardrail-title">2. Pattern Constraints</h2>
         <p className="guardrail-desc">
-          Matter Cluster 조합에 따라 <strong>허용되는 UI 패턴과 컴포넌트</strong>가 제한됩니다.
+          기기 capability 조합에 따라 <strong>허용되는 UI 패턴과 컴포넌트</strong>가 제한됩니다.
         </p>
 
         <div className="rule-card">
-          <h3>Cluster → Pattern 매핑</h3>
+          <h3>Capability → Pattern → Component 매핑</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>Cluster 조합</th>
+                <th>입력 타입</th>
                 <th>패턴</th>
                 <th>허용 컴포넌트</th>
+                <th>조립 원칙</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>OnOff만</td>
+                <td>boolean / OnOff</td>
                 <td>Binary</td>
                 <td>BinaryDeviceCard</td>
+                <td>현재 상태와 즉시 전환을 함께 표시</td>
               </tr>
               <tr>
-                <td>OnOff + LevelControl</td>
-                <td>Range</td>
-                <td>+ VerticalSlider</td>
+                <td>range / number</td>
+                <td>Linear</td>
+                <td>HorizontalSlider, LinearSlider</td>
+                <td>범위, 단위, 현재값을 함께 표시</td>
               </tr>
               <tr>
-                <td>OnOff + ColorControl</td>
-                <td>Range</td>
-                <td>+ ColorTemperatureSlider</td>
+                <td>enum / mode</td>
+                <td>State</td>
+                <td>ChipGroup, Dropdown</td>
+                <td>상호 배타 상태를 명확히 구분</td>
               </tr>
               <tr>
-                <td>Thermostat</td>
-                <td>Circular</td>
-                <td>TemperatureControl</td>
+                <td>action / command</td>
+                <td>Action</td>
+                <td>ActionButton</td>
+                <td>상태 표시와 분리된 액션 영역에 배치</td>
               </tr>
               <tr>
-                <td>WindowCovering</td>
-                <td>Range</td>
-                <td>HorizontalSlider, BlindCurtain</td>
-              </tr>
-              <tr>
-                <td>Measurement만</td>
+                <td>measurement / readOnly</td>
                 <td>Info</td>
                 <td>Readout (제어 불가)</td>
+                <td>제어 컴포넌트 대신 측정값만 표시</td>
               </tr>
             </tbody>
           </table>
@@ -143,9 +144,9 @@ const Guardrails = () => {
           <h3>핵심 제약 규칙</h3>
           <ul className="rules-list">
             <li><strong>Binary 패턴:</strong> 단순 on/off 기기에 연속값 컴포넌트(Slider 등) 사용 금지</li>
-            <li><strong>Range 패턴 (밝기):</strong> 밝기는 수직 슬라이더로 표현 (직관적 UX)</li>
-            <li><strong>Range 패턴 (커튼):</strong> 커튼 위치는 수평 슬라이더로 표현</li>
-            <li><strong>Circular 패턴:</strong> 온도 조절은 다이얼 UI가 직관적, 슬라이더 금지</li>
+            <li><strong>Linear 패턴:</strong> min, max, unit이 없는 연속값 제어는 생성 금지</li>
+            <li><strong>State 패턴:</strong> 상태 옵션이 없는 선택 UI 생성 금지</li>
+            <li><strong>Action 패턴:</strong> 위험하거나 즉시 실행되는 동작은 상태 표시 영역과 분리</li>
             <li><strong>Info 패턴:</strong> 센서는 정보 표시만 가능, 모든 제어 컴포넌트 금지</li>
           </ul>
         </div>

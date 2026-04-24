@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import styles from './ColorTemperatureSlider.module.css';
 
 import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
+
+const MotionDiv = motion.div;
 
 const ColorTemperatureSlider = ({ value = 4000, min = 2700, max = 6500, onChange }) => {
     const containerRef = useRef(null);
@@ -42,7 +44,7 @@ const ColorTemperatureSlider = ({ value = 4000, min = 2700, max = 6500, onChange
         e.currentTarget.setPointerCapture(e.pointerId);
     };
 
-    const handleDrag = (event, info) => {
+    const handleDrag = () => {
         const currentX = x.get();
         const maxPos = width - knobWidth - (padding * 2);
         
@@ -60,7 +62,7 @@ const ColorTemperatureSlider = ({ value = 4000, min = 2700, max = 6500, onChange
 
     return (
         <div ref={containerRef} className={styles.container}>
-             <motion.div
+             <MotionDiv
                 className={styles.knobWrapper}
                 style={{ x, y: "-50%" }}
                 drag="x"
@@ -71,7 +73,7 @@ const ColorTemperatureSlider = ({ value = 4000, min = 2700, max = 6500, onChange
                 onPointerDown={handlePointerDown}
             >
                <SliderThumb className={styles.knobRefactored} />
-            </motion.div>
+            </MotionDiv>
         </div>
     );
 };

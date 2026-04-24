@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useMotionValue, useTransform, useMotionTemplate } from 'framer-motion';
 import SliderThumb from '../../../atoms/SliderThumb/SliderThumb';
 import { HalfMoon, SunLight } from 'iconoir-react';
 import './AdaptiveLightSliderNew.css';
+
+const MotionDiv = motion.div;
 
 export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 245, 225)", inactiveColor = "rgb(220, 215, 210)" }) {
     const constraintsRef = useRef(null);
@@ -15,8 +17,6 @@ export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 
     // Bottom (Low Intensity): Y = 173px
     const y = useMotionValue(173); // Start at bottom (Low/Off)
 
-    const inputY = [23, 173];
-    
     // Background Color (Light State)
     const bgColor = useTransform(y, [23, 173], [
         activeColor,        // High Intensity (Dynamic Color)
@@ -88,7 +88,7 @@ export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 
     };
 
     return (
-        <motion.div
+        <MotionDiv
             className="adaptive-slider-container"
             ref={sliderRef}
             style={{
@@ -101,7 +101,7 @@ export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 
             onPointerUp={handlePointerUp}
         >
             {/* Dark Gradient Overlay (Off State) */}
-            <motion.div 
+            <MotionDiv 
                 style={{ 
                     opacity: gradientOpacity, 
                     background: 'var(--slider-gradient-silver-vertical)',
@@ -113,7 +113,7 @@ export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 
             />
 
             {/* Glow Effect Layer */}
-            <motion.div 
+            <MotionDiv 
                 className="adaptive-slider-glow"
                 style={{ 
                     opacity: glowOpacity,
@@ -123,29 +123,29 @@ export default function AdaptiveLightSlider({ onChange, activeColor = "rgb(255, 
 
             <div ref={constraintsRef} className="adaptive-slider-constraints" />
 
-            <motion.div
+            <MotionDiv
                 style={{ y, x: "-50%" }}
                 className="adaptive-slider-knob-wrapper-v2" 
             >
-                <motion.div className="adaptive-slider-knob-shadow" style={{ boxShadow: knobShadow }} />
+                <MotionDiv className="adaptive-slider-knob-shadow" style={{ boxShadow: knobShadow }} />
                 <SliderThumb className="adaptive-slider-thumb-v2">
                     <div className="adaptive-slider-icon-wrapper">
                         {/* Sun Icon */}
-                        <motion.div 
+                        <MotionDiv 
                             style={{ opacity: sunOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         >
                             <SunLight width={24} height={24} color="#333" strokeWidth={2.5} /> 
-                        </motion.div>
+                        </MotionDiv>
                         
                         {/* Moon Icon */}
-                        <motion.div 
+                        <MotionDiv 
                             style={{ opacity: moonOpacity, position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         >
                              <HalfMoon width={24} height={24} color="#666" strokeWidth={2} />
-                        </motion.div>
+                        </MotionDiv>
                     </div>
                 </SliderThumb>
-            </motion.div>
-        </motion.div>
+            </MotionDiv>
+        </MotionDiv>
     );
 }
