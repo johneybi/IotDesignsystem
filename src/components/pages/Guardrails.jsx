@@ -1,87 +1,68 @@
 import React from 'react';
+import { getSiteContent } from '../../i18n/siteContent';
 
-const Guardrails = () => {
+const Guardrails = ({ locale = 'ko' }) => {
+  const t = getSiteContent(locale).guardrails;
+
   return (
     <div className="doc-section">
-      <h1 className="doc-title">AI Guardrails</h1>
+      <h1 className="doc-title">{t.title}</h1>
       <p className="doc-intro">
-        AI가 UI를 자동 생성할 때 준수해야 하는 규칙과 제약 사항입니다. 
-        이를 통해 일관성 있고 안전한 UI를 보장합니다.
+        {t.intro}
       </p>
 
       {/* Hierarchy Rules */}
       <section className="guardrail-section">
-        <h2 className="guardrail-title">1. Atomic Hierarchy Rules</h2>
+        <h2 className="guardrail-title">{t.hierarchyTitle}</h2>
         <p className="guardrail-desc">
-          AI가 컴포넌트를 조합할 때 <strong>Atomic Design 계층</strong>을 준수해야 합니다.
+          {t.hierarchyDesc}
         </p>
 
         <div className="rule-card">
-          <h3>계층 구조</h3>
+          <h3>{t.hierarchyStructure}</h3>
           <pre className="code-block">
-{`Pages
-  └── Organisms (복합 컴포넌트)
-        └── Molecules (기능 단위)
-              └── Atoms (기본 단위)`}
+{t.hierarchyCode}
           </pre>
         </div>
 
         <div className="rule-card">
-          <h3>✅ 허용되는 조합</h3>
+          <h3>{t.allowedTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>상위 계층</th>
-                <th>포함 가능</th>
+                <th>{t.parent}</th>
+                <th>{t.mayContain}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Page</td>
-                <td>Organism, Molecule, Atom</td>
-              </tr>
-              <tr>
-                <td>Organism</td>
-                <td>Molecule, Atom</td>
-              </tr>
-              <tr>
-                <td>Molecule</td>
-                <td>Atom</td>
-              </tr>
-              <tr>
-                <td>Atom</td>
-                <td>없음 (최하위)</td>
-              </tr>
+              {t.hierarchyRows.map(([parent, mayContain]) => (
+                <tr key={parent}>
+                  <td>{parent}</td>
+                  <td>{mayContain}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         <div className="rule-card">
-          <h3>❌ 금지되는 조합</h3>
+          <h3>{t.forbiddenTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>위반</th>
-                <th>예시</th>
-                <th>이유</th>
+                <th>{t.violation}</th>
+                <th>{t.example}</th>
+                <th>{t.reason}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Atom → Organism 포함</td>
-                <td>Button 안에 BinaryDeviceCard</td>
-                <td>하위가 상위 포함 불가</td>
-              </tr>
-              <tr>
-                <td>Page → Atom만 사용</td>
-                <td>Dashboard에 Button만</td>
-                <td>구조적 복잡성 부족</td>
-              </tr>
-              <tr>
-                <td>Molecule 건너뛰기</td>
-                <td>Organism → Atom 직접</td>
-                <td>중간 계층 필수</td>
-              </tr>
+              {t.forbiddenRows.map(([violation, example, reason]) => (
+                <tr key={violation}>
+                  <td>{violation}</td>
+                  <td>{example}</td>
+                  <td>{reason}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -89,123 +70,84 @@ const Guardrails = () => {
 
       {/* Pattern Constraints */}
       <section className="guardrail-section">
-        <h2 className="guardrail-title">2. Pattern Constraints</h2>
+        <h2 className="guardrail-title">{t.patternTitle}</h2>
         <p className="guardrail-desc">
-          기기 capability 조합에 따라 <strong>허용되는 UI 패턴과 컴포넌트</strong>가 제한됩니다.
+          {t.patternDesc}
         </p>
 
         <div className="rule-card">
-          <h3>Capability → Pattern → Component 매핑</h3>
+          <h3>{t.mappingTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>입력 타입</th>
-                <th>패턴</th>
-                <th>허용 컴포넌트</th>
-                <th>조립 원칙</th>
+                <th>{t.inputType}</th>
+                <th>{t.pattern}</th>
+                <th>{t.allowedComponents}</th>
+                <th>{t.assemblyRule}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>boolean / OnOff</td>
-                <td>Binary</td>
-                <td>BinaryDeviceCard</td>
-                <td>현재 상태와 즉시 전환을 함께 표시</td>
-              </tr>
-              <tr>
-                <td>range / number</td>
-                <td>Linear</td>
-                <td>HorizontalSlider, LinearSlider</td>
-                <td>범위, 단위, 현재값을 함께 표시</td>
-              </tr>
-              <tr>
-                <td>enum / mode</td>
-                <td>State</td>
-                <td>ChipGroup, Dropdown</td>
-                <td>상호 배타 상태를 명확히 구분</td>
-              </tr>
-              <tr>
-                <td>action / command</td>
-                <td>Action</td>
-                <td>ActionButton</td>
-                <td>상태 표시와 분리된 액션 영역에 배치</td>
-              </tr>
-              <tr>
-                <td>measurement / readOnly</td>
-                <td>Info</td>
-                <td>Readout (제어 불가)</td>
-                <td>제어 컴포넌트 대신 측정값만 표시</td>
-              </tr>
+              {t.patternRows.map(([inputType, pattern, components, rule]) => (
+                <tr key={inputType}>
+                  <td>{inputType}</td>
+                  <td>{pattern}</td>
+                  <td>{components}</td>
+                  <td>{rule}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         <div className="rule-card">
-          <h3>핵심 제약 규칙</h3>
+          <h3>{t.coreRulesTitle}</h3>
           <ul className="rules-list">
-            <li><strong>Binary 패턴:</strong> 단순 on/off 기기에 연속값 컴포넌트(Slider 등) 사용 금지</li>
-            <li><strong>Linear 패턴:</strong> min, max, unit이 없는 연속값 제어는 생성 금지</li>
-            <li><strong>State 패턴:</strong> 상태 옵션이 없는 선택 UI 생성 금지</li>
-            <li><strong>Action 패턴:</strong> 위험하거나 즉시 실행되는 동작은 상태 표시 영역과 분리</li>
-            <li><strong>Info 패턴:</strong> 센서는 정보 표시만 가능, 모든 제어 컴포넌트 금지</li>
+            {t.coreRules.map(([name, body]) => (
+              <li key={name}><strong>{name}:</strong> {body}</li>
+            ))}
           </ul>
         </div>
       </section>
 
       {/* Token Enforcement */}
       <section className="guardrail-section">
-        <h2 className="guardrail-title">3. Token Enforcement</h2>
+        <h2 className="guardrail-title">{t.tokenTitle}</h2>
         <p className="guardrail-desc">
-          모든 스타일 값은 <strong>W3C 디자인 토큰</strong>을 사용해야 합니다.
+          {t.tokenDesc}
         </p>
 
         <div className="rule-card">
-          <h3>✅ 허용</h3>
+          <h3>{t.allowed}</h3>
           <pre className="code-block">
-{`/* 토큰 참조 */
-color: var(--sys-color-text-primary);
-background: var(--comp-card-bg);
-border-radius: var(--comp-card-radius);`}
+{t.tokenAllowedExample}
           </pre>
         </div>
 
         <div className="rule-card">
-          <h3>❌ 금지</h3>
+          <h3>{t.forbidden}</h3>
           <pre className="code-block">
-{`/* 하드코딩 금지 */
-color: #ffffff;
-color: #1a1a1a;
-background: rgba(255, 255, 255, 0.65);
-border-radius: 24px;`}
+{t.tokenForbiddenExample}
           </pre>
         </div>
 
         <div className="rule-card">
-          <h3>토큰 계층</h3>
+          <h3>{t.tokenHierarchy}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>계층</th>
-                <th>용도</th>
-                <th>예시</th>
+                <th>{t.tier}</th>
+                <th>{t.usage}</th>
+                <th>{t.example}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><code>--ref-palette-*</code></td>
-                <td>원시 색상값</td>
-                <td><code>--ref-palette-orange-500</code></td>
-              </tr>
-              <tr>
-                <td><code>--sys-color-*</code></td>
-                <td>의미론적 색상</td>
-                <td><code>--sys-color-status-active</code></td>
-              </tr>
-              <tr>
-                <td><code>--comp-*</code></td>
-                <td>컴포넌트 특화</td>
-                <td><code>--comp-card-bg</code></td>
-              </tr>
+              {t.tokenRows.map(([tier, usage, example]) => (
+                <tr key={tier}>
+                  <td><code>{tier}</code></td>
+                  <td>{usage}</td>
+                  <td><code>{example}</code></td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -213,19 +155,19 @@ border-radius: 24px;`}
 
       {/* Value Validation */}
       <section className="guardrail-section">
-        <h2 className="guardrail-title">4. Value Validation</h2>
+        <h2 className="guardrail-title">{t.valueTitle}</h2>
         <p className="guardrail-desc">
-          기기 제어값은 <strong>안전한 범위</strong> 내에서만 허용됩니다.
+          {t.valueDesc}
         </p>
 
         <div className="rule-card">
-          <h3>온도 (Thermostat)</h3>
+          <h3>{t.temperatureTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>구분</th>
-                <th>범위</th>
-                <th>기본값</th>
+                <th>{t.category}</th>
+                <th>{t.range}</th>
+                <th>{t.defaultValue}</th>
               </tr>
             </thead>
             <tbody>
@@ -241,40 +183,27 @@ border-radius: 24px;`}
               </tr>
             </tbody>
           </table>
-          <p className="note">금지: 음수 온도, 40°C 이상</p>
+          <p className="note">{t.invalidTemp}</p>
         </div>
 
         <div className="rule-card">
-          <h3>기타 제어값</h3>
+          <h3>{t.otherValues}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>제어 타입</th>
-                <th>범위</th>
-                <th>기본값</th>
+                <th>{t.controlType}</th>
+                <th>{t.range}</th>
+                <th>{t.defaultValue}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>밝기 (LevelControl)</td>
-                <td>0% ~ 100%</td>
-                <td>50%</td>
-              </tr>
-              <tr>
-                <td>색온도 (ColorControl)</td>
-                <td>2700K ~ 6500K</td>
-                <td>4000K</td>
-              </tr>
-              <tr>
-                <td>커튼/블라인드 위치</td>
-                <td>0% (닫힘) ~ 100% (열림)</td>
-                <td>50%</td>
-              </tr>
-              <tr>
-                <td>볼륨</td>
-                <td>0% (음소거) ~ 100%</td>
-                <td>30%</td>
-              </tr>
+              {t.otherValueRows.map(([controlType, range, defaultValue]) => (
+                <tr key={controlType}>
+                  <td>{controlType}</td>
+                  <td>{range}</td>
+                  <td>{defaultValue}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -282,153 +211,124 @@ border-radius: 24px;`}
 
       {/* Accessibility */}
       <section className="guardrail-section">
-        <h2 className="guardrail-title">5. Accessibility Rules</h2>
+        <h2 className="guardrail-title">{t.accessibilityTitle}</h2>
         <p className="guardrail-desc">
-          모든 UI는 <strong>접근성 표준(WCAG 2.1 AA)</strong>을 준수해야 합니다.
+          {t.accessibilityDesc}
         </p>
 
         <div className="rule-card">
-          <h3>색상 대비비</h3>
+          <h3>{t.contrastTitle}</h3>
           <ul className="rules-list">
-            <li><strong>일반 텍스트:</strong> 4.5:1 이상</li>
-            <li><strong>큰 텍스트:</strong> 3:1 이상 (18px+ 또는 14px+ bold)</li>
-            <li><strong>아이콘/그래픽:</strong> 3:1 이상</li>
+            {t.contrastRules.map(([name, body]) => (
+              <li key={name}><strong>{name}:</strong> {body}</li>
+            ))}
           </ul>
         </div>
 
         <div className="rule-card">
-          <h3>터치 타겟 최소 크기</h3>
+          <h3>{t.touchTitle}</h3>
           <ul className="rules-list">
-            <li><strong>버튼:</strong> 44x44px 이상</li>
-            <li><strong>슬라이더 핸들:</strong> 44x44px 이상</li>
-            <li><strong>탭 아이템:</strong> 48x48px 이상 (권장)</li>
-            <li><strong>금지:</strong> 24px 미만 절대 금지</li>
+            {t.touchRules.map(([name, body]) => (
+              <li key={name}><strong>{name}:</strong> {body}</li>
+            ))}
           </ul>
         </div>
 
         <div className="rule-card">
-          <h3>상태 표시 (다중 표시 필수)</h3>
+          <h3>{t.statusTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>상태</th>
-                <th>색상</th>
-                <th>텍스트</th>
-                <th>아이콘</th>
+                <th>{t.status}</th>
+                <th>{t.color}</th>
+                <th>{t.text}</th>
+                <th>{t.icon}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Active</td>
-                <td>Orange</td>
-                <td>"켜짐"</td>
-                <td>채워진 아이콘</td>
-              </tr>
-              <tr>
-                <td>Inactive</td>
-                <td>Gray</td>
-                <td>"꺼짐"</td>
-                <td>빈 아이콘</td>
-              </tr>
-              <tr>
-                <td>Offline</td>
-                <td>Light Gray</td>
-                <td>"연결 끊김"</td>
-                <td>ghost variant</td>
-              </tr>
+              {t.statusRows.map(([status, color, text, icon]) => (
+                <tr key={status}>
+                  <td>{status}</td>
+                  <td>{color}</td>
+                  <td>{text}</td>
+                  <td>{icon}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
-          <p className="note">❌ 잘못된 예: 색상만으로 ON/OFF 구분 (색맹 사용자)</p>
+          <p className="note">{t.statusNote}</p>
         </div>
 
         <div className="rule-card">
-          <h3>ARIA 라벨 (필수)</h3>
+          <h3>{t.ariaTitle}</h3>
           <pre className="code-block">
-{`// ✅ 올바른 예
-<Button aria-label="거실 조명 켜기" />
-<Slider 
-  aria-label="밝기 조절" 
-  aria-valuenow={75} 
-  aria-valuemin={0} 
-  aria-valuemax={100} 
-/>
-
-// ❌ 잘못된 예
-<Button /> // aria-label 없음
-<div onClick={...} /> // role 없음`}
+{t.ariaExample}
           </pre>
         </div>
       </section>
 
       {/* Device Compatibility */}
       <section className="guardrail-section">
-        <h2 className="guardrail-title">6. Device Compatibility</h2>
+        <h2 className="guardrail-title">{t.compatibilityTitle}</h2>
         <p className="guardrail-desc">
-          기기 상태와 기능에 따른 <strong>UI 호환성 규칙</strong>입니다.
+          {t.compatibilityDesc}
         </p>
 
         <div className="rule-card">
-          <h3>연결 상태별 표시</h3>
+          <h3>{t.connectionTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>상태</th>
-                <th>표시</th>
-                <th>제어</th>
-                <th>스타일</th>
+                <th>{t.status}</th>
+                <th>{t.display}</th>
+                <th>{t.control}</th>
+                <th>{t.style}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>온라인</td>
-                <td>정상 컴포넌트</td>
-                <td>활성화</td>
-                <td>기본 variant</td>
-              </tr>
-              <tr>
-                <td>오프라인</td>
-                <td>ghost variant</td>
-                <td>비활성화</td>
-                <td>opacity: 0.5, 점선 테두리</td>
-              </tr>
+              {t.connectionRows.map(([status, display, control, style]) => (
+                <tr key={status}>
+                  <td>{status}</td>
+                  <td>{display}</td>
+                  <td>{control}</td>
+                  <td>{style}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         <div className="rule-card">
-          <h3>제어 가능 여부</h3>
+          <h3>{t.actuatableTitle}</h3>
           <table className="rules-table">
             <thead>
               <tr>
-                <th>분류</th>
-                <th>장치 예시</th>
-                <th>UI 표시</th>
+                <th>{t.classification}</th>
+                <th>{t.deviceExample}</th>
+                <th>{t.uiDisplay}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>제어 가능<br/>(isActuatable: true)</td>
-                <td>조명, 에어컨, 커튼</td>
-                <td>제어 컴포넌트 활성화<br/>(Toggle, Slider 등)</td>
-              </tr>
-              <tr>
-                <td>제어 불가<br/>(isActuatable: false)</td>
-                <td>센서 (온도, 습도, 움직임)</td>
-                <td>Readout만 표시<br/>제어 UI 금지</td>
-              </tr>
+              {t.actuatabilityRows.map(([classification, deviceExample, uiDisplay]) => (
+                <tr key={classification}>
+                  <td>{classification}</td>
+                  <td>{deviceExample}</td>
+                  <td>{uiDisplay}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
         <div className="rule-card">
-          <h3>지원 기능만 표시</h3>
+          <h3>{t.supportedOnlyTitle}</h3>
           <p className="note">
-            <strong>원칙:</strong> 기기가 지원하지 않는 기능의 UI는 표시하지 않음
+            <strong>{t.supportedOnlyPrinciple}</strong>
           </p>
           <ul className="rules-list">
-            <li>밝기 조절 없는 조명 → VerticalSlider 숨김</li>
-            <li>색온도 없는 조명 → ColorTemperatureSlider 숨김</li>
-            <li>팬 없는 에어컨 → FanModeSelector 숨김</li>
+            {t.supportedFeatureRows.map((rule) => (
+              <li key={rule}>{rule}</li>
+            ))}
           </ul>
         </div>
       </section>

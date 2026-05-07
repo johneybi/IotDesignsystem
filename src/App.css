@@ -136,6 +136,33 @@ body {
   color: var(--sys-color-text-tertiary);
 }
 
+.language-switch {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--sys-color-border-primary);
+  border-radius: 4px;
+  background: var(--sys-color-bg-secondary);
+}
+
+.language-option {
+  border: 0;
+  background: transparent;
+  color: var(--sys-color-text-tertiary);
+  border-radius: 3px;
+  padding: 5px 9px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.language-option.active {
+  background: var(--sys-color-bg-primary);
+  color: var(--sys-color-text-primary);
+  box-shadow: var(--sys-shadow-md);
+}
+
 .content-scroll {
   flex: 1;
   overflow-y: auto;

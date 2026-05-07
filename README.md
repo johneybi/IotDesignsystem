@@ -1,7 +1,7 @@
 # Flowthing (IoT Design System)
 
-IoT 대시보드 및 컨트롤 패널 구축을 위한 React 기반 디자인 시스템입니다.
-물리적 장치 제어와 실시간 상태 모니터링에 최적화된 컴포넌트 라이브러리를 효율적으로 관리하고 생산하기 위한 템플릿입니다.
+IoT 대시보드 및 컨트롤 패널 구축을 위한 React 기반 디자인 시스템이자 assembly prototype입니다.
+AI가 새 UI를 자유롭게 디자인하는 것이 아니라, 기기 명세를 해석해 사전에 정의된 컴포넌트와 토큰 안에서 화면을 조립하는 구조를 검증합니다.
 
 ## 🚀 시작하기 (Getting Started)
 
@@ -97,19 +97,32 @@ IoT 환경의 **4대 행동 패턴**을 기반으로 기능 로직이 주입된 
 
 #### 2. `molecules/`
 
-기능적 패턴(Binary, Linear)을 구현합니다.
+기능적 패턴(Binary, Linear, State, Action, Info)을 구현합니다.
 
 - **Binary/**: `Action` (Trigger/Toggle logic)
-- **Linear/**: _Planned_
+- **Linear/**: `Slider`, `HorizontalSlider`, `VerticalSlider`, `AdaptiveLightSlider`
+- **Circular/**: `TemperatureControl`, `CircularGauge`
+- **Selection/**: `Dropdown`, `Chip` 기반 상태 선택
+- **Display/**: `Readout`, `DeviceInfo`
 
-#### 3. `inputs/` & `data-display/` (Pattern Collections)
+#### 3. `assembly/`
 
-각종 제어 및 표시 요소들을 역할별로 모아둔 디렉토리입니다.
+기기 명세를 UI blueprint로 바꾸는 조립 흐름을 관리합니다.
 
-- **inputs/**: `TemperatureControl`, `Switch`, `Slider`
-- **data-display/**: `SensorCard`, `StatusBadge`
+- **componentRegistry**: AI가 선택할 수 있는 컴포넌트 목록과 허용 패턴
+- **classifyCapabilities**: capability를 Binary / Linear / State / Action / Info로 분류
+- **generateBlueprint**: 분류 결과를 화면 section과 component node로 변환
+- **validateBlueprint**: 등록되지 않은 컴포넌트, 잘못된 slot, 누락 prop을 차단
 
-#### 4. `layout/` & `navigation/` & `overlay/`
+#### 4. `pages/` (Evidence Screens)
+
+각종 제어 화면과 조립 증거 화면을 제공합니다.
+
+- **Assembly Demo**: Device Spec → Pattern → Blueprint → Assembled UI → Guardrails 흐름 확인
+- **AI Guardrails**: 조립 규칙과 금지 규칙 문서화
+- **Device Pages**: Dashboard, Lighting, Air Conditioner, Curtain, Speaker, Washer, Refrigerator
+
+#### 5. `navigation/` & shared organisms
 
 화면 구성과 흐름을 담당하는 컨테이너 요소들입니다.
 

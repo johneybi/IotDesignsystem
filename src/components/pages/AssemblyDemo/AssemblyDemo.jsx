@@ -10,6 +10,7 @@ import Chip from '../../atoms/Chip/Chip';
 import Button from '../../atoms/Button/Button';
 import Readout from '../../molecules/Display/Readout/Readout';
 import styles from './AssemblyDemo.module.css';
+import { getSiteContent } from '../../../i18n/siteContent';
 
 const sampleDeviceSpec = {
   device: 'Curtain',
@@ -75,7 +76,8 @@ const parseSpec = (input) => {
   }
 };
 
-const AssemblyDemo = () => {
+const AssemblyDemo = ({ locale = 'ko' }) => {
+  const t = getSiteContent(locale).assembly;
   const [specInput, setSpecInput] = useState(JSON.stringify(sampleDeviceSpec, null, 2));
   const parsedSpec = useMemo(() => parseSpec(specInput), [specInput]);
   const blueprint = useMemo(
@@ -94,7 +96,7 @@ const AssemblyDemo = () => {
   };
 
   const runAction = (label) => {
-    setActionLog((prev) => [`${label} action accepted by blueprint`, ...prev].slice(0, 4));
+    setActionLog((prev) => [`${label} ${t.actionAccepted}`, ...prev].slice(0, 4));
 
     if (label.toLowerCase() === 'open') updateValue('openLevel', 100);
     if (label.toLowerCase() === 'close') updateValue('openLevel', 0);
@@ -110,33 +112,30 @@ const AssemblyDemo = () => {
     <div className="doc-section">
       <div className={styles.header}>
         <div>
-          <h1 className="doc-title">Assembly Demo</h1>
+          <h1 className="doc-title">{t.title}</h1>
           <p className="doc-intro">
-            AI는 새 컴포넌트를 디자인하지 않고, 기기 명세를 패턴으로 분류한 뒤 등록된 디자인 시스템 컴포넌트만 조립합니다.
+            {t.intro}
           </p>
         </div>
         <button className={styles.resetButton} onClick={resetSample}>
-          Reset
+          {t.reset}
         </button>
       </div>
 
       <div className={styles.pipeline}>
-        <span>Device Spec</span>
-        <NavArrowRight width={18} height={18} />
-        <span>Pattern Classifier</span>
-        <NavArrowRight width={18} height={18} />
-        <span>Component Registry</span>
-        <NavArrowRight width={18} height={18} />
-        <span>Blueprint</span>
-        <NavArrowRight width={18} height={18} />
-        <span>Renderer</span>
+        {t.pipeline.map((step, index) => (
+          <React.Fragment key={step}>
+            <span>{step}</span>
+            {index < t.pipeline.length - 1 && <NavArrowRight width={18} height={18} />}
+          </React.Fragment>
+        ))}
       </div>
 
       <div className={styles.grid}>
         <section className={styles.panel}>
           <div className={styles.panelHeader}>
-            <h2>1. Input</h2>
-            <span>Device JSON</span>
+            <h2>{t.inputTitle}</h2>
+            <span>{t.inputSubtitle}</span>
           </div>
           <textarea
             className={styles.textarea}
@@ -144,13 +143,13 @@ const AssemblyDemo = () => {
             onChange={(event) => setSpecInput(event.target.value)}
             spellCheck={false}
           />
-          {parsedSpec.error && <div className={styles.error}>JSON parse error: {parsedSpec.error}</div>}
+          {parsedSpec.error && <div className={styles.error}>{t.parseError}: {parsedSpec.error}</div>}
         </section>
 
         <section className={styles.panel}>
           <div className={styles.panelHeader}>
-            <h2>2. Pattern</h2>
-            <span>Classifier result</span>
+            <h2>{t.patternTitle}</h2>
+            <span>{t.patternSubtitle}</span>
           </div>
           {blueprint ? (
             <div className={styles.patternList}>
@@ -162,14 +161,14 @@ const AssemblyDemo = () => {
               ))}
             </div>
           ) : (
-            <div className={styles.empty}>Valid JSON is required.</div>
+            <div className={styles.empty}>{t.validJsonRequired}</div>
           )}
         </section>
 
         <section className={styles.panel}>
           <div className={styles.panelHeader}>
-            <h2>3. Blueprint</h2>
-            <span>Allowed components only</span>
+            <h2>{t.blueprintTitle}</h2>
+            <span>{t.blueprintSubtitle}</span>
           </div>
           <pre className={styles.codeBlock}>
             {blueprint ? JSON.stringify(blueprint.sections, null, 2) : '[]'}
@@ -180,7 +179,7 @@ const AssemblyDemo = () => {
       <div className={styles.outputGrid}>
         <section className={styles.previewPanel}>
           <div className={styles.panelHeader}>
-            <h2>4. Assembled UI</h2>
+            <h2>{t.previewTitle}</h2>
             <span>{blueprint?.device || 'Device'}</span>
           </div>
           {blueprint ? (
@@ -191,19 +190,19 @@ const AssemblyDemo = () => {
               onAction={runAction}
             />
           ) : (
-            <div className={styles.empty}>No preview available.</div>
+            <div className={styles.empty}>{t.noPreview}</div>
           )}
         </section>
 
         <section className={styles.panel}>
           <div className={styles.panelHeader}>
-            <h2>5. Guardrails</h2>
-            <span>{validation?.ok ? 'Passed' : 'Blocked'}</span>
+            <h2>{t.guardrailsTitle}</h2>
+            <span>{validation?.ok ? t.passed : t.blocked}</span>
           </div>
           {validation && (
             <div className={styles.validation}>
               <div className={validation.ok ? styles.pass : styles.fail}>
-                {validation.ok ? 'Blueprint uses registered components and allowed slots.' : 'Blueprint has blocking issues.'}
+                {validation.ok ? t.validationPass : t.validationFail}
               </div>
               {[...validation.errors, ...validation.warnings].map((item, index) => (
                 <div className={styles.validationRow} key={`${item.message}-${index}`}>

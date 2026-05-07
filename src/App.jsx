@@ -37,11 +37,15 @@ import SmartCurtainControl from './components/pages/SmartCurtainControl/SmartCur
 import SpeakerControl from './components/pages/SpeakerControl/SpeakerControl';
 import WasherControl from './components/pages/WasherControl/WasherControl';
 import RefrigeratorControl from './components/pages/RefrigeratorControl/RefrigeratorControl';
+import { getSiteContent } from './i18n/siteContent';
 
 
 
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
+  const [locale, setLocale] = useState('ko');
+  const content = getSiteContent(locale);
+  const nav = content.nav;
 
   // Atomic Page States
   const [activeChip, setActiveChip] = useState('all');
@@ -72,51 +76,54 @@ function App() {
       case 'overview':
         return (
           <div className="doc-section">
-            <h1 className="doc-title">AI Adaptive Design System</h1>
+            <h1 className="doc-title">{content.overview.title}</h1>
             <p className="doc-intro">
-              An AI-driven adaptive design system for the Open Smart Home Project. 
-              We combine Soft UI aesthetics with precise tactile controls to deliver a seamless, natural, and premium user experience.
+              {content.overview.intro}
             </p>
 
             <div style={{ marginTop: '40px' }}>
-              <h2 style={{ fontSize: '24px', marginBottom: '24px', color: '#1d1d1f', fontWeight: '600' }}>Core Principles</h2>
+              <h2 style={{ fontSize: '24px', marginBottom: '24px', color: '#1d1d1f', fontWeight: '600' }}>{content.overview.principlesTitle}</h2>
               <div className="doc-cards">
-                <div className="doc-card">
-                  <h3>Tactile & Soft</h3>
-                  <p>
-                    Elements feel physical. We use subtle shadows (Neumorphism) to indicate interactability and state, mimicking real-world buttons and sliders.
-                  </p>
-                </div>
-                <div className="doc-card">
-                  <h3>Natural Motion</h3>
-                  <p>
-                    Transitions are smooth and spring-based. Sliders and gauges react fluidly to touch, providing immediate visual feedback.
-                  </p>
-                </div>
-                <div className="doc-card">
-                  <h3>Functional Clarity</h3>
-                  <p>
-                    Information is prioritized. Active states are clearly distinguished from inactive ones using color temperature and depth.
-                  </p>
+                {content.overview.principles.map((principle) => (
+                  <div className="doc-card" key={principle.title}>
+                    <h3>{principle.title}</h3>
+                    <p>{principle.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginTop: '60px' }}>
+              <h2 style={{ fontSize: '24px', marginBottom: '20px', color: '#1d1d1f' }}>{content.overview.pipelineTitle}</h2>
+              <div className="component-showcase">
+                <div className="showcase-demo row" style={{ justifyContent: 'flex-start', gap: '12px', padding: '24px' }}>
+                  {content.overview.pipeline.map((step, index) => (
+                    <React.Fragment key={step}>
+                      <span style={{
+                        border: '1px solid var(--sys-color-border-primary)',
+                        borderRadius: '4px',
+                        padding: '8px 10px',
+                        color: 'var(--sys-color-text-secondary)',
+                        background: 'var(--sys-color-bg-primary)',
+                        fontSize: '13px'
+                      }}>
+                        {step}
+                      </span>
+                      {index < content.overview.pipeline.length - 1 && <span style={{ color: 'var(--sys-color-text-tertiary)' }}>→</span>}
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
             </div>
 
             <div style={{ marginTop: '60px' }}>
-                <h2 style={{ fontSize: '24px', marginBottom: '20px', color: '#1d1d1f' }}>System Structure</h2>
+                <h2 style={{ fontSize: '24px', marginBottom: '20px', color: '#1d1d1f' }}>{content.overview.structureTitle}</h2>
                 <ul style={{ listStyle: 'none', padding: 0, color: '#424245', lineHeight: 1.8 }}>
-                    <li style={{ marginBottom: '10px' }}>
-                        <strong>Foundations:</strong> Colors, Typography, Shadows, and Spacing.
+                  {content.overview.structure.map(([title, body]) => (
+                    <li key={title} style={{ marginBottom: '10px' }}>
+                        <strong>{title}:</strong> {body}
                     </li>
-                    <li style={{ marginBottom: '10px' }}>
-                        <strong>Atoms:</strong> Visual minimum units. Basic building blocks like Buttons, Sliders, and Chips.
-                    </li>
-                    <li style={{ marginBottom: '10px' }}>
-                        <strong>Molecules:</strong> Functional minimum units. Combinations like Toggle Buttons, Dropdowns, and Volume Controls.
-                    </li>
-                    <li style={{ marginBottom: '10px' }}>
-                        <strong>Organisms:</strong> Functional sections. Complete functional units like Device Cards and Control Panels.
-                    </li>
+                  ))}
                 </ul>
             </div>
           </div>
@@ -606,9 +613,9 @@ function App() {
       case 'foundations':
         return <Foundations />;
       case 'guardrails':
-        return <Guardrails />;
+        return <Guardrails locale={locale} />;
       case 'assembly':
-        return <AssemblyDemo />;
+        return <AssemblyDemo locale={locale} />;
       case 'all_pages':
         return (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '120px', paddingBottom: '100px', alignItems: 'center' }}>
@@ -636,36 +643,36 @@ function App() {
         </div>
         <nav className="ds-nav">
           <div className="nav-group">
-            <div className="nav-label">Guide</div>
+            <div className="nav-label">{nav.guide}</div>
             <button 
               className={`nav-item ${activeSection === 'overview' ? 'active' : ''}`}
               onClick={() => setActiveSection('overview')}
             >
-              Overview
+              {nav.overview}
             </button>
             <button 
               className={`nav-item ${activeSection === 'atomic' ? 'active' : ''}`}
               onClick={() => setActiveSection('atomic')}
             >
-              Atomic Design
+              {nav.atomic}
             </button>
             <button 
               className={`nav-item ${activeSection === 'foundations' ? 'active' : ''}`}
               onClick={() => setActiveSection('foundations')}
             >
-              Foundations
+              {nav.foundations}
             </button>
             <button 
               className={`nav-item ${activeSection === 'guardrails' ? 'active' : ''}`}
               onClick={() => setActiveSection('guardrails')}
             >
-              AI Guardrails
+              {nav.guardrails}
             </button>
             <button 
               className={`nav-item ${activeSection === 'assembly' ? 'active' : ''}`}
               onClick={() => setActiveSection('assembly')}
             >
-              Assembly Demo
+              {nav.assembly}
             </button>
           </div>
           <div className="nav-group">
@@ -673,51 +680,51 @@ function App() {
               className="nav-label" 
               onClick={() => setActiveSection('all_pages')}
               style={{ cursor: 'pointer' }}
-              title="Click to view all pages"
+              title={nav.pagesTitle}
             >
-              Pages
+              {nav.pages}
             </div>
             <button 
               className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
               onClick={() => setActiveSection('dashboard')}
             >
-              Dashboard
+              {nav.dashboard}
             </button>
             <button 
               className={`nav-item ${activeSection === 'lighting' ? 'active' : ''}`}
               onClick={() => setActiveSection('lighting')}
             >
-              Lighting Control
+              {nav.lighting}
             </button>
             <button 
               className={`nav-item ${activeSection === 'airconditioner' ? 'active' : ''}`}
               onClick={() => setActiveSection('airconditioner')}
             >
-              Air Conditioner
+              {nav.airconditioner}
             </button>
             <button 
               className={`nav-item ${activeSection === 'curtain' ? 'active' : ''}`}
               onClick={() => setActiveSection('curtain')}
             >
-              Smart Curtain
+              {nav.curtain}
             </button>
             <button 
               className={`nav-item ${activeSection === 'speaker' ? 'active' : ''}`}
               onClick={() => setActiveSection('speaker')}
             >
-              Speaker Control
+              {nav.speaker}
             </button>
             <button 
               className={`nav-item ${activeSection === 'washer' ? 'active' : ''}`}
               onClick={() => setActiveSection('washer')}
             >
-              Washer
+              {nav.washer}
             </button>
             <button 
               className={`nav-item ${activeSection === 'refrigerator' ? 'active' : ''}`}
               onClick={() => setActiveSection('refrigerator')}
             >
-              Refrigerator
+              {nav.refrigerator}
             </button>
           </div>
         </nav>
@@ -726,7 +733,23 @@ function App() {
       {/* Main Content */}
       <main className="ds-main">
         <header className="ds-header">
-          <span className="current-path">Design System / {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</span>
+          <span className="current-path">Design System / {nav[activeSection] || activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</span>
+          <div className="language-switch" aria-label={content.switchLabel}>
+            <button
+              className={`language-option ${locale === 'ko' ? 'active' : ''}`}
+              onClick={() => setLocale('ko')}
+              type="button"
+            >
+              KR
+            </button>
+            <button
+              className={`language-option ${locale === 'en' ? 'active' : ''}`}
+              onClick={() => setLocale('en')}
+              type="button"
+            >
+              EN
+            </button>
+          </div>
         </header>
         <div className="content-scroll">
           {renderContent()}
